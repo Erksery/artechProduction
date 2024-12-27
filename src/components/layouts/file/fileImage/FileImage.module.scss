@@ -1,8 +1,49 @@
 @use "@/variables";
 
 .imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 200px;
   border-radius: 12px;
-  background-color: variables.$background;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+
+  .backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px); /* Размытие фона */
+    z-index: 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      ellipse,
+      rgba(255, 255, 255, 0) 0%,
+
+      variables.$panel 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    z-index: 0;
+  }
 }

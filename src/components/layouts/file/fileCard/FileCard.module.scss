@@ -1,9 +1,29 @@
 @use "@/variables";
 
 .card {
-  padding: 5px;
   box-sizing: border-box;
   border-radius: 16px;
-
   background-color: variables.$panel;
+  cursor: pointer;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 5px;
+
+    .type {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 13px;
+      color: gray;
+
+      .icon {
+        font-size: 20px;
+      }
+    }
+    .name {
+    }
+  }
 }

@@ -1,7 +1,7 @@
 @use "@/variables";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Nunito", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -34,6 +34,8 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: variables.$component variables.$background;
 }
 
 h1 {
@@ -41,16 +43,21 @@ h1 {
   line-height: 1.1;
 }
 
+p {
+  margin: 0;
+}
+
 button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  color: lightgray;
+  background-color: variables.$blur-panel;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
 ::-webkit-scrollbar {
