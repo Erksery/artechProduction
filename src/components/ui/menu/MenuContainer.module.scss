@@ -1,0 +1,17 @@
+@use "@/variables";
+
+.menuContainer {
+  position: relative;
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    padding: 5px;
+    margin-top: 5px;
+    background-color: variables.$background;
+    border-radius: 12px;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+}

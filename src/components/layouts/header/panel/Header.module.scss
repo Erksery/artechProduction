@@ -11,6 +11,7 @@
   background-color: variables.$blur-panel;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+
   box-sizing: border-box;
   z-index: 10;
 
@@ -20,7 +21,7 @@
 
     width: 100%;
 
-    button {
+    .addButton {
       display: flex;
       justify-content: center;
       align-items: center;

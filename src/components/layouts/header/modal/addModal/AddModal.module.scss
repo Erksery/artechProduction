@@ -1,0 +1,38 @@
+@use "@/variables";
+
+.addModal {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 240px;
+  border-radius: 18px;
+
+  button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    padding-inline: 15px;
+    width: 100%;
+    height: 60px;
+    font-size: 14px;
+
+    svg {
+      font-size: 24px;
+    }
+
+    .info {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+
+      p {
+        text-align: start;
+      }
+      label {
+        font-size: 11px;
+        color: gray;
+      }
+    }
+  }
+}
