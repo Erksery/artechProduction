@@ -4,6 +4,7 @@ import { SideMenu } from "../../components/layouts/sideMenu/SideMenu";
 import { FilesList } from "../../components/layouts/file/filesList/FilesList";
 import { useModal } from "../../hooks/useModal.tsx";
 import { AnimatePresence } from "framer-motion";
+import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 
 export const Home = () => {
   const { activeModal } = useModal();
@@ -14,8 +15,10 @@ export const Home = () => {
         <SideMenu />
 
         <div className={styles.contentContainer}>
-          <Header />
-          <FilesList />
+          <ErrorBoundary>
+            <Header />
+            <FilesList />
+          </ErrorBoundary>
         </div>
       </div>
     </>

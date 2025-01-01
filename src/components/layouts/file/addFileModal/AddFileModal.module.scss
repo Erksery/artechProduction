@@ -1,0 +1,30 @@
+.fileAddContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 500px;
+
+  .upload {
+    height: 250px;
+  }
+
+  .filesList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  .buttonsContainer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+
+    button {
+      width: auto;
+    }
+  }
+}

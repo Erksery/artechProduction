@@ -8,13 +8,32 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.466);
-
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   z-index: 100;
 
   .modalContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     padding: 10px;
     min-width: 300px;
     min-height: 300px;
-    background-color: variables.$component;
+    border-radius: 18px;
+    background-color: variables.$background;
+
+    .modalHeader {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+
+      button {
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        background-color: transparent;
+      }
+    }
   }
 }

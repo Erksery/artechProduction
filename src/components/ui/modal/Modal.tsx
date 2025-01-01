@@ -4,6 +4,7 @@ import { useBlockScroll } from "../../../hooks/useBlockScroll";
 import { useModal } from "../../../hooks/useModal";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { motion } from "framer-motion";
+import { CgClose } from "react-icons/cg";
 
 interface ModalProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
 
   useBlockScroll(true);
   useClickOutside(modalRef, closeModal);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -29,6 +31,14 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
         exit={{ scale: "70%" }}
         className={styles.modalContainer}
       >
+        <div className={styles.modalHeader}>
+          <motion.button
+            onClick={closeModal}
+            whileHover={{ scale: 1.2, color: "rgb(218, 65, 65)" }}
+          >
+            <CgClose />
+          </motion.button>
+        </div>
         {children}
       </motion.div>
     </motion.div>

@@ -1,0 +1,53 @@
+@use "@/variables";
+
+.fileCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 10px;
+  width: 100%;
+  border-radius: 12px;
+  background-color: variables.$component;
+  box-sizing: border-box;
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 12px 0 0 12px;
+    background-color: variables.$blur-panel;
+    font-size: 32px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    p {
+      font-size: 14px;
+    }
+
+    label {
+      font-size: 12px;
+      color: gray;
+    }
+  }
+
+  .delete {
+    button {
+      font-size: 20px;
+      color: gray;
+      background-color: transparent;
+      transition: 0.2s;
+      &:hover {
+        color: variables.$error-color;
+        background-color: variables.$error-background;
+      }
+    }
+  }
+}
