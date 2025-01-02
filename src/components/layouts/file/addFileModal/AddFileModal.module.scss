@@ -25,6 +25,10 @@
 
     button {
       width: auto;
+
+      &:disabled {
+        opacity: 0.6;
+      }
     }
   }
 }

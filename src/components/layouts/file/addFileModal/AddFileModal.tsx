@@ -3,6 +3,7 @@ import { Modal } from "../../../ui/modal/Modal";
 import styles from "./AddFileModal.module.scss";
 import { Upload } from "../upload/Upload";
 import { AddFileCard } from "./card/AddFileCard";
+import { useUpload } from "./hooks/useUpload";
 
 interface AddFileModalProps {
   closeModal: () => void;
@@ -15,11 +16,11 @@ interface FileWithPreview extends File {
 export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
 
+  const { createFile } = useUpload(1);
+
   const deleteFile = (fileName: string) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
   };
-
-  console.log(files);
 
   return (
     <Modal>
@@ -36,8 +37,12 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
         )}
 
         <div className={styles.buttonsContainer}>
-          <button onClick={closeModal}>Отменить</button>
-          <button>Подтвердить</button>
+          <button
+            onClick={() => createFile(files)}
+            disabled={files.length === 0}
+          >
+            Подтвердить
+          </button>
         </div>
       </div>
     </Modal>
