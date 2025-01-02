@@ -9,9 +9,10 @@
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  background-color: variables.$light-blur-panel;
+  background-color: variables.$component;
   color: lightgray;
   cursor: pointer;
+  user-select: none;
 
   svg {
     font-size: 64px;
@@ -32,4 +33,10 @@
     font-size: 10px;
     color: gray;
   }
+}
+
+.dragging {
+  border: dashed 1px variables.$theme;
+  box-sizing: border-box;
+  transition: 0.2s;
 }
