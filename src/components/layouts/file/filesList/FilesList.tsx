@@ -2,12 +2,24 @@ import React from "react";
 import styles from "./FilesList.module.scss";
 import { FileCard } from "../fileCard/FileCard";
 
-interface FilesListProps {}
+interface FilesListProps {
+  cardSize: number;
+  padding: number;
+}
 
-const FilesListComponent: React.FC<FilesListProps> = () => {
+const FilesListComponent: React.FC<FilesListProps> = ({
+  cardSize,
+  padding = 5,
+}) => {
   console.log("rerender file list");
   return (
-    <div className={styles.table}>
+    <div
+      style={{
+        padding: padding,
+        gridTemplateColumns: `repeat(auto-fill, minmax(${cardSize}px, 1fr))`,
+      }}
+      className={styles.table}
+    >
       {Array(20)
         .fill(null)
         .map((_, index) => (

@@ -1,0 +1,38 @@
+@use "@/variables";
+
+.cardButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 9px;
+  padding-inline: 15px;
+  width: 100%;
+  height: 80px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: solid 2px transparent;
+
+  svg {
+    font-size: 38px;
+  }
+
+  .info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    p {
+      text-align: start;
+    }
+    label {
+      font-size: 11px;
+      color: gray;
+      cursor: pointer;
+      text-align: start;
+    }
+  }
+}
+
+.active {
+  border-color: variables.$theme;
+}

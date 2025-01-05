@@ -22,6 +22,11 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
   };
 
+  const handleSuccess = (files: FileWithPreview[]) => {
+    createFile(files);
+    closeModal();
+  };
+
   return (
     <Modal>
       <div className={styles.fileAddContainer}>
@@ -38,7 +43,7 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
 
         <div className={styles.buttonsContainer}>
           <button
-            onClick={() => createFile(files)}
+            onClick={() => handleSuccess(files)}
             disabled={files.length === 0}
           >
             Подтвердить

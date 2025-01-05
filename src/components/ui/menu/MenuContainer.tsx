@@ -9,6 +9,7 @@ interface MenuContainerProps {
   element: ReactNode;
   open: boolean;
   setOpen: (isOpen: boolean) => void;
+  position?: "left" | "right";
 }
 
 export const MenuContainer: React.FC<MenuContainerProps> = ({
@@ -16,6 +17,7 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
   element,
   open,
   setOpen,
+  position = "right",
 }) => {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -28,7 +30,6 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
   const close = () => setOpen(false);
 
   useCloseScroll(open, setOpen);
-
   useClickOutside(menuRef, close);
 
   return (
@@ -41,6 +42,7 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.7, opacity: 0 }}
+            style={{ [position]: 0 }}
             className={styles.menu}
           >
             {element}

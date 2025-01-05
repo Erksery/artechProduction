@@ -66,6 +66,13 @@ button {
   user-select: none;
 }
 
+input,
+p,
+label,
+div {
+  color: lightgray;
+}
+
 .block-scroll {
   overflow: hidden;
 

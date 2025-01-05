@@ -17,7 +17,7 @@ export const Home = () => {
         <div className={styles.contentContainer}>
           <ErrorBoundary>
             <Header />
-            <FilesList />
+            <FilesList cardSize={200} />
           </ErrorBoundary>
         </div>
       </div>

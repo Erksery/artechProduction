@@ -1,0 +1,27 @@
+@use "@/variables";
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+  width: 600px;
+
+  .toolsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+
+    .selector {
+      width: 80px;
+      height: 50px;
+      font-size: 22px;
+    }
+  }
+
+  .fileList {
+    margin-top: 10px;
+
+    overflow-y: auto;
+  }
+}

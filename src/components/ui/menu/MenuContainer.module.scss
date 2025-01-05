@@ -6,10 +6,10 @@
   .menu {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: absolute;
     padding: 5px;
     margin-top: 5px;
-    background-color: variables.$background;
+    background-color: variables.$menu-background;
     border-radius: 12px;
     box-sizing: border-box;
     z-index: 10;
