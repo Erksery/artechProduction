@@ -3,11 +3,10 @@ import styles from "./CardButton.module.scss";
 
 interface CardButtonProps {
   title: string;
-  description: string;
+  description?: string;
   icon: ReactNode;
   active: boolean;
-  status: string;
-  onActive: (status: string) => void;
+  event: () => void;
 }
 
 export const CardButton: React.FC<CardButtonProps> = ({
@@ -15,18 +14,17 @@ export const CardButton: React.FC<CardButtonProps> = ({
   description,
   icon,
   active = true,
-  status,
-  onActive,
+  event,
 }) => {
   return (
     <button
-      onClick={() => onActive(status)}
+      onClick={event}
       className={`${styles.cardButton} ${active ? styles.active : ""}`}
     >
       {icon}
       <div className={styles.info}>
         <p>{title}</p>
-        <label>{description}</label>
+        {description && <label>{description}</label>}
       </div>
     </button>
   );

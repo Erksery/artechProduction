@@ -30,6 +30,11 @@ export const LocationMenu: React.FC<LocationMenuProps> = ({
       status: "global",
     },
   ];
+
+  const handleSelection = (status: string) => {
+    onActive(status);
+  };
+
   return (
     <div className={styles.selectorMenu}>
       {buttons.map((button) => (
@@ -38,8 +43,7 @@ export const LocationMenu: React.FC<LocationMenuProps> = ({
           description={button.description}
           icon={button.icon}
           active={location === button.status}
-          status={button.status}
-          onActive={onActive}
+          event={() => handleSelection(button.status)}
         />
       ))}
     </div>

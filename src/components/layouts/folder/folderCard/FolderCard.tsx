@@ -1,9 +1,12 @@
-import React from "react";
+import { useState } from "react";
 import styles from "./FolderCard.module.scss";
 import { FcFolder, FcOpenedFolder } from "react-icons/fc";
 import { MdMoreVert } from "react-icons/md";
+import { MenuContainer } from "../../../ui/menu/MenuContainer";
+import { FolderMenu } from "./menu/FolderMenu";
 
 export const FolderCard = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className={styles.folderCard}>
       <div className={styles.container}>
@@ -14,10 +17,16 @@ export const FolderCard = () => {
         </div>
       </div>
 
-      <div className={styles.button}>
-        <button>
-          <MdMoreVert className={styles.moreIcon} />
-        </button>
+      <div>
+        <MenuContainer
+          element={<FolderMenu />}
+          open={menuOpen}
+          setOpen={setMenuOpen}
+        >
+          <button className={styles.button} onClick={() => setMenuOpen(true)}>
+            <MdMoreVert />
+          </button>
+        </MenuContainer>
       </div>
     </div>
   );

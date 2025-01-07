@@ -13,6 +13,9 @@
     height: 50px;
 
     .selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 80px;
       height: 50px;
       font-size: 22px;

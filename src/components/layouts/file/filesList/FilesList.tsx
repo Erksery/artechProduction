@@ -4,7 +4,7 @@ import { FileCard } from "../fileCard/FileCard";
 
 interface FilesListProps {
   cardSize: number;
-  padding: number;
+  padding?: number;
 }
 
 const FilesListComponent: React.FC<FilesListProps> = ({
