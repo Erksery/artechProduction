@@ -26,7 +26,7 @@ export const Input: React.FC<InputProps> = ({
         {multiline ? (
           <textarea
             value={value}
-            onChange={onChange} // Теперь поддерживается как <input>, так и <textarea>
+            onChange={onChange}
             className={error ? styles.error : ""}
             {...props}
           />
@@ -34,7 +34,7 @@ export const Input: React.FC<InputProps> = ({
           <input
             type={type}
             value={value}
-            onChange={onChange} // Совместимость с <input>
+            onChange={onChange}
             className={error ? styles.error : ""}
             {...props}
           />

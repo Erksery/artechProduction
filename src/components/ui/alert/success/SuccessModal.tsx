@@ -1,14 +1,39 @@
 import React from "react";
+import styles from "./SuccessModal.module.scss";
 import { Modal } from "../../modal/Modal";
+import { motion } from "framer-motion";
 
 interface SuccessModalProps {
-  close: () => void;
+  title: string;
+  description: string;
+  button: { text: string; color: string };
+  event: () => void;
 }
 
-export const SuccessModal: React.FC<SuccessModalProps> = ({ close }) => {
+export const SuccessModal: React.FC<SuccessModalProps> = ({
+  title,
+  description,
+  button,
+  event,
+}) => {
   return (
     <Modal>
-      <div>SuccessModal</div>
+      <div className={styles.container}>
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <motion.button
+          onClick={event}
+          whileHover={{
+            scale: 0.9,
+          }}
+          whileTap={{
+            scale: 0.85,
+          }}
+          style={{ backgroundColor: button.color }}
+        >
+          {button.text}
+        </motion.button>
+      </div>
     </Modal>
   );
 };

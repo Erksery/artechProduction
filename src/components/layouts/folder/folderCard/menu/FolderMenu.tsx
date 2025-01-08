@@ -19,7 +19,19 @@ export const FolderMenu = () => {
       id: 2,
       title: "Удалить",
       icon: <MdOutlineDelete />,
-      event: () => openModal(<SuccessModal close={closeModal} />),
+      event: () =>
+        openModal(
+          <SuccessModal
+            title={"Удалить папку?"}
+            description={
+              "Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них."
+            }
+            button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
+            event={() => {
+              closeModal();
+            }}
+          />
+        ),
     },
   ];
   return (
