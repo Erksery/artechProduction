@@ -8,4 +8,20 @@
     font-size: 13px;
     color: gray;
   }
+
+  .buttonsContainer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+
+    button {
+      width: auto;
+
+      &:disabled {
+        opacity: 0.6;
+      }
+    }
+  }
 }

@@ -1,7 +1,8 @@
+import React from "react";
 import styles from "./AddFileCard.module.scss";
+import { motion } from "framer-motion";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaRegFileCode } from "react-icons/fa";
-import React from "react";
 
 interface FileWithPreview extends File {
   preview?: string;

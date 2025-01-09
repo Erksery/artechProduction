@@ -60,6 +60,9 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ close }) => {
           selectPrivacy={editFolderData.privacy}
           setSelectPrivacy={handlePrivacyChange}
         />
+        <div className={styles.buttonsContainer}>
+          <button onClick={close}>Подтвердить</button>
+        </div>
       </div>
     </Modal>
   );
