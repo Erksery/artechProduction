@@ -1,13 +1,15 @@
 import React from "react";
 import styles from "./FilesList.module.scss";
 import { FileCard } from "../fileCard/FileCard";
+import { FileData } from "../../../../interfaces/file";
 
 interface FilesListProps {
+  files: FileData[];
   cardSize: number;
   padding?: number;
 }
-
 const FilesListComponent: React.FC<FilesListProps> = ({
+  files,
   cardSize,
   padding = 5,
 }) => {
@@ -20,10 +22,9 @@ const FilesListComponent: React.FC<FilesListProps> = ({
       }}
       className={styles.table}
     >
-      {Array(20)
-        .fill(null)
-        .map((_, index) => (
-          <FileCard key={index} i={index} />
+      {files &&
+        files.map((file, index) => (
+          <FileCard file={file} key={file.id} i={index} />
         ))}
     </div>
   );

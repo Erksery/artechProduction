@@ -6,16 +6,17 @@ import svgr from "vite-plugin-svgr";
 import { terser } from "rollup-plugin-terser";
 import mkcert from "vite-plugin-mkcert";
 import path from "path";
+import config from "./config";
 
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
   return defineConfig({
     server: {
-      https: true,
+      https: false,
       proxy: {
         "/api": {
-          target: "http://192.168.1.87:3005",
+          target: config.apiUrl,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ""),
         },
