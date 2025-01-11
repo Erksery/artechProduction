@@ -39,6 +39,7 @@ export const LocationMenu: React.FC<LocationMenuProps> = ({
     <div className={styles.selectorMenu}>
       {buttons.map((button) => (
         <CardButton
+          key={button.id}
           title={button.title}
           description={button.description}
           icon={button.icon}

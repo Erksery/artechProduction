@@ -7,20 +7,26 @@ import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete, MdOutlineSimCardDownload } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import { FileViewModal } from "../../modals/fileViewModal/FileViewModal";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../store";
+import { setActiveFile } from "../../../../../store/slices/files";
 
 interface FileMenuProps {
-  file: number;
+  activeFile: number;
   close: () => void;
 }
-export const FileMenu: React.FC<FileMenuProps> = ({ file, close }) => {
+export const FileMenu: React.FC<FileMenuProps> = ({ activeFile, close }) => {
   const { openModal, closeModal } = useModal();
+  const dispatch = useDispatch<AppDispatch>();
+
   const buttons = [
     {
       id: 1,
       title: "Открыть",
       icon: <GrView />,
       event: () => {
-        openModal(<FileViewModal file={file} />);
+        dispatch(setActiveFile(activeFile));
+        openModal(<FileViewModal activeFile={activeFile} />);
         close();
       },
     },

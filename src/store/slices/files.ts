@@ -3,10 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FilesState {
   files: FileData[];
+  activeFile: number;
 }
 
 const initialState: FilesState = {
   files: [],
+  activeFile: 0,
 };
 
 export const filesSlice = createSlice({
@@ -19,9 +21,12 @@ export const filesSlice = createSlice({
     addFiles: (state, action: PayloadAction<FileData[]>) => {
       state.files = [...state.files, ...action.payload];
     },
+    setActiveFile: (state, action) => {
+      state.activeFile = action.payload;
+    },
   },
 });
 
-export const { setFiles } = filesSlice.actions;
+export const { setFiles, addFiles, setActiveFile } = filesSlice.actions;
 
 export default filesSlice.reducer;

@@ -5,7 +5,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 160px;
+  min-height: 160px;
+
   border-radius: 12px;
   background-color: transparent;
   position: relative;
@@ -19,7 +20,7 @@
     bottom: 0;
     background-size: cover;
     background-position: center;
-    filter: blur(15px); /* Размытие фона */
+    filter: blur(15px);
     z-index: 0;
   }
 
@@ -32,7 +33,7 @@
     bottom: 0;
     background: radial-gradient(
       ellipse,
-      rgba(255, 255, 255, 0) 0%,
+      #24283300 0%,
 
       variables.$panel 100%
     );
@@ -42,7 +43,6 @@
 
   img {
     width: 100%;
-
     object-fit: cover;
     z-index: 0;
   }

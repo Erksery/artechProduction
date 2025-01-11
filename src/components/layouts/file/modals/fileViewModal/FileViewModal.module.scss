@@ -1,18 +1,74 @@
 .fileView {
   display: flex;
-  justify-content: space-between;
-  width: 900px;
-  height: 450px;
+  flex-direction: column;
+  width: 1100px;
+  height: 550px;
+  box-sizing: border-box;
 
-  .but {
-    height: 100%;
-  }
-
-  .viewer {
+  .gallery {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
+
+    .but {
+      width: 70px;
+      height: 100%;
+      background-color: transparent;
+
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        svg {
+          font-size: 22px;
+          color: gray;
+        }
+      }
+
+      &:disabled {
+        opacity: 0;
+      }
+    }
+
+    .viewer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60%;
+      height: 90%;
+    }
+  }
+  .info {
+    display: flex;
+    align-items: center;
+
+    div {
+      flex: 1;
+    }
+
+    .name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p {
+        text-align: center;
+        color: gray;
+        font-size: 15px;
+      }
+    }
+
+    .tools {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      button {
+        font-size: 22px;
+      }
+    }
   }
 }
