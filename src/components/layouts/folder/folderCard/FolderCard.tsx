@@ -1,33 +1,97 @@
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./FolderCard.module.scss";
-import { FcFolder, FcOpenedFolder } from "react-icons/fc";
-import { MdMoreVert } from "react-icons/md";
+import { AnimatePresence, motion } from "framer-motion";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { FolderMenu } from "./menu/FolderMenu";
+import { FolderData } from "../../../../interfaces/folder";
 
-export const FolderCard = () => {
+import { FcOpenedFolder } from "react-icons/fc";
+import { MdMoreVert } from "react-icons/md";
+import { IoChevronDownOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
+
+interface FolderCardProps {
+  folder: FolderData;
+  folders: FolderData[];
+}
+
+export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  return (
-    <div className={styles.folderCard}>
-      <div className={styles.container}>
-        <FcOpenedFolder className={styles.icon} />
-        <div className={styles.info}>
-          FolderCard
-          <p>Создал: Erksery</p>
-        </div>
-      </div>
+  const [subListOpen, setSubListOpen] = useState(false);
+  const activeFolder = useSelector(
+    (state: RootState) => state.folders.activeFolder
+  );
 
-      <div>
-        <MenuContainer
-          element={<FolderMenu />}
-          open={menuOpen}
-          setOpen={setMenuOpen}
-        >
-          <button className={styles.button} onClick={() => setMenuOpen(true)}>
-            <MdMoreVert />
+  const subFolders = useMemo(
+    () => folders.filter((subFolder) => subFolder.inFolder === folder.id),
+    [folders, folder.id]
+  );
+
+  const toggleListOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSubListOpen((prev) => !prev);
+  };
+
+  return (
+    <>
+      <Link
+        to={`/folder/${folder.id}`}
+        className={`${styles.folderCard} ${
+          Number(activeFolder) === folder.id ? styles.active : ""
+        }`}
+      >
+        <div className={styles.container}>
+          <FcOpenedFolder className={styles.icon} />
+          <div className={styles.info}>
+            <p>{folder.name}</p>
+
+            <label>Создал: {folder.creator.login}</label>
+          </div>
+        </div>
+
+        <div className={styles.tools}>
+          <button className={styles.button} onClick={toggleListOpen}>
+            <div style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}>
+              <IoChevronDownOutline />
+            </div>
           </button>
-        </MenuContainer>
-      </div>
-    </div>
+          <MenuContainer
+            element={<FolderMenu />}
+            open={menuOpen}
+            setOpen={setMenuOpen}
+          >
+            <button className={styles.button} onClick={() => setMenuOpen(true)}>
+              <MdMoreVert />
+            </button>
+          </MenuContainer>
+        </div>
+      </Link>
+      <AnimatePresence>
+        {subListOpen && subFolders.length > 0 && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0, transition: { duration: 0.3 } }}
+            transition={{ duration: 0.3 }}
+            className={styles.subFolder}
+          >
+            <hr className={styles.line} />
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className={styles.subFolderList}
+            >
+              {subFolders.map((folder) => (
+                <FolderCard key={folder.id} folder={folder} folders={folders} />
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };

@@ -8,12 +8,18 @@ import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 import { useGetFiles } from "../../hooks/useGetFiles.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index.ts";
+import { useGetFolders } from "../../hooks/useGetFolders.ts";
+import { useParams } from "react-router-dom";
+import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
 
 export const Folder: React.FC = () => {
+  const { id } = useParams();
   const { activeModal } = useModal();
   const files = useSelector((state: RootState) => state.files.files);
 
-  useGetFiles({ id: 53 });
+  useGetFolders();
+  useGetFiles({ id: id });
+  useActiveFolder(id);
 
   return (
     <>

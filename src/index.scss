@@ -49,6 +49,22 @@ img {
   user-select: none;
 }
 
+input,
+p,
+label,
+div {
+  color: lightgray;
+}
+
+hr {
+  transition: 0.2s;
+}
+
+svg {
+  color: gray;
+  transition: 0.2s;
+}
+
 button {
   display: flex;
   justify-content: center;
@@ -64,18 +80,10 @@ button {
   border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
-}
 
-input,
-p,
-label,
-div,
-svg {
-  color: lightgray;
-}
-
-svg {
-  transition: 0.2s;
+  svg:hover {
+    color: lightgray;
+  }
 }
 
 .block-scroll {

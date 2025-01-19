@@ -5,10 +5,15 @@
   align-items: center;
   gap: 10px;
   padding-inline: 10px;
-  height: 70px;
+  min-height: 70px;
+  max-height: 70px;
   border-radius: 12px;
-  background-color: variables.$blur-panel;
+  background-color: variables.$folder-component;
   box-sizing: border-box;
+
+  * {
+    cursor: pointer;
+  }
 
   .container {
     display: flex;
@@ -28,6 +33,10 @@
     gap: 3px;
 
     p {
+      font-size: 14px;
+    }
+
+    label {
       font-size: 12px;
       color: gray;
     }
@@ -41,7 +50,45 @@
     height: 35px;
     background-color: transparent;
     svg {
-      font-size: 20px;
+      font-size: 16px;
+      color: gray;
     }
+    div {
+      display: flex;
+      place-items: center;
+      transition: 0.2s;
+    }
+  }
+
+  .tools {
+    display: flex;
+    gap: 3px;
+  }
+}
+
+.active {
+  background-color: variables.$component;
+}
+.subFolder {
+  display: flex;
+
+  .line {
+    display: flex;
+    margin: 0;
+    margin-right: 8px;
+    border: solid 1px variables.$light-blur-panel;
+    border-radius: 12px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: variables.$theme;
+    }
+  }
+
+  .subFolderList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
   }
 }

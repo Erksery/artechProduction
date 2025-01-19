@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
 
-    div {
+    .null {
       flex: 1;
     }
 
@@ -55,6 +55,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex: 1;
       p {
         text-align: center;
         color: gray;
@@ -66,6 +67,7 @@
       display: flex;
       justify-content: flex-end;
       gap: 10px;
+      flex: 1;
       button {
         font-size: 22px;
       }

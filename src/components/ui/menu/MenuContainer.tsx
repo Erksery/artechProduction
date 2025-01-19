@@ -50,7 +50,9 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
 
   return (
     <div ref={triggerRef} className={styles.menuContainer}>
-      <div onClick={toggleMenu}>{children}</div>
+      <div onClick={toggleMenu} className={styles.container}>
+        {children}
+      </div>
 
       <AnimatePresence>
         {open && (

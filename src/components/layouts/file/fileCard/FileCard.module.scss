@@ -1,6 +1,8 @@
 @use "@/variables";
 
 .card {
+  height: 240px;
+  max-height: 240px;
   box-sizing: border-box;
   border-radius: 16px;
   background-color: variables.$panel;

@@ -8,11 +8,9 @@ import { FileImage } from "../../fileImage/FileImage";
 
 import { MdFileDownload } from "react-icons/md";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
-import { FiInfo } from "react-icons/fi";
 import { IoSettingsSharp } from "react-icons/io5";
-import { useModal } from "../../../../../hooks/useModal";
-import { FileInfo } from "./modals/info/FileInfo";
-import { FileSetting } from "./modals/setting/FileSetting";
+import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { FileSettingMenu } from "./menu/FileSettingMenu";
 
 interface FileViewModalProps {
   activeFile: number;
@@ -20,9 +18,9 @@ interface FileViewModalProps {
 
 export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
   const [openFile, setOpenFile] = useState(activeFile);
-  const files = useSelector((state: RootState) => state.files.files);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const { openModal } = useModal();
+  const files = useSelector((state: RootState) => state.files.files);
 
   const forwardList = () => {
     if (files.length - 1 !== openFile) {
@@ -35,16 +33,6 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
       setOpenFile((prev) => prev - 1);
     }
   };
-
-  const buttons = [
-    { id: 1, icon: <MdFileDownload />, event: () => console.log("1") },
-    {
-      id: 2,
-      icon: <IoSettingsSharp />,
-      event: () => openModal(<FileSetting />),
-    },
-    { id: 3, icon: <FiInfo />, event: () => openModal(<FileInfo />) },
-  ];
 
   return (
     <Modal>
@@ -86,16 +74,28 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
           </button>
         </div>
         <div className={styles.info}>
-          <div></div>
+          <div className={styles.null}></div>
           <div className={styles.name}>
             <p>{files[openFile].name}</p>
           </div>
 
           <div className={styles.tools}>
-            {buttons.map((button) => (
+            <motion.button
+              whileHover={{
+                scale: 0.9,
+              }}
+              whileTap={{
+                scale: 0.85,
+              }}
+            >
+              <MdFileDownload />
+            </motion.button>
+            <MenuContainer
+              element={<FileSettingMenu />}
+              open={menuOpen}
+              setOpen={setMenuOpen}
+            >
               <motion.button
-                key={button.id}
-                onClick={button.event}
                 whileHover={{
                   scale: 0.9,
                 }}
@@ -103,9 +103,9 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
                   scale: 0.85,
                 }}
               >
-                {button.icon}
+                <IoSettingsSharp />
               </motion.button>
-            ))}
+            </MenuContainer>
           </div>
         </div>
       </div>

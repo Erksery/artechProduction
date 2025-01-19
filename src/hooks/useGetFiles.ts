@@ -6,7 +6,7 @@ import { FileData } from "../interfaces/file";
 import { AppDispatch } from "../store";
 
 interface useGetFilesProps {
-  id: number;
+  id: string | undefined;
 }
 
 export const useGetFiles = ({ id }: useGetFilesProps): void => {

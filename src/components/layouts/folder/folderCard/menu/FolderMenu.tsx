@@ -5,18 +5,25 @@ import { MenuButton } from "../../../../ui/menu/button/MenuButton";
 import { EditFolderModal } from "../../editFolderModal/EditFolderModal";
 import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete } from "react-icons/md";
+import { GrView } from "react-icons/gr";
 
 export const FolderMenu = () => {
   const { openModal, closeModal } = useModal();
   const buttons = [
     {
       id: 1,
+      title: "Открыть",
+      icon: <GrView />,
+      event: () => console.log("1"),
+    },
+    {
+      id: 2,
       title: "Редактировать",
       icon: <LuFolderPen />,
       event: () => openModal(<EditFolderModal close={closeModal} />),
     },
     {
-      id: 2,
+      id: 3,
       title: "Удалить",
       icon: <MdOutlineDelete />,
       event: () =>

@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: "http://192.168.0.3:3005",
+  apiUrl: import.meta.env.VITE_API_URL,
   environment: process.env.NODE_ENV || "development",
 };
 
