@@ -3,7 +3,7 @@ import styles from "./MenuButton.module.scss";
 import { motion } from "framer-motion";
 
 interface MenuButtonProps {
-  event: () => void;
+  event: (e: { preventDefault: () => any }) => void;
   icon: ReactNode;
   title: string;
   description?: string;

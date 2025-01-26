@@ -34,6 +34,9 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
     setSubListOpen((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
   return (
     <>
       <Link
@@ -53,12 +56,14 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
 
         <div className={styles.tools}>
           <button className={styles.button} onClick={toggleListOpen}>
-            <div style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}>
-              <IoChevronDownOutline />
-            </div>
+            {subFolders.length > 0 && (
+              <div style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}>
+                <IoChevronDownOutline />
+              </div>
+            )}
           </button>
           <MenuContainer
-            element={<FolderMenu />}
+            element={<FolderMenu close={closeMenu} />}
             open={menuOpen}
             setOpen={setMenuOpen}
           >

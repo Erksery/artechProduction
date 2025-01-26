@@ -7,38 +7,50 @@ import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 
-export const FolderMenu = () => {
+interface FolderMenuProps {
+  close: () => void;
+}
+
+export const FolderMenu: React.FC<FolderMenuProps> = ({ close }) => {
   const { openModal, closeModal } = useModal();
   const buttons = [
     {
       id: 1,
       title: "Открыть",
       icon: <GrView />,
-      event: () => console.log("1"),
+      event: () => {
+        close();
+      },
     },
     {
       id: 2,
       title: "Редактировать",
       icon: <LuFolderPen />,
-      event: () => openModal(<EditFolderModal close={closeModal} />),
+      event: (e: { preventDefault: () => any }) => {
+        e.preventDefault(), openModal(<EditFolderModal close={closeModal} />);
+        close();
+      },
     },
     {
       id: 3,
       title: "Удалить",
       icon: <MdOutlineDelete />,
-      event: () =>
-        openModal(
-          <SuccessModal
-            title={"Удалить папку?"}
-            description={
-              "Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них."
-            }
-            button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
-            event={() => {
-              closeModal();
-            }}
-          />
-        ),
+      event: (e: { preventDefault: () => any }) => {
+        e.preventDefault(),
+          openModal(
+            <SuccessModal
+              title={"Удалить папку?"}
+              description={
+                "Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них."
+              }
+              button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
+              event={() => {
+                closeModal();
+              }}
+            />
+          );
+        close();
+      },
     },
   ];
   return (

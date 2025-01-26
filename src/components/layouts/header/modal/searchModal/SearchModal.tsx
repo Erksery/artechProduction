@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "../../../../ui/input/Input";
 import { Modal } from "../../../../ui/modal/Modal";
 import styles from "./SearchModal.module.scss";
@@ -9,6 +9,7 @@ import { LocationMenu } from "./menu/LocationMenu";
 
 import { AiOutlineGlobal } from "react-icons/ai";
 import { MdOutlineSnippetFolder } from "react-icons/md";
+import { useSearchFile } from "./hooks/useSearchFile";
 
 export const SearchModal = () => {
   const [searchValue, setSearchValue] = useState({
@@ -16,6 +17,7 @@ export const SearchModal = () => {
     location: "local",
   });
   const [locationMenu, setLocationMenu] = useState<boolean>(false);
+  const { getSearchFiles, searchFiles } = useSearchFile();
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,6 +36,16 @@ export const SearchModal = () => {
   };
 
   const expanded = searchValue?.value?.length > 0;
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (searchValue.value.trim()) {
+        getSearchFiles(searchValue);
+      }
+    }, 700);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchValue, getSearchFiles]);
 
   return (
     <Modal>
@@ -80,7 +92,7 @@ export const SearchModal = () => {
               exit={{ height: 0, transition: { duration: 0.3 } }}
               transition={{ duration: 0.3 }}
             >
-              <FilesList cardSize={150} padding={0} />
+              <FilesList cardSize={150} padding={0} files={searchFiles} />
             </motion.div>
           )}
         </AnimatePresence>
