@@ -18,6 +18,7 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({ close }) => {
       id: 1,
       title: "Открыть",
       icon: <GrView />,
+      red: false,
       event: () => {
         close();
       },
@@ -26,6 +27,7 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({ close }) => {
       id: 2,
       title: "Редактировать",
       icon: <LuFolderPen />,
+      red: false,
       event: (e: { preventDefault: () => any }) => {
         e.preventDefault(), openModal(<EditFolderModal close={closeModal} />);
         close();
@@ -35,6 +37,7 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({ close }) => {
       id: 3,
       title: "Удалить",
       icon: <MdOutlineDelete />,
+      red: true,
       event: (e: { preventDefault: () => any }) => {
         e.preventDefault(),
           openModal(
@@ -62,6 +65,7 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({ close }) => {
           title={button.title}
           icon={button.icon}
           height={40}
+          red={button.red}
         />
       ))}
     </div>

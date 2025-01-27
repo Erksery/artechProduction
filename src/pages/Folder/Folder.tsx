@@ -18,7 +18,7 @@ export const Folder: React.FC = () => {
   const files = useSelector((state: RootState) => state.files.files);
 
   useGetFolders();
-  useGetFiles({ id: id });
+  useGetFiles(id);
   useActiveFolder(id);
 
   return (

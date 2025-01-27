@@ -1,3 +1,5 @@
+@use "@/variables";
+
 .buttonContainer {
   display: flex;
   justify-content: flex-start;
@@ -24,5 +26,17 @@
       color: gray;
       cursor: pointer;
     }
+  }
+}
+
+.red {
+  color: variables.$error-color;
+  background-color: variables.$error-background;
+
+  svg {
+    color: variables.$error-color;
+  }
+  p {
+    color: variables.$error-color;
   }
 }

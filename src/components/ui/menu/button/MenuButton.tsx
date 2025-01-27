@@ -8,6 +8,7 @@ interface MenuButtonProps {
   title: string;
   description?: string;
   height?: number;
+  red?: boolean;
 }
 
 export const MenuButton: React.FC<MenuButtonProps> = ({
@@ -15,7 +16,8 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
   icon,
   title,
   description,
-  height = 60,
+  height = 40,
+  red = false,
 }) => {
   return (
     <motion.button
@@ -26,7 +28,7 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
       whileTap={{
         scale: 0.85,
       }}
-      className={styles.buttonContainer}
+      className={`${styles.buttonContainer} ${red && styles.red}`}
       style={{ height: height }}
     >
       {icon}

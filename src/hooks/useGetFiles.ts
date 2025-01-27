@@ -5,11 +5,7 @@ import { setFiles } from "../store/slices/files";
 import { FileData } from "../interfaces/file";
 import { AppDispatch } from "../store";
 
-interface useGetFilesProps {
-  id: string | undefined;
-}
-
-export const useGetFiles = ({ id }: useGetFilesProps): void => {
+export const useGetFiles = (id: string | undefined): void => {
   const dispatch = useDispatch<AppDispatch>();
 
   const getFiles = useCallback(async () => {

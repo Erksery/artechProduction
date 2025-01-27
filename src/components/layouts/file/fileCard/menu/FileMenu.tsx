@@ -24,6 +24,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({ activeFile, close }) => {
       id: 1,
       title: "Открыть",
       icon: <GrView />,
+      red: false,
       event: () => {
         dispatch(setActiveFile(activeFile));
         openModal(<FileViewModal activeFile={activeFile} />);
@@ -34,6 +35,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({ activeFile, close }) => {
       id: 2,
       title: "Скачать",
       icon: <MdOutlineSimCardDownload />,
+      red: false,
       event: () => {
         console.log("1"), close();
       },
@@ -42,6 +44,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({ activeFile, close }) => {
       id: 3,
       title: "Редактировать",
       icon: <LuFolderPen />,
+      red: false,
       event: () => {
         console.log("1"), close();
       },
@@ -50,6 +53,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({ activeFile, close }) => {
       id: 4,
       title: "Удалить",
       icon: <MdOutlineDelete />,
+      red: true,
       event: () => {
         openModal(
           <SuccessModal
@@ -74,6 +78,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({ activeFile, close }) => {
           title={button.title}
           icon={button.icon}
           height={40}
+          red={button.red}
         />
       ))}
     </div>

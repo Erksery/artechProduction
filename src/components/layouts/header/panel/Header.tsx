@@ -1,17 +1,24 @@
-import { useRef, useState } from "react";
 import styles from "./Header.module.scss";
-import { RiAddLine } from "react-icons/ri";
-import { IoSearchSharp } from "react-icons/io5";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { useModal } from "../../../../hooks/useModal";
+import { useSelector } from "react-redux";
+
 import { UserLogo } from "../../user/UserLogo/UserLogo";
 import { AddModal } from "../modal/addModal/AddModal";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
-import { motion } from "framer-motion";
-import { useModal } from "../../../../hooks/useModal";
 import { SearchModal } from "../modal/searchModal/SearchModal";
+import { RootState } from "../../../../store";
+
+import { RiAddLine } from "react-icons/ri";
+import { IoSearchSharp } from "react-icons/io5";
+import { UserMenu } from "../menu/UserMenu/UserMenu";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const { openModal, closeModal } = useModal();
+  const [userMenu, setUserMenu] = useState<boolean>(false);
+  const { openModal } = useModal();
+  const user = useSelector((state: RootState) => state.user.userData);
 
   return (
     <>
@@ -39,7 +46,13 @@ export const Header = () => {
           </motion.button>
         </div>
         <div className={styles.user}>
-          <UserLogo />
+          <MenuContainer
+            element={<UserMenu />}
+            open={userMenu}
+            setOpen={setUserMenu}
+          >
+            <UserLogo userData={user} />
+          </MenuContainer>
         </div>
       </div>
     </>
