@@ -3,7 +3,7 @@ import styles from "./MenuButton.module.scss";
 import { motion } from "framer-motion";
 
 interface MenuButtonProps {
-  event: (e: { preventDefault: () => any }) => void;
+  event: (e: React.MouseEvent<HTMLButtonElement>) => void;
   icon: ReactNode;
   title: string;
   description?: string;
@@ -14,6 +14,7 @@ interface MenuButtonProps {
 export const MenuButton: React.FC<MenuButtonProps> = ({
   event,
   icon,
+
   title,
   description,
   height = 40,

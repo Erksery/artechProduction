@@ -33,6 +33,7 @@ export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
             element={<FileMenu activeFile={i} close={closeMenu} />}
             open={fileMenu}
             setOpen={setFileMenu}
+            blur={true}
           >
             <button className={styles.menuButton}>
               <IoMdMore />

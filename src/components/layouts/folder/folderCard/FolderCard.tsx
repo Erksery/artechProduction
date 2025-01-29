@@ -29,7 +29,7 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
     [folders, folder.id]
   );
 
-  const toggleListOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleListOpen = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setSubListOpen((prev) => !prev);
   };
@@ -44,6 +44,7 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
         className={`${styles.folderCard} ${
           Number(activeFolder) === folder.id ? styles.active : ""
         }`}
+        draggable={false}
       >
         <div className={styles.container}>
           <FcOpenedFolder className={styles.icon} />
@@ -82,7 +83,7 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
             transition={{ duration: 0.3 }}
             className={styles.subFolder}
           >
-            <hr className={styles.line} />
+            <hr onClick={toggleListOpen} className={styles.line} />
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

@@ -18,6 +18,13 @@
     background-color: variables.$menu-background;
     border-radius: 12px;
     box-sizing: border-box;
+
     z-index: 10;
+  }
+
+  .blur {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: variables.$blur-panel;
   }
 }

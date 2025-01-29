@@ -10,6 +10,7 @@ interface MenuContainerProps {
   open: boolean;
   setOpen: (isOpen: boolean) => void;
   position?: "left" | "right";
+  blur?: boolean;
 }
 
 export const MenuContainer: React.FC<MenuContainerProps> = ({
@@ -18,6 +19,7 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
   open,
   setOpen,
   position = "right",
+  blur = false,
 }) => {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLDivElement | null>(null);
@@ -64,7 +66,7 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
               [position]: 0,
               [menuPosition]: "100%",
             }}
-            className={styles.menu}
+            className={`${styles.menu} ${blur && styles.blur}`}
             ref={menuRef}
           >
             {element}

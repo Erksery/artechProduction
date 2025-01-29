@@ -61,7 +61,7 @@ hr {
 }
 
 svg {
-  color: gray;
+  color: lightgray;
   transition: 0.2s;
 }
 
@@ -80,10 +80,6 @@ button {
   border: 1px solid transparent;
   cursor: pointer;
   user-select: none;
-
-  svg:hover {
-    color: lightgray;
-  }
 }
 
 .block-scroll {
