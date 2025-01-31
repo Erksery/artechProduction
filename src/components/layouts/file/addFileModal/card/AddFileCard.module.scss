@@ -51,7 +51,7 @@
       transition: 0.2s;
       &:hover {
         color: variables.$error-color;
-        background-color: variables.$error-background;
+        background-color: variables.$error-blur-background;
       }
     }
   }

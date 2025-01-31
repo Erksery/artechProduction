@@ -1,10 +1,14 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../store";
+import { addFiles } from "../../../../../store/slices/files";
 
 interface FileWithPreview extends File {
   preview?: string;
 }
 
-export const useUpload = (id: number) => {
+export const useUpload = (id: string | undefined) => {
+  const dispatch = useDispatch<AppDispatch>();
   const createFile = async (
     selectedFiles: FileWithPreview[]
   ): Promise<void> => {
@@ -24,7 +28,7 @@ export const useUpload = (id: number) => {
             folder: id,
           },
         });
-
+        dispatch(addFiles([response.data.file]));
         return response.data.file;
       });
 

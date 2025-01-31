@@ -24,9 +24,13 @@ export const filesSlice = createSlice({
     setActiveFile: (state, action) => {
       state.activeFile = action.payload;
     },
+    deleteFile: (state, action) => {
+      state.files = state.files.filter((file) => file.id !== action.payload);
+    },
   },
 });
 
-export const { setFiles, addFiles, setActiveFile } = filesSlice.actions;
+export const { setFiles, addFiles, setActiveFile, deleteFile } =
+  filesSlice.actions;
 
 export default filesSlice.reducer;

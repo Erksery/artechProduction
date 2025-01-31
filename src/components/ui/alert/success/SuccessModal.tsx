@@ -24,10 +24,10 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({
         <motion.button
           onClick={event}
           whileHover={{
-            scale: 0.9,
+            scale: 0.95,
           }}
           whileTap={{
-            scale: 0.85,
+            scale: 0.9,
           }}
           style={{ backgroundColor: button.color }}
         >

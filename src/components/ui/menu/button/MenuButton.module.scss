@@ -31,7 +31,7 @@
 
 .red {
   color: variables.$error-color;
-  background-color: variables.$error-background;
+  background-color: variables.$error-blur-background;
 
   svg {
     color: variables.$error-color;

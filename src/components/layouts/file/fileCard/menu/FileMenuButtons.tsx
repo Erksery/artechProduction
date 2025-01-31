@@ -20,7 +20,9 @@ export const getFileMenuButtons = (
   closeModal: () => void,
   close: () => void,
   activeFile: number,
-  dispatch: AppDispatch
+  fileDelete: (id: number | string) => Promise<void>,
+  dispatch: AppDispatch,
+  fileId: number
 ): ButtonConfig[] => [
   {
     id: 1,
@@ -63,6 +65,7 @@ export const getFileMenuButtons = (
           description={"Вы действительно хотите удалить данный файл?"}
           button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
           event={() => {
+            fileDelete(fileId);
             closeModal();
           }}
         />

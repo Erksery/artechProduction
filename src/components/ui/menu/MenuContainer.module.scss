@@ -25,6 +25,6 @@
   .blur {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: variables.$blur-panel;
+    background-color: variables.$light-blur-panel;
   }
 }

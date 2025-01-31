@@ -4,6 +4,8 @@ import styles from "./AddFileModal.module.scss";
 import { Upload } from "../upload/Upload";
 import { AddFileCard } from "./card/AddFileCard";
 import { useUpload } from "./hooks/useUpload";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 interface AddFileModalProps {
   closeModal: () => void;
@@ -15,8 +17,11 @@ interface FileWithPreview extends File {
 
 export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const activeFolder = useSelector(
+    (state: RootState) => state.folders.activeFolder
+  );
 
-  const { createFile } = useUpload(1);
+  const { createFile } = useUpload(activeFolder);
 
   const deleteFile = (fileName: string) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
