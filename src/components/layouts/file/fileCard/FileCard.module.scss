@@ -4,15 +4,19 @@
   height: 240px;
   max-height: 240px;
   box-sizing: border-box;
-  border-radius: 16px;
+  border: solid 2px transparent;
+  border-radius: 18px;
   background-color: variables.$panel;
   cursor: pointer;
+  box-sizing: border-box;
+  transition: 0.2s;
 
   .info {
     display: flex;
     flex-direction: column;
 
     padding: 10px 5px;
+    user-select: none;
 
     .type {
       display: flex;
@@ -59,4 +63,8 @@
       }
     }
   }
+}
+
+.selected {
+  border-color: variables.$theme;
 }

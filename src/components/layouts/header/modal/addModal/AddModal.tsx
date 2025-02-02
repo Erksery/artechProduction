@@ -56,7 +56,6 @@ export const AddModal: React.FC<AddModalProps> = ({ setOpen }) => {
         <motion.button
           onClick={button.event}
           key={button.id}
-          variants={buttonVariants}
           custom={index}
           whileHover={{
             scale: 0.9,

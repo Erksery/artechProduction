@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./FilesList.module.scss";
 import { FileCard } from "../fileCard/FileCard";
 import { FileData } from "../../../../interfaces/file";
@@ -13,6 +13,14 @@ const FilesListComponent: React.FC<FilesListProps> = ({
   cardSize,
   padding = 5,
 }) => {
+  const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
+
+  const addSelectedFile = (file: number) => {
+    setSelectedFiles((prev) => [...prev, file]);
+  };
+  const deleteSelectedFile = (file: number) => {
+    setSelectedFiles(() => selectedFiles.filter((f) => f !== file));
+  };
   console.log("rerender file list");
   return (
     <div
@@ -24,7 +32,14 @@ const FilesListComponent: React.FC<FilesListProps> = ({
     >
       {files &&
         files.map((file, index) => (
-          <FileCard file={file} key={file.id} i={index} />
+          <FileCard
+            file={file}
+            key={file.id}
+            i={index}
+            selected={selectedFiles}
+            addSelectedFile={addSelectedFile}
+            deleteSelectedFile={deleteSelectedFile}
+          />
         ))}
     </div>
   );

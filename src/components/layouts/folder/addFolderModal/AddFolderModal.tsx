@@ -3,6 +3,7 @@ import { Modal } from "../../../ui/modal/Modal";
 import styles from "./AddFolderModal.module.scss";
 import { Input } from "../../../ui/input/Input";
 import { PrivacySelector } from "../selector/PrivacySelector";
+import { useCreateFolder } from "./hook/useCreateFolder";
 
 interface AddFolderModal {
   closeModal: () => void;
@@ -11,6 +12,13 @@ interface AddFolderModal {
 export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
   const [folderName, setFolderName] = useState("");
   const [selectPrivacy, setSelectPrivacy] = useState("Private");
+
+  const { createFolder } = useCreateFolder();
+
+  const handleSuccess = () => {
+    createFolder(folderName);
+    closeModal();
+  };
 
   return (
     <Modal>
@@ -27,7 +35,7 @@ export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
           setSelectPrivacy={setSelectPrivacy}
         />
         <div className={styles.buttonsContainer}>
-          <button onClick={closeModal} disabled={folderName.length === 0}>
+          <button onClick={handleSuccess} disabled={folderName.length === 0}>
             Подтвердить
           </button>
         </div>
