@@ -4,9 +4,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-top: 5px;
   padding-inline: 10px;
   min-height: 70px;
   max-height: 70px;
+  height: 70px;
   border-radius: 12px;
   background-color: variables.$folder-component;
   box-sizing: border-box;
@@ -26,6 +28,9 @@
 
   .icon {
     font-size: 28px;
+  }
+  .private {
+    filter: grayscale(100%);
   }
 
   .info {
@@ -72,6 +77,7 @@
 }
 .subFolder {
   display: flex;
+  overflow: none;
 
   .line {
     display: flex;
@@ -89,9 +95,7 @@
   .subFolderList {
     display: flex;
     flex-direction: column;
-
-    margin-top: 5px;
-
     width: 100%;
+    overflow: none;
   }
 }

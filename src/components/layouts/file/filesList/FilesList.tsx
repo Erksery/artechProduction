@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./FilesList.module.scss";
 import { FileCard } from "../fileCard/FileCard";
 import { FileData } from "../../../../interfaces/file";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 interface FilesListProps {
   files: FileData[];
@@ -14,13 +16,19 @@ const FilesListComponent: React.FC<FilesListProps> = ({
   padding = 5,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
+  const editMode = useSelector((state: RootState) => state.files.editMode);
+
+  useEffect(() => {
+    !editMode && setSelectedFiles([]);
+  }, [editMode]);
 
   const addSelectedFile = (file: number) => {
-    setSelectedFiles((prev) => [...prev, file]);
+    editMode && setSelectedFiles((prev) => [...prev, file]);
   };
   const deleteSelectedFile = (file: number) => {
-    setSelectedFiles(() => selectedFiles.filter((f) => f !== file));
+    editMode && setSelectedFiles(() => selectedFiles.filter((f) => f !== file));
   };
+
   console.log("rerender file list");
   return (
     <div

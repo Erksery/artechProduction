@@ -2,23 +2,27 @@ import styles from "./Header.module.scss";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useModal } from "../../../../hooks/useModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { UserLogo } from "../../user/UserLogo/UserLogo";
 import { AddModal } from "../modal/addModal/AddModal";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { SearchModal } from "../modal/searchModal/SearchModal";
-import { RootState } from "../../../../store";
+import { AppDispatch, RootState } from "../../../../store";
 
+import { BiEditAlt } from "react-icons/bi";
 import { RiAddLine } from "react-icons/ri";
 import { IoSearchSharp } from "react-icons/io5";
 import { UserMenu } from "../menu/UserMenu/UserMenu";
+import { toggleEditMode } from "../../../../store/slices/files";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [userMenu, setUserMenu] = useState<boolean>(false);
   const { openModal } = useModal();
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.userData);
+  const editMode = useSelector((state: RootState) => state.files.editMode);
 
   return (
     <>
@@ -37,12 +41,20 @@ export const Header = () => {
               <RiAddLine />
             </motion.button>
           </MenuContainer>
+
           <motion.button
             whileHover={{ scale: 1.2 }}
             onClick={() => openModal(<SearchModal />)}
             className={styles.addButton}
           >
             <IoSearchSharp />
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            onClick={() => dispatch(toggleEditMode())}
+            className={`${styles.addButton} ${editMode && styles.active}`}
+          >
+            <BiEditAlt />
           </motion.button>
         </div>
         <div className={styles.user}>

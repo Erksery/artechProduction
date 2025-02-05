@@ -21,12 +21,18 @@ export const foldersSlice = createSlice({
     addFolder: (state, action: PayloadAction<FolderData[]>) => {
       state.folders = [...state.folders, ...action.payload];
     },
+    removeFolder: (state, action: PayloadAction<number | string>) => {
+      state.folders = state.folders.filter(
+        (folder) => folder.id !== action.payload
+      );
+    },
     setActiveFolder: (state, action: PayloadAction<string | undefined>) => {
       state.activeFolder = action.payload;
     },
   },
 });
 
-export const { setFolders, addFolder, setActiveFolder } = foldersSlice.actions;
+export const { setFolders, addFolder, removeFolder, setActiveFolder } =
+  foldersSlice.actions;
 
 export default foldersSlice.reducer;

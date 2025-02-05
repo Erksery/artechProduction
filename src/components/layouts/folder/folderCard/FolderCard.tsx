@@ -5,7 +5,7 @@ import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { FolderMenu } from "./menu/FolderMenu";
 import { FolderData } from "../../../../interfaces/folder";
 
-import { FcOpenedFolder } from "react-icons/fc";
+import { FcOpenedFolder, FcFolder } from "react-icons/fc";
 import { MdMoreVert } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
@@ -47,7 +47,20 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
         draggable={false}
       >
         <div className={styles.container}>
-          <FcOpenedFolder className={styles.icon} />
+          {Number(activeFolder) === folder.id ? (
+            <FcOpenedFolder
+              className={`${styles.icon} ${
+                folder.privacy === "Private" && styles.private
+              }`}
+            />
+          ) : (
+            <FcFolder
+              className={`${styles.icon} ${
+                folder.privacy === "Private" && styles.private
+              }`}
+            />
+          )}
+
           <div className={styles.info}>
             <p>{folder.name}</p>
 
@@ -64,7 +77,7 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
             )}
           </button>
           <MenuContainer
-            element={<FolderMenu close={closeMenu} />}
+            element={<FolderMenu id={folder.id} close={closeMenu} />}
             open={menuOpen}
             setOpen={setMenuOpen}
           >

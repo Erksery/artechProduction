@@ -29,12 +29,17 @@
       width: 40px;
       height: 40px;
       color: lightgray;
+      border: solid 2px transparent;
       background-color: variables.$blur-panel;
       font-size: 20px;
+      transition: border 0.15s;
 
       svg {
         font-size: 18px;
       }
+    }
+    .active {
+      border-color: variables.$theme;
     }
   }
 

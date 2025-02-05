@@ -4,11 +4,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface FilesState {
   files: FileData[];
   activeFile: number;
+  editMode: boolean;
 }
 
 const initialState: FilesState = {
   files: [],
   activeFile: 0,
+  editMode: false,
 };
 
 export const filesSlice = createSlice({
@@ -27,10 +29,13 @@ export const filesSlice = createSlice({
     deleteFile: (state, action) => {
       state.files = state.files.filter((file) => file.id !== action.payload);
     },
+    toggleEditMode: (state) => {
+      state.editMode = !state.editMode;
+    },
   },
 });
 
-export const { setFiles, addFiles, setActiveFile, deleteFile } =
+export const { setFiles, addFiles, setActiveFile, deleteFile, toggleEditMode } =
   filesSlice.actions;
 
 export default filesSlice.reducer;

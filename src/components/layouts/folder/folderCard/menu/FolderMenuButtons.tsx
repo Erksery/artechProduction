@@ -5,9 +5,11 @@ import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
 import { EditFolderModal } from "../../editFolderModal/EditFolderModal";
 
 export const getFolderMenuButtons = (
+  id: number,
   openModal: (modal: JSX.Element) => void,
   closeModal: () => void,
-  close: () => void
+  close: () => void,
+  deleteFolder: (id: number | string) => void
 ) => [
   {
     id: 1,
@@ -39,7 +41,10 @@ export const getFolderMenuButtons = (
           title="Удалить папку?"
           description="Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них."
           button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
-          event={() => closeModal()}
+          event={() => {
+            deleteFolder(id);
+            closeModal();
+          }}
         />
       );
       close();
