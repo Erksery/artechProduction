@@ -8,7 +8,7 @@
   padding: 0 10px;
   width: 100%;
   height: 50px;
-  border: solid 1px variables.$blur-panel;
+  border: solid 2px variables.$background;
   background-color: variables.$component;
   border-radius: 10px;
   box-sizing: border-box;
@@ -34,6 +34,10 @@
   }
 
   &:focus-within {
-    border: solid 1px variables.$theme;
+    border-color: variables.$theme;
   }
+}
+
+.error {
+  border-color: variables.$error-color;
 }

@@ -1,46 +1,67 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styles from "./Input.module.scss";
 
 interface InputProps {
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  placeholder?: string;
+  id?: string;
+  name?: string;
+  value?: string;
+  title?: string;
   type?: "text" | "number" | "password" | "email" | "search";
+  placeholder?: string;
   multiline?: boolean;
-  error?: string;
+  required?: boolean;
+  autoComplete?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 export const Input: React.FC<InputProps> = ({
-  value,
-  onChange,
+  title = "Input",
   placeholder = "Input",
   type = "text",
+  required = false,
   multiline = false,
-  error,
   ...props
 }) => {
+  const [error, setError] = useState<string | null>(null);
+
+  const handleBlur = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const value = e.target.value.trim();
+
+    if (required && !value) {
+      setError("Обязательное поле");
+    } else if (
+      type === "email" &&
+      !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)
+    ) {
+      setError("Некорректный email");
+    } else if (type === "password" && value.length < 6) {
+      setError("Пароль должен быть минимум 6 символов");
+    } else {
+      setError(null);
+    }
+  };
+
   return (
-    <div className={styles.inputContainer}>
+    <div className={`${styles.inputContainer} ${error && styles.error}`}>
       <label>
-        <p>{placeholder}</p>
+        <p>{title}</p>
         {multiline ? (
-          <textarea
-            value={value}
-            onChange={onChange}
-            className={error ? styles.error : ""}
-            {...props}
-          />
+          <textarea {...props} placeholder={placeholder} onBlur={handleBlur} />
         ) : (
           <input
-            type={type}
-            value={value}
-            onChange={onChange}
-            className={error ? styles.error : ""}
             {...props}
+            type={type}
+            required={required}
+            placeholder={placeholder}
+            onBlur={handleBlur}
+            onInvalid={(e) => {
+              e.preventDefault();
+            }}
           />
         )}
       </label>
-      {error && <span className={styles.errorText}>{error}</span>}
     </div>
   );
 };

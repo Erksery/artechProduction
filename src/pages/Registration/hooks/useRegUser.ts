@@ -19,6 +19,8 @@ interface RegistrationResponse {
 
 export const useRegUser = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const dispatch = useDispatch<AppDispatch>();
 
   const registration = async (value: RegistrationData) => {
@@ -46,5 +48,28 @@ export const useRegUser = () => {
     }
   };
 
-  return { registration, loading };
+  const submitRegUser = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null);
+    setSuccess(null);
+
+    const formData = new FormData(event.currentTarget);
+    const login = formData.get("login") as string;
+    const password = formData.get("password") as string;
+
+    if (!login || !password) {
+      setError("Все поля обязательны");
+      return;
+    }
+
+    const result = await registration({ login, password });
+
+    if (result.success) {
+      setSuccess("Регистрация прошла успешно!");
+    } else {
+      setError(result.error ?? "Произошла неизвестная ошибка");
+    }
+  };
+
+  return { submitRegUser, registration, loading, error, success };
 };

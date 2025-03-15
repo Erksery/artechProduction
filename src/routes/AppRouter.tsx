@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home/Home";
 import { Folder } from "../pages/Folder/Folder";
-import { Registration } from "../pages/Registration/Registration";
+import { Sign } from "../pages/Registration/Sign";
 
 export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/registration" element={<Registration />} />
+      <Route path="/sign" element={<Sign />} />
       <Route path="/folder/:id" element={<Folder />} />
     </Routes>
   );

@@ -1,0 +1,41 @@
+@use "@/variables";
+
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  height: 40px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  border: solid 2px variables.$error-color;
+  background-color: variables.$error-blur-background;
+
+  p {
+    color: variables.$error-color;
+    font-size: 11px;
+  }
+}
+
+.submitButton {
+  width: 100%;
+  height: 40px;
+  color: white;
+  background-color: variables.$dark-theme;
+}
+.link {
+  color: variables.$theme;
+}
+
+.route {
+  display: flex;
+  gap: 6px;
+
+  button {
+    padding: 0;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+  }
+}
