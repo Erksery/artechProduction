@@ -36,7 +36,21 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem("refreshToken");
-        await api.post("/auth/refresh", { refreshToken });
+
+        if (!refreshToken) {
+          console.error("Refresh token отсутствует в localStorage");
+          return Promise.reject(new Error("Refresh token отсутствует"));
+        }
+
+        await api.post(
+          "/auth/refresh",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          }
+        );
 
         isRefreshing = false;
         onRefreshed();

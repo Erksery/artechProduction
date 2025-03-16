@@ -11,12 +11,17 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     server: {
       https: false,
+      cors: {
+        origin: env.VITE_API_URL,
+        credentials: true,
+      },
       proxy: {
         "/api": {
           target: env.VITE_API_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ""),
           secure: false,
+          cookieDomainRewrite: "",
         },
       },
     },

@@ -1,17 +1,21 @@
-import axios from "axios";
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { setUserData } from "../store/slices/user";
+import api from "../api/api";
+import axios from "axios";
 
 export const useGetUserData = () => {
   const dispatch = useDispatch<AppDispatch>();
   const getUser = useCallback(async () => {
     try {
-      const res = await axios.get("/api/user/getProfile", {
-        params: { token: localStorage.getItem("token") },
+      const resData = await api.get("/auth/profile", {
+        withCredentials: true,
+        /*headers: {
+          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+        },*/
       });
-      dispatch(setUserData(res.data.userData));
+      dispatch(setUserData(resData.data.userData));
     } catch (err) {
       console.log(err);
     }

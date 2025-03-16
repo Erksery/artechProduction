@@ -1,69 +1,71 @@
-import { useState, useRef, useEffect } from "react";
-import { ContentPage } from "../../components/ui/contentPage/ContentPage";
-import { useRegUser } from "./hooks/useRegUser";
 import styles from "./Sign.module.scss";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { useRegUser } from "./hooks/useRegUser";
+import { useAuthUser } from "./hooks/useAuthUser";
 import { SignUp } from "../../components/layouts/auth/SignUp/SignUp";
 import { SignIn } from "../../components/layouts/auth/SignIn/SignIn";
+import { ContentPage } from "../../components/ui/contentPage/ContentPage";
 
-const tabs: {
-  id: number;
-  name: "register" | "login";
-  title: string;
-  component: React.FC<{
-    error: string | null;
-    loading: boolean;
-    activateTab: (name: "register" | "login") => void;
-  }>;
-}[] = [
-  {
-    id: 1,
-    name: "register",
-    title: "Регистрация",
-    component: SignUp,
-  },
-  {
-    id: 2,
-    name: "login",
-    title: "Авторизация",
-    component: SignIn,
-  },
-];
+const tabs = [
+  { id: 1, name: "register", title: "Регистрация", component: SignUp },
+  { id: 2, name: "login", title: "Авторизация", component: SignIn },
+] as const;
 
 export const Sign = () => {
   const [activeTab, setActiveTab] = useState<"register" | "login">("register");
   const [lineStyle, setLineStyle] = useState({ width: "0px", left: "0px" });
-  const tabRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
-  const { submitRegUser, error, loading } = useRegUser();
+  const lineStyleRef = useRef({ width: "0px", left: "0px" });
+  const tabRefs = useRef(
+    new Map<"register" | "login", HTMLButtonElement | null>()
+  );
+  const reg = useRegUser();
+  const auth = useAuthUser();
+
+  const activeHook = activeTab === "register" ? reg : auth;
+
+  const ActiveComponent = useMemo(
+    () => tabs.find((tab) => tab.name === activeTab)?.component,
+    [activeTab]
+  );
 
   useEffect(() => {
-    const activeButton = tabRefs.current[activeTab];
+    const activeButton = tabRefs.current.get(activeTab);
     if (activeButton) {
-      setLineStyle({
-        width: `${activeButton.offsetWidth}px`,
-        left: `${activeButton.offsetLeft}px`,
+      requestAnimationFrame(() => {
+        const newStyle = {
+          width: `${activeButton.offsetWidth}px`,
+          left: `${activeButton.offsetLeft}px`,
+        };
+        lineStyleRef.current = newStyle;
+        setLineStyle(newStyle);
       });
     }
   }, [activeTab]);
 
-  const ActiveComponent = tabs.find((tab) => tab.name === activeTab)?.component;
-
-  const activateTab = (name: "register" | "login") => {
-    setActiveTab(name);
-  };
+  const setTabRef = useCallback(
+    (name: "register" | "login", el: HTMLButtonElement | null) => {
+      if (el) tabRefs.current.set(name, el);
+    },
+    []
+  );
 
   return (
     <ContentPage className={styles.container}>
       <h2>АртТех Production</h2>
-      <form onSubmit={submitRegUser} className={styles.formContainer}>
+      <form
+        onSubmit={
+          activeTab === "register" ? reg.submitRegUser : auth.submitAuthUser
+        }
+        className={styles.formContainer}
+      >
         <div className={styles.tabs}>
           {tabs.map((tab) => (
             <button
+              onClick={() => setActiveTab(tab.name)}
               key={tab.id}
-              ref={(el) => {
-                tabRefs.current[tab.name] = el;
-              }}
+              ref={(el) => setTabRef(tab.name, el)}
+              type="button"
               className={activeTab === tab.name ? styles.active : ""}
-              onClick={() => activateTab(tab.name)}
             >
               {tab.title}
             </button>
@@ -73,9 +75,9 @@ export const Sign = () => {
         </div>
         {ActiveComponent && (
           <ActiveComponent
-            error={error}
-            loading={loading}
-            activateTab={activateTab}
+            error={activeHook.error}
+            loading={activeHook.loading}
+            activateTab={setActiveTab}
           />
         )}
       </form>

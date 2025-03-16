@@ -7,30 +7,30 @@ import { setUserData } from "../../../store/slices/user";
 import { User } from "../../../interfaces/user";
 import { useNavigate } from "react-router-dom";
 
-interface RegistrationData {
+interface AuthorizationData {
   login: string;
   password: string;
 }
 
-interface RegistrationResponse {
+interface AuthorizationResponse {
   accessToken: string;
   refreshToken: string;
   user: User;
 }
 
-export const useRegUser = () => {
+export const useAuthUser = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const registration = async (value: RegistrationData) => {
+  const authorization = async (value: AuthorizationData) => {
     setLoading(true);
 
     try {
-      const resData: AxiosResponse<RegistrationResponse> = await api.post(
-        "/auth/register",
+      const resData: AxiosResponse<AuthorizationResponse> = await api.post(
+        "/auth/login",
         {
           login: value.login,
           password: value.password,
@@ -43,14 +43,14 @@ export const useRegUser = () => {
       const axiosError = err as AxiosError<{ message?: string }>;
       return {
         success: false,
-        error: axiosError.response?.data?.message || "Ошибка регистрации",
+        error: axiosError.response?.data?.message || "Ошибка авторизации",
       };
     } finally {
       setLoading(false);
     }
   };
 
-  const submitRegUser = async (event: React.FormEvent<HTMLFormElement>) => {
+  const submitAuthUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
     setSuccess(null);
@@ -64,15 +64,15 @@ export const useRegUser = () => {
       return;
     }
 
-    const result = await registration({ login, password });
+    const result = await authorization({ login, password });
 
     if (result.success) {
-      setSuccess("Регистрация прошла успешно!");
+      setSuccess("Авторизация прошла успешно!");
       navigate("/");
     } else {
       setError(result.error ?? "Произошла неизвестная ошибка");
     }
   };
 
-  return { submitRegUser, registration, loading, error, success };
+  return { submitAuthUser, authorization, loading, error, success };
 };
