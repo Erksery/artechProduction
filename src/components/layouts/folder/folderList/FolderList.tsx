@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { Reorder, motion } from "framer-motion";
+import { Reorder } from "framer-motion";
 import styles from "./FolderList.module.scss";
 import { FolderCard } from "../folderCard/FolderCard";
 import { FolderData } from "../../../../interfaces/folder";
@@ -22,6 +22,8 @@ export const FolderList: React.FC<FolderListProps> = ({ folders }) => {
     localStorage.setItem("orderedFolders", JSON.stringify(orderedFolders));
   }, [orderedFolders]);
 
+  console.log(orderedFolders);
+
   return (
     <Reorder.Group
       axis="y"
@@ -30,7 +32,7 @@ export const FolderList: React.FC<FolderListProps> = ({ folders }) => {
       className={styles.list}
       as="div"
     >
-      {orderedFolders.map((folder) => (
+      {parentFolders.map((folder) => (
         <Reorder.Item key={folder.id} value={folder} as="div">
           <FolderCard folder={folder} folders={folders} />
         </Reorder.Item>

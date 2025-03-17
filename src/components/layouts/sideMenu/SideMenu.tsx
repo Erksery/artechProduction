@@ -7,16 +7,20 @@ import { FolderList } from "../folder/folderList/FolderList";
 
 import { RiAddLine } from "react-icons/ri";
 import { useCreateFolder } from "../folder/addFolderModal/hook/useCreateFolder";
+import { useGetFolders } from "../../../hooks/useGetFolders";
 
 export const SideMenu: React.FC = () => {
   const folders = useSelector((state: RootState) => state.folders.folders);
   const { createFolder } = useCreateFolder();
+
+  useGetFolders();
+
   return (
     <div className={styles.sideMenuContainer}>
       <div className={styles.menu}>
         <div className={styles.tools}>
           <motion.button
-            onClick={() => createFolder(undefined, true)}
+            onClick={() => createFolder("New Folder")}
             whileHover={{ scale: 1.2 }}
             className={styles.addButton}
           >

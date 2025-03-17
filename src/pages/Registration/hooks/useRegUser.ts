@@ -6,6 +6,7 @@ import { AppDispatch } from "../../../store";
 import { setUserData } from "../../../store/slices/user";
 import { User } from "../../../interfaces/user";
 import { useNavigate } from "react-router-dom";
+import { API_ROUTES } from "../../../api/routes";
 
 interface RegistrationData {
   login: string;
@@ -30,7 +31,7 @@ export const useRegUser = () => {
 
     try {
       const resData: AxiosResponse<RegistrationResponse> = await api.post(
-        "/auth/register",
+        API_ROUTES.REGISTER,
         {
           login: value.login,
           password: value.password,
