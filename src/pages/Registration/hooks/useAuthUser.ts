@@ -6,7 +6,6 @@ import { AppDispatch } from "../../../store";
 import { setUserData } from "../../../store/slices/user";
 import { User } from "../../../interfaces/user";
 import { useNavigate } from "react-router-dom";
-import { API_ROUTES } from "../../../api/routes";
 
 interface AuthorizationData {
   login: string;
@@ -31,7 +30,7 @@ export const useAuthUser = () => {
 
     try {
       const resData: AxiosResponse<AuthorizationResponse> = await api.post(
-        API_ROUTES.AUTH,
+        "/auth/login",
         {
           login: value.login,
           password: value.password,
