@@ -9,7 +9,6 @@ import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 import { FilesList } from "../../components/layouts/file/filesList/FilesList";
 import { useModal } from "../../hooks/useModal.tsx";
 import { useGetFiles } from "../../hooks/useGetFiles.ts";
-import { useGetFolders } from "../../hooks/useGetFolders.ts";
 import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
 
 import { RootState } from "../../store/index.ts";
@@ -19,7 +18,6 @@ export const Folder: React.FC = () => {
   const { activeModal } = useModal();
   const files = useSelector((state: RootState) => state.files.files);
 
-  useGetFolders();
   useGetFiles(id);
   useActiveFolder(id);
 

@@ -6,11 +6,11 @@ export interface Creator {
 }
 
 export interface FolderData {
-  id: number;
+  id: string;
   name: string;
-  inFolder: number;
-  creator: Creator;
+  description: string | null;
+  inFolder: string | null;
+  creator: string;
   privacy: "Public" | "Private";
-  createdAt: string;
-  updatedAt: string;
+  sharingOptions: string;
 }
