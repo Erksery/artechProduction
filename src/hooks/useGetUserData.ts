@@ -15,6 +15,12 @@ export const useGetUserData = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const getUser = useCallback(async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (!refreshToken) {
+      console.log("Отсутствует токен авторизации");
+      return;
+    }
     try {
       const resData: AxiosResponse<ProfileResponse> = await api.get(
         API_ROUTES.PROFILE,
@@ -26,7 +32,7 @@ export const useGetUserData = () => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getUser();

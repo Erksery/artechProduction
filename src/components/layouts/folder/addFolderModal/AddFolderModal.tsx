@@ -16,7 +16,7 @@ export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
   const { createFolder } = useCreateFolder();
 
   const handleSuccess = () => {
-    createFolder(folderName);
+    createFolder(folderName, true);
     closeModal();
   };
 

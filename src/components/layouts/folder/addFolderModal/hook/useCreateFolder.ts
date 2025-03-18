@@ -9,11 +9,11 @@ export const useCreateFolder = () => {
   const id = useSelector((state: RootState) => state.folders.activeFolder);
 
   const createFolder = useCallback(
-    async (folderName?: string) => {
+    async (folderName?: string, inFolder?: boolean) => {
       try {
         const resData = await api.post("/folders/", {
           name: folderName || "Folder",
-          folderId: id,
+          folderId: inFolder ? id : null,
         });
 
         if (resData?.data) {
