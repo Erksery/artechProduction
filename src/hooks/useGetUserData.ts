@@ -6,18 +6,21 @@ import api from "../api/api";
 import { AxiosResponse } from "axios";
 import { User } from "../interfaces/user";
 import { API_ROUTES } from "../api/routes";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileResponse {
   userData: User;
 }
 
 export const useGetUserData = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const getUser = useCallback(async () => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     if (!refreshToken) {
+      navigate("/sign");
       console.log("Отсутствует токен авторизации");
       return;
     }

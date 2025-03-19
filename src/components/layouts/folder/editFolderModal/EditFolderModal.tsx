@@ -47,13 +47,15 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ close }) => {
           type="text"
           value={editFolderData.name}
           onChange={handleInputNameChange}
-          placeholder="Название"
+          title="Название"
+          placeholder="New Folder"
         />
         <Input
           type="password"
           value={editFolderData.password}
           onChange={handleInputPasswordChange}
-          placeholder="Пароль"
+          title="Пароль"
+          placeholder="*********"
         />
         <p>Режим видимости</p>
         <PrivacySelector

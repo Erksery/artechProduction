@@ -4,6 +4,7 @@ import { Header } from "../../components/layouts/header/panel/Header";
 import { SideMenu } from "../../components/layouts/sideMenu/SideMenu";
 import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 import { useModal } from "../../hooks/useModal.tsx";
+import { ContentPage } from "../../components/ui/contentPage/ContentPage.tsx";
 
 export const Home = () => {
   const { activeModal } = useModal();
@@ -17,7 +18,9 @@ export const Home = () => {
         <div className={styles.contentContainer}>
           <ErrorBoundary>
             <Header />
-            Home
+            <ContentPage className={styles.content}>
+              Откройте папку для просмотра содержимого
+            </ContentPage>
           </ErrorBoundary>
         </div>
       </div>

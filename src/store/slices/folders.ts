@@ -21,7 +21,7 @@ export const foldersSlice = createSlice({
     addFolder: (state, action: PayloadAction<FolderData[]>) => {
       state.folders = [...state.folders, ...action.payload];
     },
-    removeFolder: (state, action: PayloadAction<number | string>) => {
+    removeFolder: (state, action: PayloadAction<string>) => {
       state.folders = state.folders.filter(
         (folder) => folder.id !== action.payload
       );

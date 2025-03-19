@@ -42,12 +42,12 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
       <Link
         to={`/folder/${folder.id}`}
         className={`${styles.folderCard} ${
-          Number(activeFolder) === folder.id ? styles.active : ""
+          activeFolder === folder.id ? styles.active : ""
         }`}
         draggable={false}
       >
         <div className={styles.container}>
-          {Number(activeFolder) === folder.id ? (
+          {activeFolder === folder.id ? (
             <FcOpenedFolder
               className={`${styles.icon} ${
                 folder.privacy === "Private" && styles.private
@@ -64,18 +64,18 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
           <div className={styles.info}>
             <p>{folder.name}</p>
 
-            <label>Создал: {folder.creator.login}</label>
+            {/*<label>Создал: {folder.creator[0]}</label> */}
           </div>
         </div>
 
         <div className={styles.tools}>
-          <button className={styles.button} onClick={toggleListOpen}>
-            {subFolders.length > 0 && (
+          {subFolders.length > 0 && (
+            <button className={styles.button} onClick={toggleListOpen}>
               <div style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}>
                 <IoChevronDownOutline />
               </div>
-            )}
-          </button>
+            </button>
+          )}
           <MenuContainer
             element={<FolderMenu id={folder.id} close={closeMenu} />}
             open={menuOpen}

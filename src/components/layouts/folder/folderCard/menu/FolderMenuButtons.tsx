@@ -3,13 +3,14 @@ import { MdOutlineDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
 import { EditFolderModal } from "../../editFolderModal/EditFolderModal";
+import { JSX } from "react";
 
 export const getFolderMenuButtons = (
-  id: number,
+  id: string,
   openModal: (modal: JSX.Element) => void,
   closeModal: () => void,
   close: () => void,
-  deleteFolder: (id: number | string) => void
+  deleteFolder: (id: string) => void
 ) => [
   {
     id: 1,

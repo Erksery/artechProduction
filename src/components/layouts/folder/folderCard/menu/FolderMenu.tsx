@@ -5,7 +5,7 @@ import { getFolderMenuButtons } from "./FolderMenuButtons";
 import { useDeleteFolder } from "./hooks/useDeleteFolder";
 
 interface FolderMenuProps {
-  id: number;
+  id: string;
   close: () => void;
 }
 

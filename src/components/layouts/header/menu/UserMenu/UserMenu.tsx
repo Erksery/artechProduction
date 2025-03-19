@@ -3,8 +3,10 @@ import { MenuButton } from "../../../../ui/menu/button/MenuButton";
 
 import { IoSettingsSharp } from "react-icons/io5";
 import { TbDoorExit } from "react-icons/tb";
+import { useLogout } from "./hooks/useLogout";
 
 export const UserMenu = () => {
+  const { logout } = useLogout();
   const buttons = [
     {
       id: 1,
@@ -21,7 +23,7 @@ export const UserMenu = () => {
       title: "Выйти",
       icon: <TbDoorExit />,
       event: () => {
-        console.log("1");
+        logout();
       },
       red: true,
     },

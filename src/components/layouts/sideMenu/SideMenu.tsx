@@ -27,7 +27,11 @@ export const SideMenu: React.FC = () => {
             <RiAddLine />
           </motion.button>
         </div>
-        <FolderList folders={folders} />
+        {folders.length !== 0 ? (
+          <FolderList folders={folders} />
+        ) : (
+          <div className={styles.boundary}>Доступные вам папки отсутствуют</div>
+        )}
       </div>
     </div>
   );

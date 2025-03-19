@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import styles from "./ContentPage.module.scss";
 
 interface Props {
-  children: ReactNode;
-  className: string;
+  children?: ReactNode;
+  className?: string;
 }
 
 export const ContentPage = ({ children, className }: Props) => {
