@@ -1,10 +1,9 @@
 export interface FileData {
-  id: number;
+  id: string;
   name: string;
   originalName: string;
-  type: string;
-  folderId: number;
-  creator: number;
-  createdAt: string;
-  updatedAt: string;
+  mimeType: string;
+  folderId: string;
+  creator: string;
+  size: number;
 }

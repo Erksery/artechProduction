@@ -15,17 +15,17 @@ const FilesListComponent: React.FC<FilesListProps> = ({
   cardSize,
   padding = 5,
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<number[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const editMode = useSelector((state: RootState) => state.files.editMode);
 
   useEffect(() => {
     !editMode && setSelectedFiles([]);
   }, [editMode]);
 
-  const addSelectedFile = (file: number) => {
+  const addSelectedFile = (file: string) => {
     editMode && setSelectedFiles((prev) => [...prev, file]);
   };
-  const deleteSelectedFile = (file: number) => {
+  const deleteSelectedFile = (file: string) => {
     editMode && setSelectedFiles(() => selectedFiles.filter((f) => f !== file));
   };
 

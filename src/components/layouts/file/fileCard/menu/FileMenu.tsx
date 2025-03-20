@@ -8,7 +8,7 @@ import { getFileMenuButtons } from "./FileMenuButtons";
 import { useDeleteFile } from "./hooks/useDeleteFile";
 
 interface FileMenuProps {
-  fileId: number;
+  fileId: string;
   activeFile: number;
   close: () => void;
 }

@@ -13,7 +13,7 @@ interface UploadProps {
   setFiles: React.Dispatch<React.SetStateAction<FileWithPreview[]>>;
 }
 
-export const Upload: React.FC<UploadProps> = ({ files, setFiles }) => {
+export const Upload: React.FC<UploadProps> = ({ setFiles }) => {
   const uploadRef = useRef<HTMLInputElement | null>(null);
 
   const {
@@ -23,8 +23,6 @@ export const Upload: React.FC<UploadProps> = ({ files, setFiles }) => {
     handleDrop,
     handleFileChange,
   } = useSelectedFiles(setFiles);
-
-  console.log(files);
 
   return (
     <motion.label

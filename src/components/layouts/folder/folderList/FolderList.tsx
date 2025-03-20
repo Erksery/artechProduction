@@ -15,7 +15,7 @@ export const FolderList: React.FC<FolderListProps> = ({ folders }) => {
   return (
     <div className={styles.list}>
       {parentFolders.map((folder) => (
-        <FolderCard folder={folder} folders={folders} />
+        <FolderCard key={folder.id} folder={folder} folders={folders} />
       ))}
     </div>
   );

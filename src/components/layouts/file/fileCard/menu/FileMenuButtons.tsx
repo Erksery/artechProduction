@@ -6,6 +6,7 @@ import { FileViewModal } from "../../modals/fileViewModal/FileViewModal";
 import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
 import { AppDispatch } from "../../../../../store";
 import { setActiveFile } from "../../../../../store/slices/files";
+import { JSX } from "react";
 
 interface ButtonConfig {
   id: number;
@@ -22,7 +23,7 @@ export const getFileMenuButtons = (
   activeFile: number,
   fileDelete: (id: number | string) => Promise<void>,
   dispatch: AppDispatch,
-  fileId: number
+  fileId: string
 ): ButtonConfig[] => [
   {
     id: 1,

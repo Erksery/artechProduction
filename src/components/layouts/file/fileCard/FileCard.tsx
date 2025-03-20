@@ -8,13 +8,15 @@ import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { FileMenu } from "./menu/FileMenu";
 import { FileData } from "../../../../interfaces/file";
 import { FileSkeleton } from "./FileSkeleton";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
 
 interface FileCardProps {
   file: FileData;
   i: number;
-  selected: number[];
-  addSelectedFile: (file: number) => void;
-  deleteSelectedFile: (file: number) => void;
+  selected: string[];
+  addSelectedFile: (file: string) => void;
+  deleteSelectedFile: (file: string) => void;
 }
 
 export const FileCard: React.FC<FileCardProps> = ({
@@ -28,6 +30,10 @@ export const FileCard: React.FC<FileCardProps> = ({
 
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  const activeFolder = useSelector(
+    (state: RootState) => state.folders.activeFolder
+  );
 
   const closeMenu = () => {
     setFileMenu(false);
@@ -59,11 +65,11 @@ export const FileCard: React.FC<FileCardProps> = ({
             onDoubleClick={() => addSelectedFile(file.id)}
             className={`${styles.card} ${fileSelected && styles.selected}`}
           >
-            <FileImage src={file.name} />
+            <FileImage src={file.name} folderId={activeFolder} />
             <div className={styles.info}>
               <p className={styles.type}>
                 <PiImagesSquare className={styles.icon} />
-                {file.type}
+                {file.mimeType}
               </p>
               <div className={styles.menu}>
                 <p className={styles.name}>{file.name}</p>

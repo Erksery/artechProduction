@@ -4,6 +4,7 @@ import config from "../../../../../config";
 
 interface FileImageProps {
   src: string;
+  folderId?: string;
   height?: string;
   bgColor?: string;
   compress?: boolean;
@@ -13,27 +14,21 @@ export const FileImage: React.FC<FileImageProps> = ({
   src,
   height = "160px",
   compress = true,
+  folderId,
 }) => {
   const [isFullImageLoaded, setIsFullImageLoaded] = useState(false);
 
-  const compressedImageURL = `${config.apiUrl}/compressedImage/${src}`;
-  const fullImageURL = `${config.apiUrl}/image/${src}`;
+  const fullImageURL = `${config.apiUrl}/files/image/folder/${folderId}/file/${src}`;
 
   return (
     <div style={{ minHeight: height }} className={styles.imageContainer}>
       <div
         className={styles.backgroundImage}
-        style={{ backgroundImage: `url(${compressedImageURL})` }}
+        style={{ backgroundImage: `url(${fullImageURL})` }}
       />
       <img
         loading="lazy"
-        src={
-          compress
-            ? compressedImageURL
-            : isFullImageLoaded
-            ? fullImageURL
-            : compressedImageURL
-        }
+        src={fullImageURL}
         alt="image"
         draggable="false"
         className={styles.mainImage}

@@ -1,9 +1,16 @@
-import api from "../../../../../../api/api";
+import axios from "axios";
 
 export const useLogout = () => {
   const logout = async () => {
     try {
-      const resData = await api.delete("/auth/logout");
+      const refreshToken = localStorage.getItem("refreshToken");
+      const resData = await axios.delete("/api/auth/logout", {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      });
+      localStorage.removeItem("refreshToken");
+      location.reload();
       console.log(resData);
     } catch (err) {
       console.error("Ошибка при попытке выхода из аккаунта", err);
