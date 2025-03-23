@@ -1,20 +1,18 @@
-import axios from "axios";
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../../../store";
 import { deleteFile } from "../../../../../../store/slices/files";
+import api from "../../../../../../api/api";
 
 export const useDeleteFile = () => {
+  const activeFolder = useSelector(
+    (state: RootState) => state.folders.activeFolder
+  );
   const dispatch = useDispatch<AppDispatch>();
-  const fileDelete = useCallback(async (id: number | string) => {
+  const fileDelete = useCallback(async (fileId: string) => {
     try {
-      const response = await axios.delete(`/api/files/deleteFile/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(response.data);
-      dispatch(deleteFile(Number(response.data.fileId)));
+      await api.delete(`/files/folder/${activeFolder}/file/${fileId}`);
+      dispatch(deleteFile(fileId));
     } catch (err) {
       console.log("Ошибка при удалении файла");
     }

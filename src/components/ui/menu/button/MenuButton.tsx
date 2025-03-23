@@ -14,7 +14,6 @@ interface MenuButtonProps {
 export const MenuButton: React.FC<MenuButtonProps> = ({
   event,
   icon,
-
   title,
   description,
   height = 40,

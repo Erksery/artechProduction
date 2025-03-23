@@ -1,45 +1,33 @@
-@use "@/variables";
-
 .imageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-height: 160px;
-
   border-radius: 18px;
   background-color: transparent;
   position: relative;
+}
+
+.fixedSVG {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
   overflow: hidden;
+}
+.svg-filter {
+  position: fixed;
+  width: 0;
+  height: 0;
+}
 
-  .backgroundImage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    filter: blur(10px);
-    z-index: 0;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse, #24283300 0%, variables.$panel 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  img {
-    width: 100%;
-    object-fit: cover;
-    opacity: 0.8;
-    z-index: 1;
-  }
+img {
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  z-index: 1;
+  filter: url(#shadow); // Применяем SVG фильтр
+  transition: filter 0.3s;
 }

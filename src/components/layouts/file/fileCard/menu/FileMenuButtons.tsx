@@ -21,7 +21,7 @@ export const getFileMenuButtons = (
   closeModal: () => void,
   close: () => void,
   activeFile: number,
-  fileDelete: (id: number | string) => Promise<void>,
+  fileDelete: (id: string) => Promise<void>,
   dispatch: AppDispatch,
   fileId: string
 ): ButtonConfig[] => [
