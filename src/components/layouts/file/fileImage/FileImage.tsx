@@ -22,32 +22,6 @@ export const FileImage: React.FC<FileImageProps> = ({
 
   return (
     <div style={{ minHeight: height }} className={styles.imageContainer}>
-      <svg aria-hidden="true" className={styles.svgFilter}>
-        <filter
-          id="shadow"
-          x="-100%"
-          y="-100%"
-          width="1000px"
-          height="300px"
-          colorInterpolationFilters="sRGB"
-          primitiveUnits="objectBoundingBox"
-        >
-          <feGaussianBlur stdDeviation="0.1" result="blur" />
-          <feOffset in="blur" dx="0" dy="-0.2" result="topBlur" />
-          <feOffset in="blur" dx="0" dy="0.2" result="bottomBlur" />
-
-          <feMerge>
-            <feMergeNode in="topBlur" />
-            <feMergeNode in="bottomBlur" />
-          </feMerge>
-
-          <feDisplacementMap in="in" scale="0.1" yChannelSelector="R" />
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.6" />
-          </feComponentTransfer>
-          <feBlend in="SourceGraphic" />
-        </filter>
-      </svg>
       <img
         loading="lazy"
         src={fullImageURL}

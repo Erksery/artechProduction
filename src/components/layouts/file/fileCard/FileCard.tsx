@@ -10,6 +10,8 @@ import { FileData } from "../../../../interfaces/file";
 import { FileSkeleton } from "./FileSkeleton";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
+import { fileTypes } from "../../../../config/fileTypes";
+import { imageTypes } from "../../../../config/imageTypes";
 
 interface FileCardProps {
   file: FileData;
@@ -41,6 +43,10 @@ export const FileCard: React.FC<FileCardProps> = ({
 
   const fileSelected = selected.includes(file.id);
 
+  const fileSvg = fileTypes.find((element) =>
+    element.mimeType.includes(file.mimeType)
+  );
+
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
@@ -65,14 +71,23 @@ export const FileCard: React.FC<FileCardProps> = ({
             onDoubleClick={() => addSelectedFile(file.id)}
             className={`${styles.card} ${fileSelected && styles.selected}`}
           >
-            <FileImage src={file.name} folderId={activeFolder} />
+            <div className={styles.fileContainer}>
+              {imageTypes.includes(file.mimeType) ? (
+                <FileImage src={file.name} folderId={activeFolder} />
+              ) : (
+                <div className={styles.fileIcon}>
+                  {fileSvg ? fileSvg.svg : fileTypes[0].svg}
+                </div>
+              )}
+            </div>
+
             <div className={styles.info}>
               <p className={styles.type}>
                 <PiImagesSquare className={styles.icon} />
-                {file.mimeType}
+                <span>{file.mimeType}</span>
               </p>
               <div className={styles.menu}>
-                <p className={styles.name}>{file.name}</p>
+                <p className={styles.name}>{file.originalFilename}</p>
                 <MenuContainer
                   element={
                     <FileMenu

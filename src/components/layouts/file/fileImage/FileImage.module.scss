@@ -7,16 +7,16 @@
   border-radius: 18px;
   background-color: transparent;
   position: relative;
+  //overflow: hidden;
 }
-
-.fixedSVG {
+svg[aria-hidden="true"] {
   position: fixed;
   top: 0;
   left: 0;
   width: 0;
   height: 0;
-  overflow: hidden;
 }
+
 .svg-filter {
   position: fixed;
   width: 0;
@@ -25,9 +25,10 @@
 
 img {
   width: 100%;
-  object-fit: cover;
-  opacity: 0.8;
+  max-height: 150px;
+  object-fit: contain;
+
   z-index: 1;
-  filter: url(#shadow); // Применяем SVG фильтр
+  filter: url(#shadow);
   transition: filter 0.3s;
 }

@@ -11,6 +11,8 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import { IoSettingsSharp } from "react-icons/io5";
 import { MenuContainer } from "../../../../ui/menu/MenuContainer";
 import { FileSettingMenu } from "./menu/FileSettingMenu";
+import { fileTypes } from "../../../../../config/fileTypes";
+import { imageTypes } from "../../../../../config/imageTypes";
 
 interface FileViewModalProps {
   activeFile: number;
@@ -21,6 +23,9 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const files = useSelector((state: RootState) => state.files.files);
+  const activeFolder = useSelector(
+    (state: RootState) => state.folders.activeFolder
+  );
 
   const forwardList = () => {
     if (files.length - 1 !== openFile) {
@@ -33,6 +38,10 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
       setOpenFile((prev) => prev - 1);
     }
   };
+
+  const fileSvg = fileTypes.find((element) =>
+    element.mimeType.includes(files[openFile].mimeType)
+  );
 
   return (
     <Modal>
@@ -53,11 +62,17 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
           </button>
 
           <div className={styles.viewer}>
-            <FileImage
-              src={files[openFile].name}
-              height={"100%"}
-              compress={true}
-            />
+            {imageTypes.includes(files[openFile].mimeType) ? (
+              <FileImage
+                src={files[openFile].name}
+                folderId={activeFolder}
+                height="100%"
+              />
+            ) : (
+              <div className={styles.fileIcon}>
+                {fileSvg ? fileSvg.svg : fileTypes[0].svg}
+              </div>
+            )}
           </div>
           <button
             onClick={forwardList}
