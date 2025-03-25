@@ -33,7 +33,7 @@ export const useUpload = (id: string | undefined) => {
           },
         });
 
-        dispatch(addFiles([response.data]));
+        dispatch(addFiles([response.data.file]));
         return response.data.file;
       });
 

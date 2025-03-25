@@ -33,6 +33,7 @@ export const useGetUserData = () => {
       );
       dispatch(setUserData(resData.data.userData));
     } catch (err) {
+      navigate("/sign");
       console.log(err);
     }
   }, [dispatch]);

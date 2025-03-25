@@ -34,7 +34,6 @@ const FilesListComponent: React.FC<FilesListProps> = ({
     <div
       style={{
         padding: padding,
-        gridTemplateColumns: `repeat(auto-fill, minmax(${cardSize}px, 1fr))`,
       }}
       className={styles.table}
     >

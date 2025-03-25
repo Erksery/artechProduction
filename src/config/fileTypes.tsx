@@ -17,6 +17,7 @@ export const fileTypes = [
   {
     mimeType: [
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
     ],
     svg: <DocSvg />,
   },
