@@ -63,7 +63,7 @@ export const Header = () => {
             open={userMenu}
             setOpen={setUserMenu}
           >
-            <UserLogo userData={user} />
+            <UserLogo user={user} />
           </MenuContainer>
         </div>
       </div>

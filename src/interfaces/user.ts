@@ -11,5 +11,6 @@ export interface User {
   id: string | null;
   login: string | null;
   role: RoleType | null;
-  status: StatusType | null;
+  status?: StatusType | null;
+  avatar_url?: string | null;
 }

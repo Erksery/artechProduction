@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./UserLogo.module.scss";
-import { UserData } from "../../../../interfaces/user";
+import { User } from "../../../../interfaces/user";
 
 interface UserLogoProps {
-  userData: UserData | null;
+  user: User | null;
 }
 
-export const UserLogo: React.FC<UserLogoProps> = ({ userData }) => {
+export const UserLogo: React.FC<UserLogoProps> = ({ user }) => {
   return (
     <div className={styles.logo}>
-      {userData?.login && userData.login.charAt(0)}
+      <h3>{user?.login && user.login.charAt(0)}</h3>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import styles from "./SignIn.module.scss";
 import { Input } from "../../../ui/input/Input";
+import { SubmitButton } from "../../../ui/buttons/submitButton/SubmitButton";
 
 interface Props {
   error: string | null;
@@ -16,7 +17,7 @@ export const SignIn = ({ error, loading, activateTab }: Props) => {
         type="text"
         name="login"
         id="login"
-        placeholder="example@gmail.com"
+        placeholder="nickname"
         autoComplete="current-password"
         required
       />
@@ -34,9 +35,13 @@ export const SignIn = ({ error, loading, activateTab }: Props) => {
           <p>{error}</p>
         </div>
       )}
-      <button type="submit" disabled={loading} className={styles.submitButton}>
-        {loading ? "Загрузка..." : "Войти"}
-      </button>
+
+      <SubmitButton
+        text={loading ? "Загрузка..." : "Войти"}
+        type="submit"
+        disabled={loading}
+        className={styles.submitButton}
+      />
       <div className={styles.route}>
         <p>Еще нет аккаунта?</p>
         <button onClick={() => activateTab("register")} className={styles.link}>

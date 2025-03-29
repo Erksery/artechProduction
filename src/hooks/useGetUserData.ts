@@ -8,9 +8,7 @@ import { User } from "../interfaces/user";
 import { API_ROUTES } from "../api/routes";
 import { useNavigate } from "react-router-dom";
 
-interface ProfileResponse {
-  userData: User;
-}
+type ProfileResponse = User;
 
 export const useGetUserData = () => {
   const navigate = useNavigate();
@@ -31,14 +29,16 @@ export const useGetUserData = () => {
           withCredentials: true,
         }
       );
-      dispatch(setUserData(resData.data.userData));
+      dispatch(setUserData(resData.data));
     } catch (err) {
       navigate("/sign");
       console.log(err);
     }
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
+
+  return getUser;
 };

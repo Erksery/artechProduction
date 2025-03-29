@@ -3,6 +3,7 @@ import { AppRouter } from "./routes/AppRouter";
 
 function App() {
   useGetUserData();
+
   return <AppRouter />;
 }
 

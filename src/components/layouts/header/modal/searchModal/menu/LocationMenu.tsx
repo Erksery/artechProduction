@@ -1,7 +1,7 @@
 import styles from "./LocationMenu.module.scss";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { MdOutlineSnippetFolder } from "react-icons/md";
-import { CardButton } from "../../../../../ui/cardButton/CardButton";
+import { CardButton } from "../../../../../ui/buttons/cardButton/CardButton";
 import React from "react";
 
 interface LocationMenuProps {
