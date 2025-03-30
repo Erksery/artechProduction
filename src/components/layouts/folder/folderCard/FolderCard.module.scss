@@ -10,9 +10,11 @@
   max-height: 70px;
   height: 70px;
   border-radius: 12px;
+  border: solid 2px transparent;
   background-color: variables.$folder-component;
   box-sizing: border-box;
   transition: 0.2s;
+  user-select: none;
 
   * {
     cursor: pointer;
@@ -98,4 +100,8 @@
     width: 100%;
     overflow: none;
   }
+}
+
+.drop {
+  border-color: variables.$dark-theme;
 }

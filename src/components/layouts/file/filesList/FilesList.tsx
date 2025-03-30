@@ -12,7 +12,6 @@ interface FilesListProps {
 }
 const FilesListComponent: React.FC<FilesListProps> = ({
   files,
-  cardSize,
   padding = 5,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);

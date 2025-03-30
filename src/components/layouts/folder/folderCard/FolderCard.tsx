@@ -4,13 +4,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { FolderMenu } from "./menu/FolderMenu";
 import { FolderData } from "../../../../interfaces/folder";
-
 import { FcOpenedFolder, FcFolder } from "react-icons/fc";
 import { MdMoreVert } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
+import { useDrop } from "react-dnd";
 
 interface FolderCardProps {
   folder: FolderData;
@@ -20,6 +20,7 @@ interface FolderCardProps {
 export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [subListOpen, setSubListOpen] = useState(false);
+
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
   );
@@ -37,56 +38,77 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: "FILE",
+    drop: (item) => {
+      console.log("Файл перемещен:", item.file);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  });
   return (
     <>
-      <Link
-        to={`/folder/${folder.id}`}
-        className={`${styles.folderCard} ${
-          activeFolder === folder.id ? styles.active : ""
-        }`}
-        draggable={false}
-      >
-        <div className={styles.container}>
-          {activeFolder === folder.id ? (
-            <FcOpenedFolder
-              className={`${styles.icon} ${
-                folder.privacy === "Private" && styles.private
-              }`}
-            />
-          ) : (
-            <FcFolder
-              className={`${styles.icon} ${
-                folder.privacy === "Private" && styles.private
-              }`}
-            />
-          )}
+      <motion.div animate={{ scale: isOver ? 0.95 : 1 }}>
+        <Link
+          ref={drop}
+          key={folder.id}
+          to={`/folder/${folder.id}`}
+          className={`${styles.folderCard} ${
+            activeFolder === folder.id ? styles.active : ""
+          } ${isOver ? styles.drop : ""} `}
+          draggable={false}
+        >
+          <div className={styles.container}>
+            {activeFolder === folder.id ? (
+              <FcOpenedFolder
+                className={`${styles.icon} ${
+                  folder.privacy === "Private" && styles.private
+                }`}
+              />
+            ) : (
+              <FcFolder
+                className={`${styles.icon} ${
+                  folder.privacy === "Private" && styles.private
+                }`}
+              />
+            )}
 
-          <div className={styles.info}>
-            <p>{folder.name}</p>
+            <div className={styles.info}>
+              <p>{folder.name}</p>
 
-            {/*<label>Создал: {folder.creator[0]}</label> */}
+              {/*<label>Создал: {folder.creator[0]}</label> */}
+            </div>
           </div>
-        </div>
 
-        <div className={styles.tools}>
-          {subFolders.length > 0 && (
-            <button className={styles.button} onClick={toggleListOpen}>
-              <div style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}>
-                <IoChevronDownOutline />
-              </div>
-            </button>
-          )}
-          <MenuContainer
-            element={<FolderMenu id={folder.id} close={closeMenu} />}
-            open={menuOpen}
-            setOpen={setMenuOpen}
-          >
-            <button className={styles.button} onClick={() => setMenuOpen(true)}>
-              <MdMoreVert />
-            </button>
-          </MenuContainer>
-        </div>
-      </Link>
+          <div className={styles.tools}>
+            {subFolders.length > 0 && (
+              <button className={styles.button} onClick={toggleListOpen}>
+                <div
+                  style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}
+                >
+                  <IoChevronDownOutline />
+                </div>
+              </button>
+            )}
+            <MenuContainer
+              element={<FolderMenu id={folder.id} close={closeMenu} />}
+              open={menuOpen}
+              setOpen={setMenuOpen}
+            >
+              <button
+                className={styles.button}
+                onClick={() => setMenuOpen(true)}
+              >
+                <MdMoreVert />
+              </button>
+            </MenuContainer>
+          </div>
+        </Link>
+      </motion.div>
+
       <AnimatePresence>
         {subListOpen && subFolders.length > 0 && (
           <motion.div

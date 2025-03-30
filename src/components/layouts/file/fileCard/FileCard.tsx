@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import { fileTypes } from "../../../../config/fileTypes";
 import { imageTypes } from "../../../../config/imageTypes";
+import { useDrag } from "react-dnd";
 
 interface FileCardProps {
   file: FileData;
@@ -29,7 +30,6 @@ export const FileCard: React.FC<FileCardProps> = ({
   deleteSelectedFile,
 }) => {
   const [fileMenu, setFileMenu] = useState(false);
-
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -46,6 +46,14 @@ export const FileCard: React.FC<FileCardProps> = ({
   const fileSvg = fileTypes.find((element) =>
     element.mimeType.includes(file.mimeType)
   );
+
+  const [{ isDragging }, drag] = useDrag({
+    type: "FILE",
+    item: { file },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -64,12 +72,17 @@ export const FileCard: React.FC<FileCardProps> = ({
 
   return (
     <AnimatePresence>
-      <motion.div ref={ref} exit={{ scale: 0.6 }}>
+      <motion.div ref={ref} exit={{ scale: 0.6 }} draggable={false}>
         {isVisible ? (
           <motion.div
             onClick={() => deleteSelectedFile(file.id)}
             onDoubleClick={() => addSelectedFile(file.id)}
             className={`${styles.card} ${fileSelected && styles.selected}`}
+            ref={drag}
+            style={{
+              opacity: isDragging ? 0.5 : 1,
+            }}
+            animate={{ scale: isDragging ? 0.9 : 1 }}
           >
             <div className={styles.fileContainer}>
               {imageTypes.includes(file.mimeType) ? (
