@@ -1,14 +1,15 @@
 .imageContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  max-height: 160px;
+  height: 100%;
+  max-height: 100%;
   border-radius: 18px;
   background-color: transparent;
   position: relative;
-  //overflow: hidden;
+  overflow: hidden;
 }
+
 svg[aria-hidden="true"] {
   position: fixed;
   top: 0;
@@ -24,11 +25,15 @@ svg[aria-hidden="true"] {
 }
 
 img {
+  object-fit: cover;
   width: 100%;
-  max-height: 150px;
-  object-fit: contain;
-
+  height: 100%;
   z-index: 1;
   filter: url(#shadow);
-  transition: filter 0.3s;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, filter 0.3s;
+}
+
+.visible {
+  opacity: 1;
 }

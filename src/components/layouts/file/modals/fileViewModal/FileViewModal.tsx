@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import styles from "./FileViewModal.module.scss";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Modal } from "../../../../ui/modal/Modal";
 import { useSelector } from "react-redux";
@@ -67,6 +67,7 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
                 src={files[openFile].name}
                 folderId={activeFolder}
                 height="100%"
+                className={styles.image}
               />
             ) : (
               <div className={styles.fileIcon}>

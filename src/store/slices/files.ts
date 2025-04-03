@@ -26,6 +26,15 @@ export const filesSlice = createSlice({
     setActiveFile: (state, action) => {
       state.activeFile = action.payload;
     },
+    edit: (state, action) => {
+      state.files = state.files.filter((file) => file.id !== action.payload.id);
+      state.files = [...state.files, ...action.payload.file];
+    },
+    updateFile: (state, action: PayloadAction<FileData>) => {
+      state.files = state.files.map((file) =>
+        file.id === action.payload.id ? action.payload : file
+      );
+    },
     deleteFile: (state, action) => {
       state.files = state.files.filter((file) => file.id !== action.payload);
     },
@@ -35,7 +44,14 @@ export const filesSlice = createSlice({
   },
 });
 
-export const { setFiles, addFiles, setActiveFile, deleteFile, toggleEditMode } =
-  filesSlice.actions;
+export const {
+  setFiles,
+  addFiles,
+  setActiveFile,
+  deleteFile,
+  edit,
+  toggleEditMode,
+  updateFile,
+} = filesSlice.actions;
 
 export default filesSlice.reducer;

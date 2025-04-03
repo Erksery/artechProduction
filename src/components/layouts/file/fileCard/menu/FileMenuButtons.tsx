@@ -20,6 +20,7 @@ export const getFileMenuButtons = (
   openModal: (modal: JSX.Element) => void,
   closeModal: () => void,
   close: () => void,
+  editMode: () => void,
   activeFile: number,
   fileDelete: (id: string) => Promise<void>,
   dispatch: AppDispatch,
@@ -47,11 +48,11 @@ export const getFileMenuButtons = (
   },
   {
     id: 3,
-    title: "Редактировать",
+    title: "Переименовать",
     icon: <LuFolderPen />,
     red: false,
     event: () => {
-      console.log("1"), close();
+      editMode(), close();
     },
   },
   {

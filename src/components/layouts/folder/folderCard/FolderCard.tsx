@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./FolderCard.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
@@ -11,15 +11,25 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import { useDrop } from "react-dnd";
+import { FileData } from "../../../../interfaces/file";
+import { useEditFile } from "../../../../hooks/useEditFile";
+import { useGetUser } from "../../../../hooks/useGetUser";
+import { UserLogo } from "../../user/UserLogo/UserLogo";
 
 interface FolderCardProps {
   folder: FolderData;
   folders: FolderData[];
 }
 
+interface FileType {
+  file: FileData;
+}
+
 export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [subListOpen, setSubListOpen] = useState(false);
+  const { editFile } = useEditFile();
+  const { getUser, userData } = useGetUser();
 
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
@@ -39,16 +49,21 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
     setMenuOpen(false);
   };
 
-  const [{ isOver, canDrop }, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: "FILE",
-    drop: (item) => {
+    drop: (item: FileType) => {
       console.log("Файл перемещен:", item.file);
+      editFile(folder.id, item.file.id, { folderId: folder.id });
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
+      // canDrop: monitor.canDrop(),
     }),
   });
+
+  useEffect(() => {
+    getUser(folder.creator);
+  }, [folder.creator]);
   return (
     <>
       <motion.div animate={{ scale: isOver ? 0.95 : 1 }}>
@@ -62,24 +77,27 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
           draggable={false}
         >
           <div className={styles.container}>
-            {activeFolder === folder.id ? (
-              <FcOpenedFolder
-                className={`${styles.icon} ${
-                  folder.privacy === "Private" && styles.private
-                }`}
-              />
-            ) : (
-              <FcFolder
-                className={`${styles.icon} ${
-                  folder.privacy === "Private" && styles.private
-                }`}
-              />
-            )}
+            <div className={styles.iconContainer}>
+              {activeFolder === folder.id ? (
+                <FcOpenedFolder
+                  className={`${styles.icon} ${
+                    folder.privacy === "Private" && styles.private
+                  }`}
+                />
+              ) : (
+                <FcFolder
+                  className={`${styles.icon} ${
+                    folder.privacy === "Private" && styles.private
+                  }`}
+                />
+              )}
+              <div className={styles.logoContainer}>
+                <UserLogo user={userData} className={styles.logo} />
+              </div>
+            </div>
 
             <div className={styles.info}>
               <p>{folder.name}</p>
-
-              {/*<label>Создал: {folder.creator[0]}</label> */}
             </div>
           </div>
 

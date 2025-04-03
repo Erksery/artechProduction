@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { setUserData } from "../store/slices/user";
@@ -11,14 +11,14 @@ import { useNavigate } from "react-router-dom";
 type ProfileResponse = User;
 
 export const useGetUserData = () => {
-  const navigate = useNavigate();
+  const navigateRef = useRef(useNavigate());
   const dispatch = useDispatch<AppDispatch>();
 
   const getUser = useCallback(async () => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     if (!refreshToken) {
-      navigate("/sign");
+      navigateRef.current("/sign");
       console.log("Отсутствует токен авторизации");
       return;
     }
@@ -31,14 +31,14 @@ export const useGetUserData = () => {
       );
       dispatch(setUserData(resData.data));
     } catch (err) {
-      navigate("/sign");
+      navigateRef.current("/sign");
       console.log(err);
     }
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   useEffect(() => {
     getUser();
-  }, [getUser]);
+  }, []);
 
   return getUser;
 };

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FileCard.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { FileImage } from "../fileImage/FileImage";
-import { PiImagesSquare } from "react-icons/pi";
 import { IoMdMore } from "react-icons/io";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { FileMenu } from "./menu/FileMenu";
@@ -13,6 +12,7 @@ import { RootState } from "../../../../store";
 import { fileTypes } from "../../../../config/fileTypes";
 import { imageTypes } from "../../../../config/imageTypes";
 import { useDrag } from "react-dnd";
+import { useEditFile } from "../../../../hooks/useEditFile";
 
 interface FileCardProps {
   file: FileData;
@@ -31,11 +31,15 @@ export const FileCard: React.FC<FileCardProps> = ({
 }) => {
   const [fileMenu, setFileMenu] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
   const ref = useRef<HTMLDivElement>(null);
 
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
   );
+
+  const { editMode, editing, inputRef, setEditValue, submitEditFile } =
+    useEditFile();
 
   const closeMenu = () => {
     setFileMenu(false);
@@ -96,27 +100,44 @@ export const FileCard: React.FC<FileCardProps> = ({
 
             <div className={styles.info}>
               <p className={styles.type}>
-                <PiImagesSquare className={styles.icon} />
                 <span>{file.mimeType}</span>
               </p>
               <div className={styles.menu}>
-                <p className={styles.name}>{file.originalFilename}</p>
-                <MenuContainer
-                  element={
-                    <FileMenu
-                      fileId={file.id}
-                      activeFile={i}
-                      close={closeMenu}
+                {editing ? (
+                  <form
+                    onSubmit={(e) => submitEditFile(e, file.folderId, file.id)}
+                    className={styles.editContainer}
+                  >
+                    <input
+                      ref={inputRef}
+                      defaultValue={file.originalFilename}
+                      onChange={(e) => setEditValue(e.target.value)}
+                      onBlur={editMode}
                     />
-                  }
-                  open={fileMenu}
-                  setOpen={setFileMenu}
-                  blur={true}
-                >
-                  <button className={styles.menuButton}>
-                    <IoMdMore />
-                  </button>
-                </MenuContainer>
+                    <button>-</button>
+                  </form>
+                ) : (
+                  <>
+                    <p className={styles.name}>{file.originalFilename}</p>
+                    <MenuContainer
+                      element={
+                        <FileMenu
+                          fileId={file.id}
+                          activeFile={i}
+                          close={closeMenu}
+                          editMode={editMode}
+                        />
+                      }
+                      open={fileMenu}
+                      setOpen={setFileMenu}
+                      blur={true}
+                    >
+                      <button className={styles.menuButton}>
+                        <IoMdMore />
+                      </button>
+                    </MenuContainer>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

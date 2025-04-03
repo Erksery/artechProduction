@@ -11,11 +11,13 @@ interface FileMenuProps {
   fileId: string;
   activeFile: number;
   close: () => void;
+  editMode: () => void;
 }
 export const FileMenu: React.FC<FileMenuProps> = ({
   fileId,
   activeFile,
   close,
+  editMode,
 }) => {
   const { openModal, closeModal } = useModal();
   const { fileDelete } = useDeleteFile();
@@ -24,6 +26,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({
     openModal,
     closeModal,
     close,
+    editMode,
     activeFile,
     fileDelete,
     dispatch,

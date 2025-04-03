@@ -8,6 +8,7 @@ interface FileImageProps {
   height?: string;
   bgColor?: string;
   compress?: boolean;
+  className?: string;
 }
 
 export const FileImage: React.FC<FileImageProps> = ({
@@ -15,20 +16,21 @@ export const FileImage: React.FC<FileImageProps> = ({
   height = "160px",
   compress = true,
   folderId,
+  className,
 }) => {
   const [isFullImageLoaded, setIsFullImageLoaded] = useState(false);
 
   const fullImageURL = `${config.apiUrl}/files/image/folder/${folderId}/file/${src}`;
 
   return (
-    <div style={{ minHeight: height }} className={styles.imageContainer}>
+    <div className={`${styles.imageContainer}`} style={{ height }}>
       <img
         loading="lazy"
         src={fullImageURL}
         alt="image"
         draggable="false"
-        className={styles.mainImage}
-        onLoad={() => !compress && setIsFullImageLoaded(true)}
+        className={`${isFullImageLoaded ? styles.visible : ""} ${className}`}
+        onLoad={() => setIsFullImageLoaded(true)}
       />
     </div>
   );
