@@ -5,6 +5,7 @@ import { useModal } from "../../../hooks/useModal";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { motion } from "framer-motion";
 import { CgClose } from "react-icons/cg";
+import { BackgroundModal } from "./BackgroundModal/BackgroundModal";
 
 interface ModalProps {
   children: ReactNode;
@@ -18,12 +19,7 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
   useClickOutside(modalRef, closeModal);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={styles.bg}
-    >
+    <BackgroundModal>
       <motion.div
         ref={modalRef}
         initial={{ scale: "70%" }}
@@ -41,6 +37,6 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
         </div>
         {children}
       </motion.div>
-    </motion.div>
+    </BackgroundModal>
   );
 };

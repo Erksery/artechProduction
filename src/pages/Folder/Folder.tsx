@@ -19,7 +19,7 @@ export const Folder: React.FC = () => {
   const { activeModal } = useModal();
   const files = useSelector((state: RootState) => state.files.files);
 
-  useGetFiles(id);
+  useGetFiles(id, "mimeType=", "originalFilename=asc");
   useActiveFolder(id);
 
   return (

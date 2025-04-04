@@ -10,11 +10,13 @@ import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { SearchModal } from "../modal/searchModal/SearchModal";
 import { AppDispatch, RootState } from "../../../../store";
 
+import { LuSettings2 } from "react-icons/lu";
 import { BiEditAlt } from "react-icons/bi";
 import { RiAddLine } from "react-icons/ri";
 import { IoSearchSharp } from "react-icons/io5";
 import { UserMenu } from "../menu/UserMenu/UserMenu";
 import { toggleEditMode } from "../../../../store/slices/files";
+import { PullMenu } from "../../sideMenu/pullMenu/PullMenu";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -55,6 +57,14 @@ export const Header = () => {
             className={`${styles.addButton} ${editMode && styles.active}`}
           >
             <BiEditAlt />
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            onClick={() => openModal(<PullMenu />)}
+            className={styles.addButton}
+          >
+            <LuSettings2 />
           </motion.button>
         </div>
         <div className={styles.user}>
