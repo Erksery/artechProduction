@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../store";
+import api from "../../../../../../api/api";
 
 interface getSearchFilesProps {
   value: string;
@@ -19,18 +19,14 @@ export const useSearchFile = () => {
       try {
         if (!searchValue.value.trim()) return;
 
-        const res = await axios.get("/api/search", {
+        const resData = await api.get(`/files/searchAllFiles/${folderId}`, {
           params: {
-            value: searchValue.value,
+            searchValue: searchValue.value,
             location: searchValue.location,
-            id: folderId,
-          },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
 
-        setSearchFiles(res.data);
+        setSearchFiles(resData.data);
       } catch (err) {
         console.error("Ошибка при запросе поиска файлов:", err);
       }
