@@ -15,6 +15,7 @@ export const useGetFiles = (
   const getFiles = useCallback(
     async (filter: string, order: string) => {
       try {
+        dispatch(setFiles([]));
         const filesResData = await api.get<FileData[]>(`/files/folder/${id}`, {
           params: {
             filter: filter,

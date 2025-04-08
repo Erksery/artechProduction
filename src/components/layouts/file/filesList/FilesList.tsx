@@ -12,7 +12,7 @@ interface FilesListProps {
 }
 const FilesListComponent: React.FC<FilesListProps> = ({
   files,
-  padding = 5,
+  padding = 0,
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const editMode = useSelector((state: RootState) => state.files.editMode);

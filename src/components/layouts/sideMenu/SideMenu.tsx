@@ -3,11 +3,11 @@ import styles from "./SideMenu.module.scss";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import { FolderList } from "../folder/folderList/FolderList";
 
 import { RiAddLine } from "react-icons/ri";
 import { useCreateFolder } from "../folder/addFolderModal/hook/useCreateFolder";
 import { useGetFolders } from "../../../hooks/useGetFolders";
+import { FolderListFlat } from "../folder/folderList/list/FolderListFlat";
 
 export const SideMenu: React.FC = () => {
   const folders = useSelector((state: RootState) => state.folders.folders);
@@ -28,7 +28,7 @@ export const SideMenu: React.FC = () => {
           </motion.button>
         </div>
         {folders.length !== 0 ? (
-          <FolderList folders={folders} />
+          <FolderListFlat folders={folders} />
         ) : (
           <div className={styles.boundary}>Доступные вам папки отсутствуют</div>
         )}

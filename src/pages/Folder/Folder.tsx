@@ -1,23 +1,17 @@
 import styles from "./Folder.module.scss";
 import { AnimatePresence } from "framer-motion";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import { Header } from "../../components/layouts/header/panel/Header";
 import { SideMenu } from "../../components/layouts/sideMenu/SideMenu";
 import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
-import { FilesList } from "../../components/layouts/file/filesList/FilesList";
 import { useModal } from "../../hooks/useModal.tsx";
 import { useGetFiles } from "../../hooks/useGetFiles.ts";
-
 import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
-
-import { RootState } from "../../store/index.ts";
+import { FolderViewer } from "../../components/layouts/folder/viewer/FolderViewer.tsx";
 
 export const Folder: React.FC = () => {
   const { id } = useParams();
   const { activeModal } = useModal();
-  const files = useSelector((state: RootState) => state.files.files);
 
   useGetFiles(id, "mimeType=", "originalFilename=asc");
   useActiveFolder(id);
@@ -31,7 +25,7 @@ export const Folder: React.FC = () => {
         <div className={styles.contentContainer}>
           <ErrorBoundary>
             <Header />
-            <FilesList files={files} cardSize={200} />
+            <FolderViewer folderId={id} />
           </ErrorBoundary>
         </div>
       </div>

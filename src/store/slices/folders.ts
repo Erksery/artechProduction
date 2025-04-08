@@ -3,11 +3,13 @@ import { FolderData } from "./../../interfaces/folder";
 
 interface FoldersState {
   folders: FolderData[];
+  subFolders: FolderData[];
   activeFolder: string | undefined;
 }
 
 const initialState: FoldersState = {
   folders: [],
+  subFolders: [],
   activeFolder: undefined,
 };
 

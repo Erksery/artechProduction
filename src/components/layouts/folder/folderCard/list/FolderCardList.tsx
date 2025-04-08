@@ -1,20 +1,20 @@
-import React, { useEffect, useMemo, useState } from "react";
-import styles from "./FolderCard.module.scss";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import styles from "./FolderCardList.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import { MenuContainer } from "../../../ui/menu/MenuContainer";
-import { FolderMenu } from "./menu/FolderMenu";
-import { FolderData } from "../../../../interfaces/folder";
+import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { FolderMenu } from "../menu/FolderMenu";
+import { FolderData } from "../../../../../interfaces/folder";
 import { FcOpenedFolder, FcFolder } from "react-icons/fc";
 import { MdMoreVert } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
+import { RootState } from "../../../../../store";
 import { useDrop } from "react-dnd";
-import { FileData } from "../../../../interfaces/file";
-import { useEditFile } from "../../../../hooks/useEditFile";
-import { useGetUser } from "../../../../hooks/useGetUser";
-import { UserLogo } from "../../user/UserLogo/UserLogo";
+import { FileData } from "../../../../../interfaces/file";
+import { useEditFile } from "../../../../../hooks/useEditFile";
+import { useGetUser } from "../../../../../hooks/useGetUser";
+import { UserLogo } from "../../../user/UserLogo/UserLogo";
 
 interface FolderCardProps {
   folder: FolderData;
@@ -25,9 +25,15 @@ interface FileType {
   file: FileData;
 }
 
-export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
+export const FolderCardList: React.FC<FolderCardProps> = ({
+  folder,
+  folders,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [subListOpen, setSubListOpen] = useState(false);
+
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
   const { editFile } = useEditFile();
   const { getUser, userData } = useGetUser();
 
@@ -62,13 +68,20 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
   });
 
   useEffect(() => {
+    if (linkRef.current) {
+      drop(linkRef.current);
+    }
+  }, [drop]);
+
+  useEffect(() => {
     getUser(folder.creator);
   }, [folder.creator]);
+
   return (
     <>
       <motion.div animate={{ scale: isOver ? 0.95 : 1 }}>
         <Link
-          ref={drop}
+          ref={linkRef}
           key={folder.id}
           to={`/folder/${folder.id}`}
           className={`${styles.folderCard} ${
@@ -145,7 +158,11 @@ export const FolderCard: React.FC<FolderCardProps> = ({ folder, folders }) => {
               className={styles.subFolderList}
             >
               {subFolders.map((folder) => (
-                <FolderCard key={folder.id} folder={folder} folders={folders} />
+                <FolderCardList
+                  key={folder.id}
+                  folder={folder}
+                  folders={folders}
+                />
               ))}
             </motion.div>
           </motion.div>
