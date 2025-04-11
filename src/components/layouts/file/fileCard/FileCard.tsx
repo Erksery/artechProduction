@@ -13,6 +13,7 @@ import { fileTypes } from "../../../../config/fileTypes";
 import { imageTypes } from "../../../../config/imageTypes";
 import { useDrag } from "react-dnd";
 import { useEditFile } from "../../../../hooks/useEditFile";
+import { useFormat } from "../../../../hooks/useFormat";
 
 interface FileCardProps {
   file: FileData;
@@ -40,6 +41,7 @@ export const FileCard: React.FC<FileCardProps> = ({
 
   const { editMode, editing, inputRef, setEditValue, submitEditFile } =
     useEditFile();
+  const { formatFileSize } = useFormat();
 
   const closeMenu = () => {
     setFileMenu(false);
@@ -96,6 +98,10 @@ export const FileCard: React.FC<FileCardProps> = ({
                   {fileSvg ? fileSvg.svg : fileTypes[0].svg}
                 </div>
               )}
+
+              <div className={styles.sizeContainer}>
+                <p>{formatFileSize(file.size)}</p>
+              </div>
             </div>
 
             <div className={styles.info}>
