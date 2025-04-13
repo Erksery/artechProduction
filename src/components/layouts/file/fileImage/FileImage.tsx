@@ -14,13 +14,13 @@ interface FileImageProps {
 export const FileImage: React.FC<FileImageProps> = ({
   src,
   height = "160px",
-  compress = true,
+  // compress = true,
   folderId,
   className,
 }) => {
   const [isFullImageLoaded, setIsFullImageLoaded] = useState(false);
 
-  const fullImageURL = `${config.apiUrl}/files/image/folder/${folderId}/file/${src}`;
+  const fullImageURL = `${config.apiUrl}/files/compress_image/folder/${folderId}/file/${src}.webp`;
 
   return (
     <div className={`${styles.imageContainer}`} style={{ height }}>

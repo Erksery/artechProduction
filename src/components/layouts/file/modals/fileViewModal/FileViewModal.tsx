@@ -13,6 +13,7 @@ import { MenuContainer } from "../../../../ui/menu/MenuContainer";
 import { FileSettingMenu } from "./menu/FileSettingMenu";
 import { fileTypes } from "../../../../../config/fileTypes";
 import { imageTypes } from "../../../../../config/imageTypes";
+import { useDownload } from "../../../../../hooks/useDownload";
 
 interface FileViewModalProps {
   activeFile: number;
@@ -26,6 +27,8 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
   );
+
+  const { downloadFile } = useDownload();
 
   const forwardList = () => {
     if (files.length - 1 !== openFile) {
@@ -92,11 +95,12 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
         <div className={styles.info}>
           <div className={styles.null}></div>
           <div className={styles.name}>
-            <p>{files[openFile].name}</p>
+            <p>{files[openFile].originalFilename}</p>
           </div>
 
           <div className={styles.tools}>
             <motion.button
+              onClick={() => downloadFile(activeFolder, files[openFile].name)}
               whileHover={{
                 scale: 0.9,
               }}

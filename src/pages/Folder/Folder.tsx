@@ -13,7 +13,7 @@ export const Folder: React.FC = () => {
   const { id } = useParams();
   const { activeModal } = useModal();
 
-  useGetFiles(id, "mimeType=", "originalFilename=asc");
+  useGetFiles(id);
   useActiveFolder(id);
 
   return (

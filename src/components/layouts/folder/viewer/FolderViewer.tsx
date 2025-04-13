@@ -4,6 +4,7 @@ import { FilesList } from "../../file/filesList/FilesList";
 import { RootState } from "../../../../store";
 import { useMemo } from "react";
 import { FolderListGrid } from "../folderList/grid/FolderListGrid";
+import { FileCategories } from "../../file/fileCategories/FileCategories";
 
 interface Props {
   folderId: string | undefined;
@@ -28,6 +29,9 @@ export const FolderViewer = ({ folderId }: Props) => {
       </div>
       <div className={styles.list}>
         <h3>Файлы {`${files.length}`}</h3>
+        <div>
+          <FileCategories />
+        </div>
         <FilesList files={files} cardSize={200} />
       </div>
     </div>

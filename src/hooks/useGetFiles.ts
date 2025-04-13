@@ -1,36 +1,30 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFiles } from "../store/slices/files";
 import { FileData } from "../interfaces/file";
-import { AppDispatch } from "../store";
+import { AppDispatch, RootState } from "../store";
 import api from "../api/api";
 
-export const useGetFiles = (
-  id: string | undefined,
-  filter: string,
-  order: string
-): void => {
+export const useGetFiles = (id: string | undefined): void => {
   const dispatch = useDispatch<AppDispatch>();
+  const file = useSelector((state: RootState) => state.files);
 
-  const getFiles = useCallback(
-    async (filter: string, order: string) => {
-      try {
-        dispatch(setFiles([]));
-        const filesResData = await api.get<FileData[]>(`/files/folder/${id}`, {
-          params: {
-            filter: filter,
-            order: order,
-          },
-        });
-        dispatch(setFiles(filesResData.data));
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    [id]
-  );
+  const getFiles = useCallback(async () => {
+    try {
+      dispatch(setFiles([]));
+      const filesResData = await api.get<FileData[]>(`/files/folder/${id}`, {
+        params: {
+          filter: `${file.filter.name}=${file.filter.value}`,
+          order: `${file.order.name}=${file.order.value}`,
+        },
+      });
+      dispatch(setFiles(filesResData.data));
+    } catch (err) {
+      console.log(err);
+    }
+  }, [id, file.filter]);
 
   useEffect(() => {
-    getFiles(filter, order);
-  }, [id, getFiles]);
+    getFiles();
+  }, [id, file.filter, getFiles]);
 };
