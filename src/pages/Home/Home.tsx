@@ -1,10 +1,11 @@
 import styles from "./Home.module.scss";
 import { AnimatePresence } from "framer-motion";
 import { Header } from "../../components/layouts/header/panel/Header";
-import { SideMenu } from "../../components/layouts/sideMenu/SideMenu";
+
 import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 import { useModal } from "../../hooks/useModal.tsx";
 import { ContentPage } from "../../components/ui/contentPage/ContentPage.tsx";
+import { SideMenu } from "../../components/layouts/menu/side/SideMenu.tsx";
 
 export const Home = () => {
   const { activeModal } = useModal();

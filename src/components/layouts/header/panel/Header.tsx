@@ -4,19 +4,19 @@ import { useState } from "react";
 import { useModal } from "../../../../hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 
-import { UserLogo } from "../../user/UserLogo/UserLogo";
-import { AddModal } from "../modal/addModal/AddModal";
+import { UserLogo } from "../../user/logo/UserLogo";
+import { AddModal } from "../modal/insert/AddModal";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
-import { SearchModal } from "../modal/searchModal/SearchModal";
+import { SearchModal } from "../modal/search/SearchModal";
 import { AppDispatch, RootState } from "../../../../store";
 
 import { LuSettings2 } from "react-icons/lu";
 import { BiEditAlt } from "react-icons/bi";
 import { RiAddLine } from "react-icons/ri";
 import { IoSearchSharp } from "react-icons/io5";
-import { UserMenu } from "../menu/UserMenu/UserMenu";
+import { UserMenu } from "../menu/user/UserMenu";
 import { toggleEditMode } from "../../../../store/slices/files";
-import { PullMenu } from "../../sideMenu/pullMenu/PullMenu";
+import { PullMenu } from "../../menu/pull/PullMenu";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);

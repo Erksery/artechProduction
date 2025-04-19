@@ -1,0 +1,18 @@
+@use "@/variables";
+
+.sortContainer {
+  width: 200px;
+  height: auto;
+
+  button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 100%;
+    min-height: 35px;
+  }
+
+  .active {
+    background-color: variables.$panel !important;
+  }
+}

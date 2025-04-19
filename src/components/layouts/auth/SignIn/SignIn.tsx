@@ -1,6 +1,6 @@
 import styles from "./SignIn.module.scss";
 import { Input } from "../../../ui/input/Input";
-import { SubmitButton } from "../../../ui/buttons/submitButton/SubmitButton";
+import { SubmitButton } from "../../../ui/buttons/submit/SubmitButton";
 
 interface Props {
   error: string | null;

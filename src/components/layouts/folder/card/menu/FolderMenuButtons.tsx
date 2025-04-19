@@ -1,0 +1,54 @@
+import { LuFolderPen } from "react-icons/lu";
+import { MdOutlineDelete } from "react-icons/md";
+import { GrView } from "react-icons/gr";
+import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
+import { EditFolderModal } from "../../modals/edit/EditFolderModal";
+import { JSX } from "react";
+
+export const getFolderMenuButtons = (
+  id: string,
+  openModal: (modal: JSX.Element) => void,
+  closeModal: () => void,
+  close: () => void,
+  deleteFolder: (id: string) => void
+) => [
+  {
+    id: 1,
+    title: "Открыть",
+    icon: <GrView />,
+    red: false,
+    event: () => close(),
+  },
+  {
+    id: 2,
+    title: "Редактировать",
+    icon: <LuFolderPen />,
+    red: false,
+    event: (e: { preventDefault: () => any }) => {
+      e.preventDefault();
+      openModal(<EditFolderModal close={closeModal} />);
+      close();
+    },
+  },
+  {
+    id: 3,
+    title: "Удалить",
+    icon: <MdOutlineDelete />,
+    red: true,
+    event: (e: { preventDefault: () => any }) => {
+      e.preventDefault();
+      openModal(
+        <SuccessModal
+          title="Удалить папку?"
+          description="Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них."
+          button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
+          event={() => {
+            deleteFolder(id);
+            closeModal();
+          }}
+        />
+      );
+      close();
+    },
+  },
+];

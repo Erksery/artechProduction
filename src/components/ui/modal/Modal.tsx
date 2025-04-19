@@ -22,16 +22,15 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
     <BackgroundModal>
       <motion.div
         ref={modalRef}
-        initial={{ scale: "70%" }}
-        animate={{ scale: "100%" }}
-        exit={{ scale: "70%" }}
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.8 }}
+        transition={{ duration: 0.25 }}
         className={styles.modalContainer}
+        layout
       >
         <div className={styles.modalHeader}>
-          <motion.button
-            onClick={closeModal}
-            whileHover={{ scale: 1.2, color: "rgb(218, 65, 65)" }}
-          >
+          <motion.button onClick={closeModal}>
             <CgClose />
           </motion.button>
         </div>

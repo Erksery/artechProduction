@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import api from "../api/api";
 import { User } from "../interfaces/user";
 import { useCallback, useState } from "react";
+import { handleApiError } from "../utils/toast/handleApiError";
 
 type UserResponse = User;
 
@@ -14,7 +15,7 @@ export const useGetUser = () => {
       );
       setUserData(resData.data);
     } catch (err) {
-      console.log("Ошибка при получении пользователя");
+      handleApiError(err, "Не удалось получить данные пользователя");
     }
   }, []);
 

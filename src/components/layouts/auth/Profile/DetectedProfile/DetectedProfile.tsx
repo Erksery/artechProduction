@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
 import { User } from "../../../../../interfaces/user";
-import { SubmitButton } from "../../../../ui/buttons/submitButton/SubmitButton";
+import { SubmitButton } from "../../../../ui/buttons/submit/SubmitButton";
 import styles from "./DetectedProfile.module.scss";
 import { AppDispatch } from "../../../../../store";
 import { clearUserData } from "../../../../../store/slices/user";
-import { UserLogo } from "../../../user/UserLogo/UserLogo";
+import { UserLogo } from "../../../user/logo/UserLogo";
 import { STATUS_VALUES } from "../../../../../config/constants";
 import { Status } from "../../../../ui/status/Status";
 import { useNavigate } from "react-router-dom";

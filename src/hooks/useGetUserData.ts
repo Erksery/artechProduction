@@ -7,6 +7,7 @@ import { AxiosResponse } from "axios";
 import { User } from "../interfaces/user";
 import { API_ROUTES } from "../api/routes";
 import { useNavigate } from "react-router-dom";
+import { handleApiError } from "../utils/toast/handleApiError";
 
 type ProfileResponse = User;
 
@@ -32,7 +33,7 @@ export const useGetUserData = () => {
       dispatch(setUserData(resData.data));
     } catch (err) {
       navigateRef.current("/sign");
-      console.log(err);
+      handleApiError(err, "Ошибка авторизации");
     }
   }, [dispatch]);
 

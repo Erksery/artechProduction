@@ -1,1 +1,1 @@
-export const imageTypes = ["image/png", "image/jpeg"];
+export const imageTypes = ["image/png", "image/jpeg", "image/webp"];

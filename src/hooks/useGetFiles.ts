@@ -1,15 +1,18 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFiles } from "../store/slices/files";
 import { FileData } from "../interfaces/file";
 import { AppDispatch, RootState } from "../store";
 import api from "../api/api";
+import { handleApiError } from "../utils/toast/handleApiError";
 
-export const useGetFiles = (id: string | undefined): void => {
+export const useGetFiles = (id: string | undefined) => {
+  const [fileLoading, setFileLoading] = useState(true);
   const dispatch = useDispatch<AppDispatch>();
   const file = useSelector((state: RootState) => state.files);
 
   const getFiles = useCallback(async () => {
+    setFileLoading(true);
     try {
       dispatch(setFiles([]));
       const filesResData = await api.get<FileData[]>(`/files/folder/${id}`, {
@@ -20,11 +23,15 @@ export const useGetFiles = (id: string | undefined): void => {
       });
       dispatch(setFiles(filesResData.data));
     } catch (err) {
-      console.log(err);
+      handleApiError(err, "Не удалось загрузить файлы");
+    } finally {
+      setFileLoading(false);
     }
-  }, [id, file.filter]);
+  }, [id, file.filter, file.order]);
 
   useEffect(() => {
     getFiles();
-  }, [id, file.filter, getFiles]);
+  }, [id, file.filter, file.order, getFiles]);
+
+  return { fileLoading };
 };

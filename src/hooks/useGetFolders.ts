@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
 import { setFolders } from "../store/slices/folders";
 import api from "../api/api";
+import { handleApiError } from "../utils/toast/handleApiError";
 
 export const useGetFolders = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +14,7 @@ export const useGetFolders = () => {
 
       dispatch(setFolders(foldersResData.data));
     } catch (err) {
-      console.log(err);
+      handleApiError(err, "Не удалось загрузить папки");
     }
   }, []);
   useEffect(() => {

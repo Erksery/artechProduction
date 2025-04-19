@@ -6,4 +6,6 @@ export interface FileData {
   folderId: string;
   creator: string;
   size: number;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -60,6 +60,14 @@ export const filesSlice = createSlice({
       state.filter.name = action.payload.name;
       state.filter.value = action.payload.value;
     },
+
+    setOrder: (state, action) => {
+      if (action.payload) {
+        state.order.name = action.payload;
+      }
+
+      state.order.value = state.order.value === "asc" ? "desc" : "asc";
+    },
   },
 });
 
@@ -72,6 +80,7 @@ export const {
   toggleEditMode,
   updateFile,
   setFilter,
+  setOrder,
 } = filesSlice.actions;
 
 export default filesSlice.reducer;
