@@ -48,7 +48,7 @@ export const SearchModal = () => {
   }, [searchValue, getSearchFiles]);
 
   return (
-    <Modal>
+    <Modal className={styles.modal}>
       <motion.div
         className={styles.searchContainer}
         initial={{ height: 80 }}
@@ -61,6 +61,7 @@ export const SearchModal = () => {
           <Input
             value={searchValue.value}
             onChange={handleInputChange}
+            title="Поиск"
             placeholder="Введите название файла"
           />
           <MenuContainer
@@ -92,7 +93,7 @@ export const SearchModal = () => {
               exit={{ height: 0, transition: { duration: 0.3 } }}
               transition={{ duration: 0.3 }}
             >
-              <FilesList cardSize={150} padding={0} files={searchFiles} />
+              <FilesList padding={0} files={searchFiles} loading={false} />
             </motion.div>
           )}
         </AnimatePresence>

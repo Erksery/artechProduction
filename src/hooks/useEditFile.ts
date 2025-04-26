@@ -1,9 +1,10 @@
 import api from "../api/api";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store";
-import { addFiles, deleteFile, updateFile } from "../store/slices/files";
+import { deleteFile, updateFile } from "../store/slices/files";
 import { useEffect, useRef, useState } from "react";
 import { handleApiError } from "../utils/toast/handleApiError";
+import { handleApiSuccess } from "../utils/toast/handleApiSuccess";
 
 interface EditData {
   originalFilename?: string;
@@ -50,10 +51,11 @@ export const useEditFile = () => {
       );
       if (editData.folderId) {
         dispatch(deleteFile(fileId));
-        dispatch(addFiles([resData.data]));
+        //dispatch(addFiles([resData.data]));
       } else {
         dispatch(updateFile(resData.data));
       }
+      handleApiSuccess(resData, "Файл успешно отредактирован");
     } catch (err) {
       handleApiError(err, "Ошибка при редактировании файла");
     }

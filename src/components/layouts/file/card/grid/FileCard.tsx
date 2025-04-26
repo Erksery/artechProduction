@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useRef, useState } from "react";
+import React, { lazy, useRef, useState } from "react";
 import styles from "./FileCard.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -7,54 +7,50 @@ import { MenuContainer } from "../../../../ui/menu/MenuContainer";
 import { FileMenu } from "../menu/FileMenu";
 import { FileData } from "../../../../../interfaces/file";
 import { FileSkeleton } from "./FileSkeleton";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../../store";
 import { fileTypes } from "../../../../../config/fileTypes";
 import { imageTypes } from "../../../../../config/imageTypes";
 import { useDrag } from "react-dnd";
 import { useEditFile } from "../../../../../hooks/useEditFile";
 import { useFormat } from "../../../../../hooks/useFormat";
+import { EmptyCheckBox } from "../../../../ui/svg/checkbox/EmptyCheckBox";
+import { CheckBox } from "../../../../ui/svg/checkbox/CheckBox";
+import { toggleSelectedFile } from "../../../../../store/slices/files";
+import { useObserver } from "../../../../../hooks/useObserver";
+
+import { FaCheck } from "react-icons/fa6";
 
 const FileImage = lazy(() => import("../../image/FileImage"));
 
 interface FileCardProps {
   file: FileData;
   i: number;
-  selected: string[];
-  addSelectedFile: (file: string) => void;
-  deleteSelectedFile: (file: string) => void;
 }
 
-export const FileCard: React.FC<FileCardProps> = ({
-  file,
-  i,
-  selected,
-  addSelectedFile,
-  deleteSelectedFile,
-}) => {
+export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
   const [fileMenu, setFileMenu] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-
   const ref = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
   );
+  const fileSelector = useSelector((state: RootState) => state.files);
 
   const { editMode, editing, inputRef, setEditValue, submitEditFile } =
     useEditFile();
   const { formatFileSize } = useFormat();
 
-  const closeMenu = () => {
-    setFileMenu(false);
-  };
-
-  const fileSelected = selected.includes(file.id);
+  const fileSelected = fileSelector.selectedFiles.includes(file.id);
 
   const fileSvg = fileTypes.find((element) =>
     element.mimeType.includes(file.mimeType)
   );
 
+  const closeMenu = () => {
+    setFileMenu(false);
+  };
   const [{ isDragging }, drag] = useDrag({
     type: "FILE",
     item: { file },
@@ -63,28 +59,17 @@ export const FileCard: React.FC<FileCardProps> = ({
     }),
   });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        observer.unobserve(entry.target);
-      }
-    });
-
-    if (ref.current) observer.observe(ref.current);
-
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
+  const { isVisible } = useObserver(ref);
 
   return (
     <AnimatePresence>
       <motion.div ref={ref} exit={{ scale: 0.6 }} draggable={false}>
         {isVisible ? (
           <motion.div
-            onClick={() => deleteSelectedFile(file.id)}
-            onDoubleClick={() => addSelectedFile(file.id)}
+            onClick={() =>
+              fileSelector.activeEditMode &&
+              dispatch(toggleSelectedFile(file.id))
+            }
             className={`${styles.card} ${fileSelected && styles.selected}`}
             ref={drag}
             style={{
@@ -94,15 +79,29 @@ export const FileCard: React.FC<FileCardProps> = ({
           >
             <div className={styles.fileContainer}>
               {imageTypes.includes(file.mimeType) ? (
-                <FileImage src={file.name} folderId={activeFolder} />
+                <FileImage
+                  src={file.name}
+                  folderId={activeFolder}
+                  className={`${fileSelector.activeEditMode && styles.opacity}`}
+                />
               ) : (
                 <div className={styles.fileIcon}>
                   {fileSvg ? fileSvg.svg : fileTypes[0].svg}
                 </div>
               )}
 
-              <div className={styles.sizeContainer}>
-                <p>{formatFileSize(file.size)}</p>
+              <div className={styles.infoContainer}>
+                <div className={styles.check}>
+                  {fileSelector.activeEditMode &&
+                    (fileSelected ? (
+                      <CheckBox width={20} height={20} />
+                    ) : (
+                      <EmptyCheckBox width={20} height={20} />
+                    ))}
+                </div>
+                <div className={styles.sizeContainer}>
+                  <p>{formatFileSize(file.size)}</p>
+                </div>
               </div>
             </div>
 
@@ -120,9 +119,17 @@ export const FileCard: React.FC<FileCardProps> = ({
                       ref={inputRef}
                       defaultValue={file.originalFilename}
                       onChange={(e) => setEditValue(e.target.value)}
-                      onBlur={editMode}
+                      onBlur={(e) => {
+                        const nextFocused = e.relatedTarget;
+
+                        if (!nextFocused || nextFocused.tagName !== "BUTTON") {
+                          editMode();
+                        }
+                      }}
                     />
-                    <button>-</button>
+                    <button type="submit">
+                      <FaCheck />
+                    </button>
                   </form>
                 ) : (
                   <>

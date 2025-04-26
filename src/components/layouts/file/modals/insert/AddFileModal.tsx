@@ -33,7 +33,7 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
   };
 
   return (
-    <Modal>
+    <Modal className={styles.modal}>
       <div className={styles.fileAddContainer}>
         <div className={styles.upload}>
           <Upload files={files} setFiles={setFiles} />

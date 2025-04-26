@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./FilesList.module.scss";
 
 import { FileData } from "../../../../interfaces/file";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../store";
 import { FileCard } from "../card/grid/FileCard";
 import { FileSkeleton } from "../card/grid/FileSkeleton";
+import { setSelectedFile } from "../../../../store/slices/files";
 
 interface FilesListProps {
   files: FileData[];
@@ -17,19 +18,12 @@ const FilesListComponent: React.FC<FilesListProps> = ({
   padding = 0,
   loading,
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
-  const editMode = useSelector((state: RootState) => state.files.editMode);
+  const dispatch = useDispatch<AppDispatch>();
+  const editFile = useSelector((state: RootState) => state.files);
 
   useEffect(() => {
-    !editMode && setSelectedFiles([]);
-  }, [editMode]);
-
-  const addSelectedFile = (file: string) => {
-    editMode && setSelectedFiles((prev) => [...prev, file]);
-  };
-  const deleteSelectedFile = (file: string) => {
-    editMode && setSelectedFiles(() => selectedFiles.filter((f) => f !== file));
-  };
+    !editFile.activeEditMode && dispatch(setSelectedFile([]));
+  }, [editFile.activeEditMode]);
 
   console.log("rerender file list", loading);
   return (
@@ -45,14 +39,7 @@ const FilesListComponent: React.FC<FilesListProps> = ({
         ))
       ) : files.length > 0 ? (
         files.map((file, index) => (
-          <FileCard
-            file={file}
-            key={file.id}
-            i={index}
-            selected={selectedFiles}
-            addSelectedFile={addSelectedFile}
-            deleteSelectedFile={deleteSelectedFile}
-          />
+          <FileCard file={file} key={file.id} i={index} />
         ))
       ) : (
         <div>Файлы не найдены</div>

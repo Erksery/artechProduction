@@ -2,29 +2,26 @@ import styles from "./Header.module.scss";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useModal } from "../../../../hooks/useModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { UserLogo } from "../../user/logo/UserLogo";
 import { AddModal } from "../modal/insert/AddModal";
 import { MenuContainer } from "../../../ui/menu/MenuContainer";
 import { SearchModal } from "../modal/search/SearchModal";
-import { AppDispatch, RootState } from "../../../../store";
+import { RootState } from "../../../../store";
 
 import { LuSettings2 } from "react-icons/lu";
-import { BiEditAlt } from "react-icons/bi";
 import { RiAddLine } from "react-icons/ri";
 import { IoSearchSharp } from "react-icons/io5";
 import { UserMenu } from "../menu/user/UserMenu";
-import { toggleEditMode } from "../../../../store/slices/files";
 import { PullMenu } from "../../menu/pull/PullMenu";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [userMenu, setUserMenu] = useState<boolean>(false);
   const { openModal } = useModal();
-  const dispatch = useDispatch<AppDispatch>();
+
   const user = useSelector((state: RootState) => state.user.userData);
-  const editMode = useSelector((state: RootState) => state.files.editMode);
 
   return (
     <>
@@ -50,13 +47,6 @@ export const Header = () => {
             className={styles.addButton}
           >
             <IoSearchSharp />
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            onClick={() => dispatch(toggleEditMode())}
-            className={`${styles.addButton} ${editMode && styles.active}`}
-          >
-            <BiEditAlt />
           </motion.button>
 
           <motion.button

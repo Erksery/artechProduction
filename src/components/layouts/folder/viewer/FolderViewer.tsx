@@ -1,10 +1,14 @@
-import styles from "./FolderViewer.module.scss";
-import { useSelector } from "react-redux";
-import { FilesList } from "../../file/list/FilesList";
-import { RootState } from "../../../../store";
 import { useMemo } from "react";
+import styles from "./FolderViewer.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { FilesList } from "../../file/list/FilesList";
+import { AppDispatch, RootState } from "../../../../store";
 import { FolderListGrid } from "../list/grid/FolderListGrid";
 import { FileCategories } from "../../file/tools/categories/FileCategories";
+import { toggleEditMode } from "../../../../store/slices/files";
+
+import { BiEditAlt } from "react-icons/bi";
+import { CgClose } from "react-icons/cg";
 
 interface Props {
   folderId: string | undefined;
@@ -12,7 +16,8 @@ interface Props {
 }
 
 export const FolderViewer = ({ folderId, loading }: Props) => {
-  const files = useSelector((state: RootState) => state.files.files);
+  const dispatch = useDispatch<AppDispatch>();
+  const fileSelector = useSelector((state: RootState) => state.files);
   const sliceFolder = useSelector((state: RootState) => state.folders);
 
   const subFolders = useMemo(
@@ -28,10 +33,20 @@ export const FolderViewer = ({ folderId, loading }: Props) => {
         <FolderListGrid subFolders={subFolders} />
       </div>
       <div className={styles.list}>
-        <div>
+        <div className={styles.tools}>
           <FileCategories />
+          <button
+            onClick={() => dispatch(toggleEditMode())}
+            className={styles.editButton}
+          >
+            {fileSelector.activeEditMode ? (
+              <CgClose fill=" #f08e7e;" />
+            ) : (
+              <BiEditAlt />
+            )}
+          </button>
         </div>
-        <FilesList files={files} loading={loading} />
+        <FilesList files={fileSelector.files} loading={loading} />
       </div>
     </div>
   );

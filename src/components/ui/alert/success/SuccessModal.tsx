@@ -17,7 +17,7 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({
   event,
 }) => {
   return (
-    <Modal>
+    <Modal className={styles.modal}>
       <div className={styles.container}>
         <h3>{title}</h3>
         <p>{description}</p>

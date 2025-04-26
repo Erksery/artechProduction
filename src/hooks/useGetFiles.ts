@@ -21,6 +21,7 @@ export const useGetFiles = (id: string | undefined) => {
           order: `${file.order.name}=${file.order.value}`,
         },
       });
+      console.log(filesResData);
       dispatch(setFiles(filesResData.data));
     } catch (err) {
       handleApiError(err, "Не удалось загрузить файлы");

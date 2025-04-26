@@ -21,7 +21,7 @@ export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
   };
 
   return (
-    <Modal>
+    <Modal className={styles.modal}>
       <div className={styles.folderCreateContainer}>
         <Input
           value={folderName}

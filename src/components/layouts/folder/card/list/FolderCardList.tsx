@@ -34,6 +34,10 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
 
   const linkRef = useRef<HTMLAnchorElement>(null);
 
+  const selectedFiles = useSelector(
+    (state: RootState) => state.files.selectedFiles
+  );
+
   const { editFile } = useEditFile();
   const { getUser, userData } = useGetUser();
 
@@ -58,8 +62,11 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
   const [{ isOver }, drop] = useDrop({
     accept: "FILE",
     drop: (item: FileType) => {
-      console.log("Файл перемещен:", item.file);
-      editFile(folder.id, item.file.id, { folderId: folder.id });
+      selectedFiles.length > 0
+        ? selectedFiles.forEach((file) => {
+            editFile(folder.id, file, { folderId: folder.id });
+          })
+        : editFile(folder.id, item.file.id, { folderId: folder.id });
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),

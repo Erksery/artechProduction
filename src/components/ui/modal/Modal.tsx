@@ -9,9 +9,10 @@ import { BackgroundModal } from "./BackgroundModal/BackgroundModal";
 
 interface ModalProps {
   children: ReactNode;
+  className?: string | undefined;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children }) => {
+export const Modal: React.FC<ModalProps> = ({ children, className }) => {
   const { closeModal } = useModal();
   const modalRef = useRef(null);
 
@@ -26,7 +27,7 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
         animate={{ scale: 1 }}
         exit={{ scale: 0.8 }}
         transition={{ duration: 0.25 }}
-        className={styles.modalContainer}
+        className={`${styles.modalContainer} ${className}`}
         layout
       >
         <div className={styles.modalHeader}>

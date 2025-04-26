@@ -16,7 +16,8 @@ interface FilesState {
   filter: Filter;
   order: Order;
   activeFile: number;
-  editMode: boolean;
+  activeEditMode: boolean;
+  selectedFiles: string[];
 }
 
 const initialState: FilesState = {
@@ -24,7 +25,8 @@ const initialState: FilesState = {
   filter: { name: "mimeType", value: "" },
   order: { name: "originalFilename", value: "asc" },
   activeFile: 0,
-  editMode: false,
+  activeEditMode: false,
+  selectedFiles: [],
 };
 
 export const filesSlice = createSlice({
@@ -53,7 +55,7 @@ export const filesSlice = createSlice({
       state.files = state.files.filter((file) => file.id !== action.payload);
     },
     toggleEditMode: (state) => {
-      state.editMode = !state.editMode;
+      state.activeEditMode = !state.activeEditMode;
     },
 
     setFilter: (state, action: PayloadAction<Filter>) => {
@@ -68,6 +70,30 @@ export const filesSlice = createSlice({
 
       state.order.value = state.order.value === "asc" ? "desc" : "asc";
     },
+
+    addSelectedFile: (state, action) => {
+      state.selectedFiles = [...state.selectedFiles, action.payload];
+    },
+
+    deleteSelectedFile: (state, action) => {
+      state.selectedFiles = state.selectedFiles.filter(
+        (f) => f !== action.payload
+      );
+    },
+    toggleSelectedFile: (state, action) => {
+      const selectedFile = state.selectedFiles.includes(action.payload);
+      if (selectedFile) {
+        state.selectedFiles = state.selectedFiles.filter(
+          (f) => f !== action.payload
+        );
+      } else {
+        state.selectedFiles = [...state.selectedFiles, action.payload];
+      }
+    },
+
+    setSelectedFile: (state, action) => {
+      state.selectedFiles = action.payload;
+    },
   },
 });
 
@@ -81,6 +107,10 @@ export const {
   updateFile,
   setFilter,
   setOrder,
+  addSelectedFile,
+  deleteSelectedFile,
+  setSelectedFile,
+  toggleSelectedFile,
 } = filesSlice.actions;
 
 export default filesSlice.reducer;

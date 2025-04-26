@@ -41,7 +41,7 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ close }) => {
   };
 
   return (
-    <Modal>
+    <Modal className={styles.modal}>
       <div className={styles.editModal}>
         <Input
           type="text"
