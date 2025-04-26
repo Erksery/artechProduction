@@ -31,10 +31,24 @@ export const foldersSlice = createSlice({
     setActiveFolder: (state, action: PayloadAction<string | undefined>) => {
       state.activeFolder = action.payload;
     },
+
+    updateFolder: (state, action: PayloadAction<FolderData>) => {
+      const folderIndex = state.folders.findIndex(
+        (folder) => folder.id === action.payload.id
+      );
+      if (folderIndex !== -1) {
+        state.folders[folderIndex] = action.payload;
+      }
+    },
   },
 });
 
-export const { setFolders, addFolder, removeFolder, setActiveFolder } =
-  foldersSlice.actions;
+export const {
+  setFolders,
+  addFolder,
+  removeFolder,
+  setActiveFolder,
+  updateFolder,
+} = foldersSlice.actions;
 
 export default foldersSlice.reducer;

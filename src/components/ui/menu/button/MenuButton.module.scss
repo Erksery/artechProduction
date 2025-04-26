@@ -4,7 +4,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   padding-inline: 15px;
   width: 100%;
   font-size: 13px;
@@ -22,6 +22,11 @@
       text-align: start;
     }
     label {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      // text-align: start;
+      overflow: hidden;
       font-size: 11px;
       color: gray;
       cursor: pointer;

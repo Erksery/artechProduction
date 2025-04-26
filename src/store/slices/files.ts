@@ -47,9 +47,12 @@ export const filesSlice = createSlice({
       state.files = [...state.files, ...action.payload.file];
     },
     updateFile: (state, action: PayloadAction<FileData>) => {
-      state.files = state.files.map((file) =>
-        file.id === action.payload.id ? action.payload : file
+      const fileIndex = state.files.findIndex(
+        (file) => file.id === action.payload.id
       );
+      if (fileIndex !== -1) {
+        state.files[fileIndex] = action.payload;
+      }
     },
     deleteFile: (state, action) => {
       state.files = state.files.filter((file) => file.id !== action.payload);

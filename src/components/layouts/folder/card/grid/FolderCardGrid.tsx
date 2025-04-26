@@ -17,7 +17,13 @@ export const FolderCardGrid = ({ folder }: Props) => {
         <h3>{folder.name}</h3>
       </div>
       <MenuContainer
-        element={<FolderMenu id={folder.id} close={() => setMenuOpen(false)} />}
+        element={
+          <FolderMenu
+            id={folder.id}
+            folder={folder}
+            close={() => setMenuOpen(false)}
+          />
+        }
         open={menuOpen}
         setOpen={setMenuOpen}
       >

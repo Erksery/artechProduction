@@ -51,7 +51,6 @@ export const useEditFile = () => {
       );
       if (editData.folderId) {
         dispatch(deleteFile(fileId));
-        //dispatch(addFiles([resData.data]));
       } else {
         dispatch(updateFile(resData.data));
       }

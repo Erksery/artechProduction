@@ -18,17 +18,17 @@ export const Folder: React.FC = () => {
 
   return (
     <>
-      <AnimatePresence>{activeModal && activeModal}</AnimatePresence>
-      <div className={styles.folderContainer}>
-        <SideMenu />
+      <ErrorBoundary>
+        <AnimatePresence>{activeModal && activeModal}</AnimatePresence>
+        <div className={styles.folderContainer}>
+          <SideMenu />
 
-        <div className={styles.contentContainer}>
-          <ErrorBoundary>
+          <div className={styles.contentContainer}>
             <Header />
             <FolderViewer folderId={id} loading={fileLoading} />
-          </ErrorBoundary>
+          </div>
         </div>
-      </div>
+      </ErrorBoundary>
     </>
   );
 };

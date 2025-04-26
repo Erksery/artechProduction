@@ -4,9 +4,11 @@ import { GrView } from "react-icons/gr";
 import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
 import { EditFolderModal } from "../../modals/edit/EditFolderModal";
 import { JSX } from "react";
+import { FolderData } from "../../../../../interfaces/folder";
 
 export const getFolderMenuButtons = (
   id: string,
+  folder: FolderData,
   openModal: (modal: JSX.Element) => void,
   closeModal: () => void,
   close: () => void,
@@ -26,12 +28,21 @@ export const getFolderMenuButtons = (
     red: false,
     event: (e: { preventDefault: () => any }) => {
       e.preventDefault();
-      openModal(<EditFolderModal close={closeModal} />);
+      openModal(<EditFolderModal folder={folder} close={closeModal} />);
       close();
     },
   },
   {
     id: 3,
+    title: "Свойства",
+    icon: <LuFolderPen />,
+    red: false,
+    event: (e: { preventDefault: () => any }) => {
+      e.preventDefault();
+    },
+  },
+  {
+    id: 4,
     title: "Удалить",
     icon: <MdOutlineDelete />,
     red: true,

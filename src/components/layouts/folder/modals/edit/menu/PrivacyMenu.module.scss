@@ -1,0 +1,16 @@
+@use "@/variables";
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 300px;
+  border: solid 2px transparent;
+  box-sizing: border-box;
+
+  .active {
+    border: solid 2px variables.$theme;
+    box-sizing: border-box;
+    transition: border 0.2s;
+  }
+}

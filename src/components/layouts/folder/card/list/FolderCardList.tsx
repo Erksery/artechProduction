@@ -132,7 +132,9 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
               </button>
             )}
             <MenuContainer
-              element={<FolderMenu id={folder.id} close={closeMenu} />}
+              element={
+                <FolderMenu id={folder.id} folder={folder} close={closeMenu} />
+              }
               open={menuOpen}
               setOpen={setMenuOpen}
             >

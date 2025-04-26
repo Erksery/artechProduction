@@ -2,18 +2,30 @@ import React, { ChangeEvent, useState } from "react";
 import styles from "./EditFolderModal.module.scss";
 import { Modal } from "../../../../ui/modal/Modal";
 import { Input } from "../../../../ui/input/Input";
-import { PrivacySelector } from "../../selector/PrivacySelector";
+import { useEditFolder } from "./hooks/useEditFolder";
+import { FolderData } from "../../../../../interfaces/folder";
+import { PrivacyType } from "../../../../../config/constants";
+import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { PrivacyMenu } from "./menu/PrivacyMenu";
+import { privacyButtons } from "./menu/PrivacyButtons";
 
 interface EditFolderModalProps {
+  folder: FolderData;
   close: () => void;
 }
 
-export const EditFolderModal: React.FC<EditFolderModalProps> = ({ close }) => {
-  const [editFolderData, setEditFolderData] = useState({
-    name: "",
-    password: "",
-    privacy: "Private",
+export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
+  const [editFolderData, setEditFolderData] = useState<{
+    name: string;
+    privacy: PrivacyType;
+  }>({
+    name: folder.name || "",
+    privacy: folder.privacy || "Private",
   });
+
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const { submitEditFolder } = useEditFolder();
 
   const handleInputNameChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,21 +36,17 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ close }) => {
     }));
   };
 
-  const handleInputPasswordChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setEditFolderData((prev) => ({
-      ...prev,
-      password: e.target.value,
-    }));
-  };
-
-  const handlePrivacyChange = (privacy: string) => {
+  const handlePrivacyChange = (privacy: PrivacyType) => {
     setEditFolderData((prev) => ({
       ...prev,
       privacy: privacy,
     }));
   };
+
+  const buttons = privacyButtons(handlePrivacyChange);
+  const activeButton = buttons.find(
+    (button) => button.name === editFolderData.privacy
+  );
 
   return (
     <Modal className={styles.modal}>
@@ -48,22 +56,26 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ close }) => {
           value={editFolderData.name}
           onChange={handleInputNameChange}
           title="Название"
-          placeholder="New Folder"
+          placeholder={folder.name}
         />
-        <Input
-          type="password"
-          value={editFolderData.password}
-          onChange={handleInputPasswordChange}
-          title="Пароль"
-          placeholder="*********"
-        />
-        <p>Режим видимости</p>
-        <PrivacySelector
-          selectPrivacy={editFolderData.privacy}
-          setSelectPrivacy={handlePrivacyChange}
-        />
+
+        <p className={styles.title}>Режим видимости</p>
+        <MenuContainer
+          open={openMenu}
+          setOpen={setOpenMenu}
+          element={
+            <PrivacyMenu buttons={buttons} activeButton={activeButton} />
+          }
+          position="left"
+        >
+          <button className={styles.selector}>
+            <p>{activeButton?.title}</p>
+          </button>
+        </MenuContainer>
         <div className={styles.buttonsContainer}>
-          <button onClick={close}>Подтвердить</button>
+          <button onClick={() => submitEditFolder(folder.id, editFolderData)}>
+            Подтвердить
+          </button>
         </div>
       </div>
     </Modal>
