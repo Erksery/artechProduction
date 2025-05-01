@@ -1,6 +1,6 @@
 import styles from "./PrivacyMenu.module.scss";
 import { PrivacyButtons } from "./PrivacyButtons";
-import { MenuButton } from "../../../../../ui/menu/button/MenuButton";
+import { MenuButton } from "../../../../ui/menu/button/MenuButton";
 
 interface Props {
   buttons: PrivacyButtons[];

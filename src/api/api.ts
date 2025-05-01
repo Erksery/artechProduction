@@ -59,6 +59,10 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         isRefreshing = false;
+
+        localStorage.removeItem("refreshToken");
+
+        window.location.href = "/sign";
         return Promise.reject(refreshError);
       }
     }

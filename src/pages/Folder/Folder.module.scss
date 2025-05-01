@@ -3,14 +3,14 @@
 .folderContainer {
   position: relative;
   display: flex;
-  width: 100%;
+  flex: 1;
   height: 100%;
 
   .contentContainer {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex: 1;
     height: 100%;
     background-color: variables.$background;
   }

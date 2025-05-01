@@ -1,5 +1,7 @@
+@use "@/variables";
+
 .modal {
-  width: 45%;
+  width: 40%;
 
   @media screen and (max-width: 1200px) {
     & {
@@ -52,5 +54,6 @@
     justify-content: flex-start;
     width: 100%;
     height: 50px;
+    background-color: variables.$folder-component;
   }
 }

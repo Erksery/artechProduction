@@ -1,18 +1,40 @@
 @use "@/variables";
 
 .sortContainer {
-  width: 200px;
+  width: 180px;
   height: auto;
 
-  button {
+  .menuButton {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    min-width: 100%;
+    width: 100%;
     min-height: 35px;
+    background-color: transparent;
   }
 
   .active {
     background-color: variables.$panel !important;
   }
+}
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sortButton {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3px;
+  min-width: 190px !important;
+  //min-height: 35px;
+  background-color: transparent;
+}
+
+.order {
+  // min-width: 35px;
+  //min-height: 35px;
+  font-size: 18px;
+  background-color: transparent;
 }

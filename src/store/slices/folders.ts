@@ -5,12 +5,14 @@ interface FoldersState {
   folders: FolderData[];
   subFolders: FolderData[];
   activeFolder: string | undefined;
+  openSideMenu: boolean;
 }
 
 const initialState: FoldersState = {
   folders: [],
   subFolders: [],
   activeFolder: undefined,
+  openSideMenu: true,
 };
 
 export const foldersSlice = createSlice({
@@ -40,6 +42,13 @@ export const foldersSlice = createSlice({
         state.folders[folderIndex] = action.payload;
       }
     },
+    toggleSideMenu: (state) => {
+      state.openSideMenu = !state.openSideMenu;
+    },
+
+    setSideMenu: (state, action) => {
+      state.openSideMenu = action.payload;
+    },
   },
 });
 
@@ -49,6 +58,8 @@ export const {
   removeFolder,
   setActiveFolder,
   updateFolder,
+  toggleSideMenu,
+  setSideMenu,
 } = foldersSlice.actions;
 
 export default foldersSlice.reducer;

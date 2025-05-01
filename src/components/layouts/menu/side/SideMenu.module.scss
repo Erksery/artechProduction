@@ -2,8 +2,18 @@
 
 .sideMenuContainer {
   position: relative;
-  min-width: 300px;
+  width: 300px;
   height: 100%;
+
+  @media screen and (max-width: 576px) {
+    & {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 450px;
+      z-index: 11;
+    }
+  }
 
   .menu {
     display: flex;
@@ -16,7 +26,16 @@
     box-sizing: border-box;
     overflow-y: auto;
 
+    @media screen and (max-width: 576px) {
+      & {
+        width: 450px;
+      }
+    }
+
     .tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .addButton {
         display: flex;
         justify-content: center;

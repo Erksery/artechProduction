@@ -1,18 +1,27 @@
+import { MenuContainer } from "../../../../ui/menu/MenuContainer";
 import styles from "./FileSorting.module.scss";
 import { sortMethods, SortType } from "./SortMethods";
 
-interface Props {
+import { TbArrowsSort } from "react-icons/tb";
+import { GoChevronDown } from "react-icons/go";
+
+interface CardProps {
   activeSort: SortType | undefined;
-  handleSorting: (sortMethod: string) => void;
+  handleSorting: (sortMethod?: string) => void;
 }
 
-export const FileSorting = ({ activeSort, handleSorting }: Props) => {
+interface Props extends CardProps {
+  openSortMenu: boolean;
+  setOpenSortMenu: (openSortMenu: boolean) => void;
+}
+
+const SortCard = ({ activeSort, handleSorting }: CardProps) => {
   return (
     <div className={styles.sortContainer}>
       {sortMethods.map((method) => (
         <button
           onClick={() => handleSorting(method.sortName)}
-          className={`${
+          className={` ${styles.menuButton} ${
             activeSort?.sortName === method.sortName ? styles.active : ""
           }`}
         >
@@ -20,5 +29,38 @@ export const FileSorting = ({ activeSort, handleSorting }: Props) => {
         </button>
       ))}
     </div>
+  );
+};
+
+export const FileSorting = ({
+  activeSort,
+  handleSorting,
+  openSortMenu,
+  setOpenSortMenu,
+}: Props) => {
+  return (
+    <>
+      <MenuContainer
+        element={
+          <SortCard activeSort={activeSort} handleSorting={handleSorting} />
+        }
+        open={openSortMenu}
+        setOpen={setOpenSortMenu}
+      >
+        <button className={styles.sortButton}>
+          <p>Сортировка {activeSort?.menuTitle}</p>
+          <div
+            style={{ transform: `rotate(${openSortMenu ? 180 : 0}deg)` }}
+            className={styles.iconContainer}
+          >
+            <GoChevronDown />
+          </div>
+        </button>
+      </MenuContainer>
+
+      <button onClick={() => handleSorting()} className={styles.order}>
+        <TbArrowsSort />
+      </button>
+    </>
   );
 };

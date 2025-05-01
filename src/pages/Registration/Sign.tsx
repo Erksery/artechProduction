@@ -30,8 +30,6 @@ export const Sign = () => {
 
   const user = useSelector((state: RootState) => state.user.userData);
 
-  console.log(user);
-
   const reg = useRegUser();
   const auth = useAuthUser();
   const activeHook = activeTab === "register" ? reg : auth;

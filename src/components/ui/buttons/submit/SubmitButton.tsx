@@ -5,8 +5,8 @@ interface Props {
   text: string;
   className?: string | undefined;
   event?: () => void;
-  type: string;
-  disabled: boolean;
+  type?: string;
+  disabled?: boolean;
 }
 
 export const SubmitButton = ({
@@ -21,6 +21,7 @@ export const SubmitButton = ({
     <motion.button
       onClick={event}
       className={`${styles.button} ${className}`}
+      disabled={disabled}
       whileHover={{
         scale: 0.95,
       }}

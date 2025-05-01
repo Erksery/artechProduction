@@ -1,3 +1,5 @@
+import { PrivacyType, SharingType } from "../config/constants";
+
 export interface Creator {
   id: number;
   login: string;
@@ -11,6 +13,6 @@ export interface FolderData {
   description: string | null;
   inFolder: string | null;
   creator: string;
-  privacy: "Public" | "Private";
-  sharingOptions: string;
+  privacy: PrivacyType;
+  sharingOptions: SharingType;
 }

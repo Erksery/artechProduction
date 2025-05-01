@@ -1,4 +1,4 @@
-export const FolderSvg = ({ color = "#FFCA28" }) => {
+export const FolderSvg = () => {
   return (
     <svg
       stroke="currentColor"

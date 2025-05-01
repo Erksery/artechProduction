@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../store";
 import api from "../api/api";
 import { handleApiError } from "../utils/toast/handleApiError";
 
-export const useGetFiles = (id: string | undefined) => {
+export const useGetFiles = (id: string | undefined, route = "files") => {
   const [fileLoading, setFileLoading] = useState(true);
   const dispatch = useDispatch<AppDispatch>();
   const file = useSelector((state: RootState) => state.files);
@@ -15,7 +15,7 @@ export const useGetFiles = (id: string | undefined) => {
     setFileLoading(true);
     try {
       dispatch(setFiles([]));
-      const filesResData = await api.get<FileData[]>(`/files/folder/${id}`, {
+      const filesResData = await api.get<FileData[]>(`/${route}/folder/${id}`, {
         params: {
           filter: `${file.filter.name}=${file.filter.value}`,
           order: `${file.order.name}=${file.order.value}`,

@@ -1,12 +1,16 @@
 import styles from "./PullMenu.module.scss";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { useBlockScroll } from "../../../../hooks/useBlockScroll";
 import { useClickOutside } from "../../../../hooks/useClickOutside";
 import { useModal } from "../../../../hooks/useModal";
 import { BackgroundModal } from "../../../ui/modal/BackgroundModal/BackgroundModal";
 
-export const PullMenu = () => {
+interface Props {
+  children?: ReactNode;
+}
+
+export const PullMenu = ({ children }: Props) => {
   const { closeModal } = useModal();
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +27,7 @@ export const PullMenu = () => {
         exit={{ x: 200 }}
         transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
       >
-        PullMenu
+        {children}
       </motion.div>
     </BackgroundModal>
   );

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./FileImage.module.scss";
 import config from "../../../../../config";
 
@@ -6,31 +7,35 @@ interface FileImageProps {
   src: string;
   folderId?: string;
   height?: string;
-  bgColor?: string;
-  compress?: boolean;
+  bgColor?: string; // пока не используется — можно убрать или реализовать
   className?: string;
 }
 
 const FileImage: React.FC<FileImageProps> = ({
   src,
-  height = "160px",
-  // compress = true,
   folderId,
-  className,
+  height = "160px",
+  className = "",
 }) => {
-  const [isFullImageLoaded, setIsFullImageLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { pathname } = useLocation();
 
-  const fullImageURL = `${config.apiUrl}/files/compress_image/folder/${folderId}/file/${src}.webp`;
+  const isPublic = pathname.startsWith("/shared");
+
+  const fullImageURL = useMemo(() => {
+    const basePath = isPublic ? "public" : "files";
+    return `${config.apiUrl}/${basePath}/compress_image/folder/${folderId}/file/${src}.webp`;
+  }, [isPublic, folderId, src]);
 
   return (
-    <div className={`${styles.imageContainer}`} style={{ height }}>
+    <div className={styles.imageContainer} style={{ height }}>
       <img
         loading="lazy"
         src={fullImageURL}
         alt="image"
-        draggable="false"
-        className={`${isFullImageLoaded ? styles.visible : ""} ${className}`}
-        onLoad={() => setIsFullImageLoaded(true)}
+        draggable={false}
+        className={`${isLoaded ? styles.visible : ""} ${className}`}
+        onLoad={() => setIsLoaded(true)}
       />
     </div>
   );

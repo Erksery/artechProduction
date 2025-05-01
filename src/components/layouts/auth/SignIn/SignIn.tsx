@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "./SignIn.module.scss";
 import { Input } from "../../../ui/input/Input";
 import { SubmitButton } from "../../../ui/buttons/submit/SubmitButton";
@@ -9,17 +10,28 @@ interface Props {
 }
 
 export const SignIn = ({ error, loading, activateTab }: Props) => {
+  const [canSubmit, setCanSubmit] = useState(false);
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const isValid = login.trim() !== "" && password.trim() !== "";
+    setCanSubmit(isValid);
+  }, [login, password, setCanSubmit]);
+
   return (
     <>
       <h2>Войти в аккаунт</h2>
       <Input
-        title="Имя"
+        title="Логин"
         type="text"
         name="login"
         id="login"
-        placeholder="nickname"
+        placeholder="Имя пользователя"
         autoComplete="current-password"
         required
+        value={login}
+        onChange={(e) => setLogin(e.target.value)}
       />
       <Input
         title="Пароль"
@@ -29,17 +41,18 @@ export const SignIn = ({ error, loading, activateTab }: Props) => {
         placeholder="**********"
         autoComplete="current-password"
         required
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       {error && (
         <div className={styles.alert}>
           <p>{error}</p>
         </div>
       )}
-
       <SubmitButton
         text={loading ? "Загрузка..." : "Войти"}
         type="submit"
-        disabled={loading}
+        disabled={!canSubmit || loading}
         className={styles.submitButton}
       />
       <div className={styles.route}>

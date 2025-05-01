@@ -1,8 +1,5 @@
 import { FaCheck } from "react-icons/fa6";
-import {
-  PRIVACY_VALUES,
-  PrivacyType,
-} from "../../../../../../config/constants";
+import { PRIVACY_VALUES, PrivacyType } from "../../../../../config/constants";
 import { JSX } from "react";
 
 export interface PrivacyButtons {

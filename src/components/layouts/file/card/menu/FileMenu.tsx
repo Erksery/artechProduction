@@ -6,31 +6,41 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../store";
 import { getFileMenuButtons } from "./FileMenuButtons";
 import { useDeleteFile } from "./hooks/useDeleteFile";
+import { useDownload } from "../../../../../hooks/useDownload";
+import { FileData } from "../../../../../interfaces/file";
 
 interface FileMenuProps {
+  file: FileData;
   fileId: string;
+  folderId: string | undefined;
   activeFile: number;
   close: () => void;
   editMode: () => void;
 }
 export const FileMenu: React.FC<FileMenuProps> = ({
+  file,
   fileId,
   activeFile,
   close,
   editMode,
+  folderId,
 }) => {
   const { openModal, closeModal } = useModal();
   const { fileDelete } = useDeleteFile();
+  const { downloadFile } = useDownload();
   const dispatch = useDispatch<AppDispatch>();
   const buttons = getFileMenuButtons(
     openModal,
     closeModal,
+    downloadFile,
     close,
     editMode,
     activeFile,
     fileDelete,
     dispatch,
-    fileId
+    fileId,
+    file,
+    folderId
   );
 
   return (

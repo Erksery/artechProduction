@@ -1,25 +1,28 @@
-import React, { lazy, useRef, useState } from "react";
-import styles from "./FileCard.module.scss";
+import React, { lazy, useMemo, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDrag } from "react-dnd";
 
 import { IoMdMore } from "react-icons/io";
+import { FaCheck } from "react-icons/fa6";
+
 import { MenuContainer } from "../../../../ui/menu/MenuContainer";
 import { FileMenu } from "../menu/FileMenu";
-import { FileData } from "../../../../../interfaces/file";
+import { EmptyCheckBox } from "../../../../ui/svg/checkbox/EmptyCheckBox";
+import { CheckBox } from "../../../../ui/svg/checkbox/CheckBox";
 import { FileSkeleton } from "./FileSkeleton";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useEditFile } from "../../../../../hooks/useEditFile";
+import { useFormat } from "../../../../../hooks/useFormat";
+import { useObserver } from "../../../../../hooks/useObserver";
+
+import { FileData } from "../../../../../interfaces/file";
 import { AppDispatch, RootState } from "../../../../../store";
 import { fileTypes } from "../../../../../config/fileTypes";
 import { imageTypes } from "../../../../../config/imageTypes";
-import { useDrag } from "react-dnd";
-import { useEditFile } from "../../../../../hooks/useEditFile";
-import { useFormat } from "../../../../../hooks/useFormat";
-import { EmptyCheckBox } from "../../../../ui/svg/checkbox/EmptyCheckBox";
-import { CheckBox } from "../../../../ui/svg/checkbox/CheckBox";
 import { toggleSelectedFile } from "../../../../../store/slices/files";
-import { useObserver } from "../../../../../hooks/useObserver";
 
-import { FaCheck } from "react-icons/fa6";
+import styles from "./FileCard.module.scss";
 
 const FileImage = lazy(() => import("../../image/FileImage"));
 
@@ -36,17 +39,23 @@ export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
   );
+
   const fileSelector = useSelector((state: RootState) => state.files);
 
   const { editMode, editing, inputRef, setEditValue, submitEditFile } =
     useEditFile();
   const { formatFileSize } = useFormat();
 
-  const fileSelected = fileSelector.selectedFiles.includes(file.id);
-
-  const fileSvg = fileTypes.find((element) =>
-    element.mimeType.includes(file.mimeType)
+  const fileSelected = useSelector((state: RootState) =>
+    state.files.selectedFiles.includes(file.id)
   );
+
+  const fileSvg = useMemo(() => {
+    return (
+      fileTypes.find((element) => element.mimeType.includes(file.mimeType)) ||
+      fileTypes[0]
+    );
+  }, [file.mimeType]);
 
   const closeMenu = () => {
     setFileMenu(false);
@@ -63,7 +72,7 @@ export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
 
   return (
     <AnimatePresence>
-      <motion.div ref={ref} exit={{ scale: 0.6 }} draggable={false}>
+      <div ref={ref} draggable={false}>
         {isVisible ? (
           <motion.div
             onClick={() =>
@@ -137,7 +146,9 @@ export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
                     <MenuContainer
                       element={
                         <FileMenu
+                          file={file}
                           fileId={file.id}
+                          folderId={activeFolder}
                           activeFile={i}
                           close={closeMenu}
                           editMode={editMode}
@@ -159,7 +170,7 @@ export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
         ) : (
           <FileSkeleton />
         )}
-      </motion.div>
+      </div>
     </AnimatePresence>
   );
 };

@@ -7,6 +7,7 @@ import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
 import { AppDispatch } from "../../../../../store";
 import { setActiveFile } from "../../../../../store/slices/files";
 import { JSX } from "react";
+import { FileData } from "../../../../../interfaces/file";
 
 interface ButtonConfig {
   id: number;
@@ -19,12 +20,15 @@ interface ButtonConfig {
 export const getFileMenuButtons = (
   openModal: (modal: JSX.Element) => void,
   closeModal: () => void,
+  downloadFile: (folderId: string, fileName: string) => void,
   close: () => void,
   editMode: () => void,
   activeFile: number,
   fileDelete: (id: string) => Promise<void>,
   dispatch: AppDispatch,
-  fileId: string
+  fileId: string,
+  file: FileData,
+  folderId: string | undefined
 ): ButtonConfig[] => [
   {
     id: 1,
@@ -43,7 +47,7 @@ export const getFileMenuButtons = (
     icon: <MdOutlineSimCardDownload />,
     red: false,
     event: () => {
-      console.log("1"), close();
+      downloadFile(folderId!, file.name);
     },
   },
   {
