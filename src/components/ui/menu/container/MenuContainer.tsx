@@ -1,8 +1,8 @@
 import { useRef, useState, useLayoutEffect, ReactNode } from "react";
 import styles from "./MenuContainer.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import { useClickOutside } from "../../../hooks/useClickOutside";
-import { useCloseScroll } from "../../../hooks/useCloseScroll";
+import { useClickOutside } from "../../../../hooks/useClickOutside";
+import { useCloseScroll } from "../../../../hooks/useCloseScroll";
 
 interface MenuContainerProps {
   children: ReactNode;
@@ -61,9 +61,9 @@ export const MenuContainer: React.FC<MenuContainerProps> = ({
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ scale: 0.7, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.7, opacity: 0 }}
+            exit={{ scale: 0.9, opacity: 0 }}
             style={{
               [position]: 0,
               [menuPosition]: "100%",

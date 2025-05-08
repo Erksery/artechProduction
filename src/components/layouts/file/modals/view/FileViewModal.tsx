@@ -8,7 +8,7 @@ import { RootState } from "../../../../../store";
 import { MdFileDownload } from "react-icons/md";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import { IoSettingsSharp } from "react-icons/io5";
-import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { FileSettingMenu } from "./menu/FileSettingMenu";
 import { fileTypes } from "../../../../../config/fileTypes";
 import { imageTypes } from "../../../../../config/imageTypes";

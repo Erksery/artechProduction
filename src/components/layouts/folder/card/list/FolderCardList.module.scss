@@ -10,11 +10,16 @@
   max-height: 70px;
   height: 70px;
   border-radius: 12px;
-  border: solid 2px transparent;
+  border: solid 1px transparent;
   background-color: variables.$folder-component;
   box-sizing: border-box;
   transition: 0.2s;
   user-select: none;
+
+  &:hover {
+    border-color: variables.$border-color;
+    background-color: variables.$component;
+  }
 
   * {
     cursor: pointer;

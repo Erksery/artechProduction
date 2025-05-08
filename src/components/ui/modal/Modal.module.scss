@@ -24,4 +24,22 @@
       background-color: transparent;
     }
   }
+
+  @media screen and (max-width: 1200px) {
+    & {
+      width: 500px !important;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    & {
+      width: 80% !important;
+    }
+  }
+
+  @media screen and (max-width: 526px) {
+    & {
+      width: 90% !important;
+    }
+  }
 }

@@ -10,7 +10,7 @@ export const FolderListGrid = ({ subFolders }: Props) => {
   return (
     <div className={styles.table}>
       {subFolders.map((folder) => (
-        <FolderCardGrid folder={folder} />
+        <FolderCardGrid key={folder.id} folder={folder} />
       ))}
     </div>
   );

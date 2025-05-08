@@ -12,7 +12,7 @@ export const BackgroundModal: React.FC<Props> = ({ children, className }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`${styles.bg} ${className}`}
+      className={`${styles.bg} modal ${className}`}
     >
       {children}
     </motion.div>

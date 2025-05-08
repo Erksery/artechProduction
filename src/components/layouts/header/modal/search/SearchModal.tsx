@@ -4,7 +4,7 @@ import { Modal } from "../../../../ui/modal/Modal";
 import styles from "./SearchModal.module.scss";
 import { FilesList } from "../../../file/list/FilesList";
 import { AnimatePresence, motion } from "framer-motion";
-import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { LocationMenu } from "./menu/LocationMenu";
 
 import { AiOutlineGlobal } from "react-icons/ai";

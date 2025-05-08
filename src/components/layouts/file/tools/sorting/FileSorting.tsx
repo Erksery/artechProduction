@@ -1,4 +1,4 @@
-import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import styles from "./FileSorting.module.scss";
 import { sortMethods, SortType } from "./SortMethods";
 
@@ -20,8 +20,9 @@ const SortCard = ({ activeSort, handleSorting }: CardProps) => {
     <div className={styles.sortContainer}>
       {sortMethods.map((method) => (
         <button
+          key={method.id}
           onClick={() => handleSorting(method.sortName)}
-          className={` ${styles.menuButton} ${
+          className={`${styles.menuButton} ${
             activeSort?.sortName === method.sortName ? styles.active : ""
           }`}
         >

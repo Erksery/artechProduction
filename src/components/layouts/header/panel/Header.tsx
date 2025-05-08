@@ -6,16 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { UserLogo } from "../../user/logo/UserLogo";
 import { AddModal } from "../modal/insert/AddModal";
-import { MenuContainer } from "../../../ui/menu/MenuContainer";
-import { SearchModal } from "../modal/search/SearchModal";
+import { MenuContainer } from "../../../ui/menu/container/MenuContainer";
+
 import { AppDispatch, RootState } from "../../../../store";
 
-import { LuSettings2 } from "react-icons/lu";
 import { RiAddLine, RiMenuFoldLine } from "react-icons/ri";
 import { IoSearchSharp } from "react-icons/io5";
 
 import { UserMenu } from "../menu/user/UserMenu";
-import { PullMenu } from "../../menu/pull/PullMenu";
+
 import { toggleSideMenu } from "../../../../store/slices/folders";
 
 export const Header = () => {
@@ -58,18 +57,10 @@ export const Header = () => {
 
           <motion.button
             whileHover={{ scale: 1.2 }}
-            onClick={() => openModal(<SearchModal />)}
+            onClick={() => openModal({ name: "fileSearch" })}
             className={styles.addButton}
           >
             <IoSearchSharp />
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            onClick={() => openModal(<PullMenu />)}
-            className={styles.addButton}
-          >
-            <LuSettings2 />
           </motion.button>
         </div>
         <div className={styles.user}>

@@ -6,7 +6,7 @@ import { useCreateFolder } from "./hook/useCreateFolder";
 import { PrivacyMenu } from "../menu/PrivacyMenu";
 import { privacyButtons } from "../menu/PrivacyButtons";
 import { PrivacyType } from "../../../../../config/constants";
-import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 
 interface AddFolderModal {
   closeModal: () => void;

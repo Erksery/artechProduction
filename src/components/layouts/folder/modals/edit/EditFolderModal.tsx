@@ -5,7 +5,7 @@ import { Input } from "../../../../ui/input/Input";
 import { useEditFolder } from "./hooks/useEditFolder";
 import { FolderData } from "../../../../../interfaces/folder";
 import { PrivacyType, SharingType } from "../../../../../config/constants";
-import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { privacyButtons } from "../menu/PrivacyButtons";
 import { PrivacyMenu } from "../menu/PrivacyMenu";
 import { TabToggle } from "../../../../ui/tab/TabToggle";

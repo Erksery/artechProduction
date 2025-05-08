@@ -44,7 +44,7 @@ export const FileCategories = ({
         ))}
       </div>
       {!isMobile && (
-        <div className={styles.sortContainer}>
+        <div className={styles.sort}>
           <FileSorting
             activeSort={activeSort}
             handleSorting={handleSorting}

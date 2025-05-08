@@ -1,9 +1,6 @@
 import { GrView } from "react-icons/gr";
 import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete, MdOutlineSimCardDownload } from "react-icons/md";
-
-import { FileViewModal } from "../../modals/view/FileViewModal";
-import { SuccessModal } from "../../../../ui/alert/success/SuccessModal";
 import { AppDispatch } from "../../../../../store";
 import { setActiveFile } from "../../../../../store/slices/files";
 import { JSX } from "react";
@@ -37,7 +34,12 @@ export const getFileMenuButtons = (
     red: false,
     event: () => {
       dispatch(setActiveFile(activeFile));
-      openModal(<FileViewModal activeFile={activeFile} />);
+      openModal({
+        name: "fileView",
+        props: {
+          activeFile: activeFile,
+        },
+      });
       close();
     },
   },
@@ -65,17 +67,18 @@ export const getFileMenuButtons = (
     icon: <MdOutlineDelete />,
     red: true,
     event: () => {
-      openModal(
-        <SuccessModal
-          title={"Удалить файл?"}
-          description={"Вы действительно хотите удалить данный файл?"}
-          button={{ text: "Удалить", color: "rgb(184, 62, 62)" }}
-          event={() => {
-            fileDelete(fileId);
+      openModal({
+        name: "success",
+        props: {
+          title: "Удалить файл?",
+          description: "Вы действительно хотите удалить данный файл?",
+          button: { text: "Удалить", color: "rgb(184, 62, 62)" },
+          event: async () => {
+            await fileDelete(fileId);
             closeModal();
-          }}
-        />
-      );
+          },
+        },
+      });
       close();
     },
   },

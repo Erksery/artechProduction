@@ -1,7 +1,7 @@
 import styles from "./FolderCardGrid.module.scss";
 import { FolderData } from "../../../../../interfaces/folder";
 import { Link } from "react-router-dom";
-import { MenuContainer } from "../../../../ui/menu/MenuContainer";
+import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { FolderMenu } from "../menu/FolderMenu";
 import { useState } from "react";
 import { MdMoreVert } from "react-icons/md";

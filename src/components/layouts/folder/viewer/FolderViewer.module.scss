@@ -29,18 +29,5 @@
         font-size: 18px;
       }
     }
-
-    .tools {
-      display: flex;
-      gap: 5px;
-
-      .editButton {
-        width: 40px;
-        border-radius: 12px;
-        border: solid 1px variables.$border-color;
-        background-color: transparent;
-        font-size: 18px;
-      }
-    }
   }
 }

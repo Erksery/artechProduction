@@ -22,7 +22,7 @@ export const SideMenu: React.FC = () => {
   useGetFolders();
 
   useEffect(() => {
-    dispatch(isMobile ? setSideMenu(false) : toggleSideMenu());
+    dispatch(isMobile ? setSideMenu(false) : setSideMenu(true));
   }, [isMobile]);
 
   return (

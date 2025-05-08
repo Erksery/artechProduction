@@ -2,24 +2,6 @@
 
 .modal {
   width: 40%;
-
-  @media screen and (max-width: 1200px) {
-    & {
-      width: 500px !important;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    & {
-      width: 70% !important;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    & {
-      width: 90% !important;
-    }
-  }
 }
 .editModal {
   display: flex;

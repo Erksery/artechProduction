@@ -1,15 +1,23 @@
 import {
   createContext,
   useState,
-  ReactNode,
-  ReactElement,
-  FC,
   useContext,
+  ReactNode,
+  FC,
+  useMemo,
 } from "react";
+import { modalRegistry } from "./modal/modalRegistry";
+import { AnimatePresence } from "framer-motion";
+
+interface ModalState {
+  name: string | null;
+  props?: any;
+  key?: any;
+}
 
 interface ModalContextType {
-  activeModal: ReactElement | null;
-  openModal: (ModalComponent: ReactElement) => void;
+  modal: ModalState;
+  openModal: (modal: ModalState) => void;
   closeModal: () => void;
 }
 
@@ -20,25 +28,29 @@ interface ModalProviderProps {
 }
 
 export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
-  const [activeModal, setActiveModal] = useState<ReactElement | null>(null);
+  const [modal, setModal] = useState<ModalState>({ name: null });
 
-  const openModal = (ModalComponent: ReactElement) =>
-    setActiveModal(ModalComponent);
-  const closeModal = () => setActiveModal(null);
+  const openModal = (modal: ModalState) => setModal(modal);
+  const closeModal = () => setModal({ name: null });
+
+  const value = useMemo(() => ({ modal, openModal, closeModal }), [modal]);
+
+  const ModalComponent = modal.name ? modalRegistry[modal.name] : null;
 
   return (
-    <ModalContext.Provider value={{ activeModal, openModal, closeModal }}>
+    <ModalContext.Provider value={value}>
       {children}
+      <AnimatePresence>
+        {ModalComponent && <ModalComponent {...modal.props} />}
+      </AnimatePresence>
     </ModalContext.Provider>
   );
 };
 
-export const useModal = () => {
+export const useModal = (): ModalContextType => {
   const context = useContext(ModalContext);
-
   if (!context) {
     throw new Error("useModal must be used within a ModalProvider");
   }
-
   return context;
 };

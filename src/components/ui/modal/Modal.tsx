@@ -21,22 +21,14 @@ export const Modal: React.FC<ModalProps> = ({ children, className }) => {
 
   return (
     <BackgroundModal>
-      <motion.div
-        ref={modalRef}
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.8 }}
-        transition={{ duration: 0.25 }}
-        className={`${styles.modalContainer} ${className}`}
-        layout
-      >
+      <div ref={modalRef} className={`${styles.modalContainer} ${className}`}>
         <div className={styles.modalHeader}>
           <motion.button onClick={closeModal}>
             <CgClose />
           </motion.button>
         </div>
         {children}
-      </motion.div>
+      </div>
     </BackgroundModal>
   );
 };

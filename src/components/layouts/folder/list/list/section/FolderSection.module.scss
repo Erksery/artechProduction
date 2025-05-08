@@ -1,0 +1,43 @@
+@use "@/variables";
+
+.privacyFolderContainer {
+  .sectionButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    font-size: 14px;
+    border: solid 1px transparent;
+    background-color: transparent;
+    transition: 0.2s;
+
+    &:hover {
+      border-color: variables.$border-color;
+      background-color: variables.$component;
+    }
+
+    svg {
+      font-size: 18px;
+    }
+    .iconContainer {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chevron {
+      display: flex;
+      align-items: center;
+      transition: 0.2s;
+    }
+
+    .rotate {
+      transform: rotate(180deg);
+    }
+  }
+
+  .folderList {
+    height: auto;
+  }
+}

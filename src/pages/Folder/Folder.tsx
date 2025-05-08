@@ -8,19 +8,24 @@ import { useGetFiles } from "../../hooks/useGetFiles.ts";
 import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
 import { FolderViewer } from "../../components/layouts/folder/viewer/FolderViewer.tsx";
 import { SideMenu } from "../../components/layouts/menu/side/SideMenu.tsx";
+import { modalRegistry } from "../../hooks/modal/modalRegistry.tsx";
 
 export const Folder: React.FC = () => {
   const { id } = useParams();
 
-  const { activeModal } = useModal();
+  const { modal } = useModal();
 
   const { fileLoading } = useGetFiles(id);
   useActiveFolder(id);
 
+  const ModalComponent = modal ? modalRegistry[modal.key] : null;
+
   return (
     <>
       <ErrorBoundary>
-        <AnimatePresence>{activeModal && activeModal}</AnimatePresence>
+        <AnimatePresence>
+          {ModalComponent && <ModalComponent {...modal?.props} />}
+        </AnimatePresence>
         <div className={styles.folderContainer}>
           <SideMenu />
 
