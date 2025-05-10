@@ -117,11 +117,11 @@ button {
 
 .scroller {
   scrollbar-width: thin;
-  scrollbar-color: variables.$component variables.$background;
+  scrollbar-color: variables.$scroller-color variables.$background;
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -129,7 +129,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: variables.$component;
+  background-color: variables.$scroller-color;
   border-radius: 5px;
 }
 

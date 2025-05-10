@@ -10,6 +10,7 @@ import { LocationMenu } from "./menu/LocationMenu";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { MdOutlineSnippetFolder } from "react-icons/md";
 import { useSearchFile } from "./hooks/useSearchFile";
+import { VIEW_MODES } from "@config/constants";
 
 export const SearchModal = () => {
   const [searchValue, setSearchValue] = useState({
@@ -93,7 +94,11 @@ export const SearchModal = () => {
               exit={{ height: 0, transition: { duration: 0.3 } }}
               transition={{ duration: 0.3 }}
             >
-              <FilesList padding={0} files={searchFiles} loading={false} />
+              <FilesList
+                files={searchFiles}
+                viewMode={VIEW_MODES.LIST}
+                loading={false}
+              />
             </motion.div>
           )}
         </AnimatePresence>

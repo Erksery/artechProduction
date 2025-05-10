@@ -1,12 +1,9 @@
 import styles from "./FileCard.module.scss";
-import { lazy, useMemo } from "react";
-import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
+import React, { lazy } from "react";
+import { useDispatch } from "react-redux";
 
-import { AppDispatch, RootState } from "@store/index";
+import { AppDispatch } from "@store/index";
 import { toggleSelectedFile } from "@store/slices/files";
-
-import { useFormat } from "@hooks/useFormat";
 
 import { fileTypes } from "@config/fileTypes";
 import { imageTypes } from "@config/imageTypes";
@@ -16,30 +13,16 @@ import { EmptyCheckBox } from "@components/ui/svg/checkbox/EmptyCheckBox";
 
 import { FileCardProps } from "./FileCard";
 import { FileEditing } from "./FileEditing";
+import { useFileCardLogic } from "../hooks/useFileCardlogic";
+import { useDrag } from "react-dnd";
 
 const FileImage = lazy(() => import("../../image/FileImage"));
 
-export const FileView = ({ file, i }: FileCardProps) => {
+export const FileView = React.memo(({ file, i }: FileCardProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const fileSelector = useSelector((state: RootState) => state.files);
-  const fileSelected = useSelector((state: RootState) =>
-    state.files.selectedFiles.includes(file.id)
-  );
-  const activeFolder = useSelector(
-    (state: RootState) => state.folders.activeFolder
-  );
-
-  const { formatFileSize } = useFormat();
-
-  const fileSize = useMemo(() => formatFileSize(file.size), [file.size]);
-
-  const fileSvg = useMemo(() => {
-    return (
-      fileTypes.find((element) => element.mimeType.includes(file.mimeType)) ||
-      fileTypes[0]
-    );
-  }, [file.mimeType]);
+  const { activeEditMode, fileSelected, activeFolder, fileSvg, fileSize } =
+    useFileCardLogic(file);
 
   const [{ isDragging }, drag] = useDrag({
     type: "FILE",
@@ -51,9 +34,7 @@ export const FileView = ({ file, i }: FileCardProps) => {
 
   return (
     <div
-      onClick={() =>
-        fileSelector.activeEditMode && dispatch(toggleSelectedFile(file.id))
-      }
+      onClick={() => activeEditMode && dispatch(toggleSelectedFile(file.id))}
       className={`${styles.card} ${fileSelected && styles.selected}`}
       ref={drag}
       style={{
@@ -65,7 +46,7 @@ export const FileView = ({ file, i }: FileCardProps) => {
           <FileImage
             src={file.name}
             folderId={activeFolder}
-            className={`${fileSelector.activeEditMode && styles.opacity}`}
+            className={`${activeEditMode && styles.opacity}`}
           />
         ) : (
           <div className={styles.fileIcon}>
@@ -75,7 +56,7 @@ export const FileView = ({ file, i }: FileCardProps) => {
 
         <div className={styles.infoContainer}>
           <div className={styles.check}>
-            {fileSelector.activeEditMode &&
+            {activeEditMode &&
               (fileSelected ? (
                 <CheckBox width={20} height={20} />
               ) : (
@@ -98,4 +79,4 @@ export const FileView = ({ file, i }: FileCardProps) => {
       </div>
     </div>
   );
-};
+});

@@ -13,7 +13,7 @@ export interface FileCardProps {
   i: number;
 }
 
-export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
+export const FileCard = React.memo(({ file, i }: FileCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const { isVisible } = useObserver(ref);
@@ -25,4 +25,4 @@ export const FileCard: React.FC<FileCardProps> = ({ file, i }) => {
       </div>
     </AnimatePresence>
   );
-};
+});

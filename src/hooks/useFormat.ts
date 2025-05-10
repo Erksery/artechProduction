@@ -9,5 +9,18 @@ export const useFormat = () => {
     return `${size.toFixed(2)} ${units[index]}`;
   };
 
-  return { formatFileSize };
+  const formatFileDate = (date: string): string => {
+    const formatDate = new Date(date);
+
+    const formatted = formatDate.toLocaleString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return formatted;
+  };
+
+  return { formatFileSize, formatFileDate };
 };
