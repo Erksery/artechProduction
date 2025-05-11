@@ -1,11 +1,11 @@
 import { ReactNode, useRef } from "react";
 import styles from "./Modal.module.scss";
 import { useBlockScroll } from "../../../hooks/useBlockScroll";
-import { useModal } from "../../../hooks/useModal";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { motion } from "framer-motion";
 import { CgClose } from "react-icons/cg";
 import { BackgroundModal } from "./BackgroundModal/BackgroundModal";
+import { useModal } from "@hooks/modal/useModal";
 
 interface ModalProps {
   children: ReactNode;

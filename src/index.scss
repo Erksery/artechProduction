@@ -84,7 +84,7 @@ button {
   background-color: variables.$blur-panel;
 
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: solid 1px transparent;
   cursor: pointer;
   user-select: none;
 }
@@ -93,7 +93,7 @@ button {
   overflow: hidden;
 
   #root {
-    padding-right: 5px;
+    padding-right: 3px;
   }
 
   .modal {

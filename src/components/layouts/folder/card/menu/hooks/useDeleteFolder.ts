@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../../store";
 import { removeFolder } from "../../../../../../store/slices/folders";
 import api from "../../../../../../api/api";
+import { handleApiSuccess } from "@utils/toast/handleApiSuccess";
+import { handleApiError } from "@utils/toast/handleApiError";
 
 export const useDeleteFolder = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,8 +16,10 @@ export const useDeleteFolder = () => {
         if (resData.status === 200) {
           dispatch(removeFolder(id));
         }
+        handleApiSuccess(resData, "Папка успешно удалена");
       } catch (err) {
         console.log("Ошибка при создании папки", err);
+        handleApiError(err, "Ошибка при создании папки");
       }
     },
     [dispatch]

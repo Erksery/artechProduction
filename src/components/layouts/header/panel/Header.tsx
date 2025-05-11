@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useModal } from "../../../../hooks/useModal";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { UserLogo } from "../../user/logo/UserLogo";
@@ -16,6 +16,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import { UserMenu } from "../menu/user/UserMenu";
 
 import { toggleSideMenu } from "../../../../store/slices/folders";
+import { useModal } from "@hooks/modal/useModal";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);

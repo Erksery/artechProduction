@@ -6,6 +6,7 @@ import { SuccessModal } from "@components/ui/alert/success/SuccessModal";
 import { AddFileModal } from "@components/layouts/file/modals/insert/AddFileModal";
 import { AddFolderModal } from "@components/layouts/folder/modals/insert/AddFolderModal";
 import { EditFolderModal } from "@components/layouts/folder/modals/edit/EditFolderModal";
+import { PropertiesFolder } from "@components/layouts/folder/modals/properties/PropertiesFolder";
 
 export const modalRegistry: Record<string, (props?: any) => ReactNode> = {
   fileView: (props) => <FileViewModal {...props} />,
@@ -14,4 +15,5 @@ export const modalRegistry: Record<string, (props?: any) => ReactNode> = {
   insertFileModal: (props) => <AddFileModal {...props} />,
   insertFolderModal: (props) => <AddFolderModal {...props} />,
   editFolderModal: (props) => <EditFolderModal {...props} />,
+  propertiesFolder: (props) => <PropertiesFolder {...props} />,
 };

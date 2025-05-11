@@ -1,9 +1,10 @@
 import styles from "./FolderMenu.module.scss";
-import { useModal } from "../../../../../hooks/useModal";
+
 import { MenuButton } from "../../../../ui/menu/button/MenuButton";
 import { getFolderMenuButtons } from "./FolderMenuButtons";
 import { useDeleteFolder } from "./hooks/useDeleteFolder";
 import { FolderData } from "../../../../../interfaces/folder";
+import { useModal } from "@hooks/modal/useModal";
 
 interface FolderMenuProps {
   id: string;

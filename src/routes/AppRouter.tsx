@@ -9,7 +9,10 @@ export const AppRouter = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/sign" element={<Sign />} />
-      <Route path="/folder/:id" element={<Folder />} />
+
+      <Route path="/folder/:id" element={<Folder />}>
+        <Route path="file/:fileId" element={<Folder />} />
+      </Route>
       <Route path="/shared/folder/:id" element={<PublicFolder />} />
     </Routes>
   );

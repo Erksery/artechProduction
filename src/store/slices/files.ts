@@ -15,7 +15,7 @@ interface FilesState {
   files: FileData[];
   filter: Filter;
   order: Order;
-  activeFile: number;
+  activeFile: string;
   activeEditMode: boolean;
   selectedFiles: string[];
 }
@@ -24,7 +24,7 @@ const initialState: FilesState = {
   files: [],
   filter: { name: "mimeType", value: "" },
   order: { name: "originalFilename", value: "asc" },
-  activeFile: 0,
+  activeFile: "",
   activeEditMode: false,
   selectedFiles: [],
 };

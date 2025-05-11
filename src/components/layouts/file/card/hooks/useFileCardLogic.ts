@@ -14,7 +14,10 @@ export const useFileCardLogic = (file: FileData) => {
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
   );
+  const activeFile = useSelector((state: RootState) => state.files.activeFile);
+
   const fileSelected = selectedFiles.includes(file.id);
+  const searchActive = activeFile === file.id;
   const { formatFileSize, formatFileDate } = useFormat();
   const { fileSvg } = useSvgType(file.mimeType);
 
@@ -24,6 +27,7 @@ export const useFileCardLogic = (file: FileData) => {
   return {
     activeEditMode,
     activeFolder,
+    searchActive,
     fileSelected,
     fileSvg,
     fileSize,

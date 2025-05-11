@@ -15,6 +15,7 @@
   .filterContainer {
     display: flex;
     overflow-x: hidden;
+    gap: 3px;
     .category {
       display: flex;
       gap: 5px;
@@ -22,9 +23,15 @@
       width: auto;
       height: 100%;
       border-radius: 8px;
+      border: solid 1px transparent;
       background-color: transparent;
       transition: 0.2s;
       box-sizing: border-box;
+
+      &:hover {
+        border-color: variables.$border-color;
+        background-color: variables.$component;
+      }
 
       svg {
         width: 16px;
@@ -62,6 +69,7 @@
       width: auto;
       height: 100%;
       border-radius: 8px;
+      border: solid 1px transparent;
       background-color: transparent;
 
       transition: 0.2s;
@@ -81,6 +89,7 @@
       }
 
       &:hover {
+        border-color: variables.$border-color;
         background-color: variables.$component;
       }
 

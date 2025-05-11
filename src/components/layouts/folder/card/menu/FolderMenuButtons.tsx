@@ -1,13 +1,15 @@
 import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
-import { JSX } from "react";
-import { FolderData } from "../../../../../interfaces/folder";
+import { GoInfo } from "react-icons/go";
+
+import { ModalState } from "@hooks/modal/useModal";
+import { FolderData } from "@interfaces/folder";
 
 export const getFolderMenuButtons = (
   id: string,
   folder: FolderData,
-  openModal: (modal: JSX.Element) => void,
+  openModal: (modal: ModalState) => void,
   closeModal: () => void,
   close: () => void,
   deleteFolder: (id: string) => void
@@ -36,10 +38,17 @@ export const getFolderMenuButtons = (
   {
     id: 3,
     title: "Свойства",
-    icon: <LuFolderPen />,
+    icon: <GoInfo />,
     red: false,
     event: (e: { preventDefault: () => any }) => {
       e.preventDefault();
+      openModal({
+        name: "propertiesFolder",
+        props: {
+          folder: folder,
+        },
+      });
+      close();
     },
   },
   {

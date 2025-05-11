@@ -2,7 +2,7 @@ import styles from "./AddModal.module.scss";
 import { FiFilePlus } from "react-icons/fi";
 import { MdOutlineFolderCopy } from "react-icons/md";
 import { motion } from "framer-motion";
-import { useModal } from "@hooks/useModal";
+import { useModal } from "@hooks/modal/useModal";
 
 interface AddModalProps {
   setOpen: (isOpen: boolean) => void;

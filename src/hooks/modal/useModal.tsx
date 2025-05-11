@@ -5,13 +5,16 @@ import {
   ReactNode,
   FC,
   useMemo,
+  useEffect,
 } from "react";
-import { modalRegistry } from "./modal/modalRegistry";
-import { AnimatePresence } from "framer-motion";
 
-interface ModalState {
+import { AnimatePresence } from "framer-motion";
+import { modalRegistry } from "./modalRegistry";
+import { ErrorBoundary } from "@components/ui/error/ErrorBoundary";
+
+export interface ModalState {
   name: string | null;
-  props?: any;
+  props?: Record<string, any>;
   key?: any;
 }
 
@@ -35,20 +38,35 @@ export const ModalProvider: FC<ModalProviderProps> = ({ children }) => {
 
   const value = useMemo(() => ({ modal, openModal, closeModal }), [modal]);
 
+  //dev
+  useEffect(() => {
+    if (import.meta.hot && modal.name) {
+      import.meta.hot.dispose(() => {
+        setModal({ name: null });
+      });
+    }
+  }, [modal.name]);
+
   const ModalComponent = modal.name ? modalRegistry[modal.name] : null;
+  const isModalRegistered = Boolean(ModalComponent);
 
   return (
-    <ModalContext.Provider value={value}>
-      {children}
-      <AnimatePresence>
-        {ModalComponent && <ModalComponent {...modal.props} />}
-      </AnimatePresence>
-    </ModalContext.Provider>
+    <ErrorBoundary>
+      <ModalContext.Provider value={value}>
+        {children}
+        <AnimatePresence>
+          {isModalRegistered && ModalComponent && (
+            <ModalComponent key={modal.key} {...modal.props} />
+          )}
+        </AnimatePresence>
+      </ModalContext.Provider>
+    </ErrorBoundary>
   );
 };
 
 export const useModal = () => {
   const context = useContext(ModalContext);
-
+  if (!context)
+    throw new Error("Error: useModal must be used within ModalProvider");
   return context;
 };

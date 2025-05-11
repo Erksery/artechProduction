@@ -5,6 +5,7 @@ import { AppDispatch } from "../../../../../store";
 import { setActiveFile } from "../../../../../store/slices/files";
 import { JSX } from "react";
 import { FileData } from "../../../../../interfaces/file";
+import { ModalState } from "@hooks/modal/useModal";
 
 interface ButtonConfig {
   id: number;
@@ -15,7 +16,7 @@ interface ButtonConfig {
 }
 
 export const getFileMenuButtons = (
-  openModal: (modal: JSX.Element) => void,
+  openModal: (modal: ModalState) => void,
   closeModal: () => void,
   downloadFile: (folderId: string, fileName: string) => void,
   close: () => void,

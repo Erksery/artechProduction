@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./FileMenu.module.scss";
-import { useModal } from "../../../../../hooks/useModal";
+
 import { MenuButton } from "../../../../ui/menu/button/MenuButton";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../store";
@@ -8,6 +8,7 @@ import { getFileMenuButtons } from "./FileMenuButtons";
 import { useDeleteFile } from "./hooks/useDeleteFile";
 import { useDownload } from "../../../../../hooks/useDownload";
 import { FileData } from "../../../../../interfaces/file";
+import { useModal } from "@hooks/modal/useModal";
 
 interface FileMenuProps {
   file: FileData;

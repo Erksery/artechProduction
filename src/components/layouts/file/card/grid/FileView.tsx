@@ -13,16 +13,26 @@ import { EmptyCheckBox } from "@components/ui/svg/checkbox/EmptyCheckBox";
 
 import { FileCardProps } from "./FileCard";
 import { FileEditing } from "./FileEditing";
-import { useFileCardLogic } from "../hooks/useFileCardlogic";
+
 import { useDrag } from "react-dnd";
+import { useFileCardLogic } from "../hooks/useFileCardLogic";
+import { useScrollTo } from "../hooks/useScrollTo";
 
 const FileImage = lazy(() => import("../../image/FileImage"));
 
 export const FileView = React.memo(({ file, i }: FileCardProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { activeEditMode, fileSelected, activeFolder, fileSvg, fileSize } =
-    useFileCardLogic(file);
+  const {
+    activeEditMode,
+    fileSelected,
+    activeFolder,
+    fileSvg,
+    fileSize,
+    searchActive,
+  } = useFileCardLogic(file);
+
+  useScrollTo();
 
   const [{ isDragging }, drag] = useDrag({
     type: "FILE",
@@ -34,8 +44,11 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
 
   return (
     <div
+      id={`file-${file.id}`}
       onClick={() => activeEditMode && dispatch(toggleSelectedFile(file.id))}
-      className={`${styles.card} ${fileSelected && styles.selected}`}
+      className={`${styles.card} ${
+        fileSelected || searchActive ? styles.selected : ""
+      }`}
       ref={drag}
       style={{
         opacity: isDragging ? 0.5 : 1,
