@@ -1,11 +1,12 @@
 import styles from "./FileCategories.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter } from "../../../../../store/slices/files";
+
 import { AppDispatch, RootState } from "../../../../../store";
 import { fileCategories, FileCategoriesTypes } from "./Categories";
 
 import { SortType } from "../sorting/SortMethods";
-import { FileSorting } from "../sorting/FileSorting";
+import FileSorting from "../sorting/FileSorting";
+import { setFilter } from "@store/slices/files";
 
 interface Props {
   isMobile: boolean;
@@ -15,7 +16,7 @@ interface Props {
   setOpenSortMenu: (openSortMenu: boolean) => void;
 }
 
-export const FileCategories = ({
+const FileCategories = ({
   isMobile,
   activeSort,
   handleSorting,
@@ -56,3 +57,5 @@ export const FileCategories = ({
     </div>
   );
 };
+
+export default FileCategories;

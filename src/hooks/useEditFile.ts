@@ -23,7 +23,7 @@ export const useEditFile = () => {
 
   const submitEditFile = (
     e: { preventDefault: () => void },
-    folderId: string,
+    folderId: string | undefined,
     fileId: string
   ) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ export const useEditFile = () => {
   }, [editing]);
 
   const editFile = async (
-    folderId: string,
+    folderId: string | undefined,
     fileId: string,
     editData: EditData
   ) => {

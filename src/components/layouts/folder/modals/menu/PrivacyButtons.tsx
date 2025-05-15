@@ -1,6 +1,8 @@
-import { FaCheck } from "react-icons/fa6";
 import { PRIVACY_VALUES, PrivacyType } from "../../../../../config/constants";
 import { JSX } from "react";
+import { BsIncognito } from "react-icons/bs";
+import { GrGroup } from "react-icons/gr";
+import { LuLink } from "react-icons/lu";
 
 export interface PrivacyButtons {
   id: number;
@@ -19,7 +21,7 @@ export const privacyButtons = (
     title: "Приватый",
     name: PRIVACY_VALUES.PRIVATE,
     description: "Папка доступна только вам",
-    icon: <FaCheck />,
+    icon: <BsIncognito />,
     event: () => handlePrivacyChange(PRIVACY_VALUES.PRIVATE),
   },
   {
@@ -27,7 +29,7 @@ export const privacyButtons = (
     title: "Публичный",
     name: PRIVACY_VALUES.PUBLIC,
     description: "Папка доступна всем",
-    icon: <FaCheck />,
+    icon: <GrGroup />,
     event: () => handlePrivacyChange(PRIVACY_VALUES.PUBLIC),
   },
 
@@ -36,7 +38,7 @@ export const privacyButtons = (
     title: "По ссылке",
     name: PRIVACY_VALUES.LINK,
     description: "Папка доступна всем у кого есть ссылка",
-    icon: <FaCheck />,
+    icon: <LuLink />,
     event: () => handlePrivacyChange(PRIVACY_VALUES.LINK),
   },
 ];

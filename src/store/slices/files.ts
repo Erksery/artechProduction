@@ -18,6 +18,7 @@ interface FilesState {
   activeFile: string;
   activeEditMode: boolean;
   selectedFiles: string[];
+  searchFile: string;
 }
 
 const initialState: FilesState = {
@@ -27,6 +28,7 @@ const initialState: FilesState = {
   activeFile: "",
   activeEditMode: false,
   selectedFiles: [],
+  searchFile: "",
 };
 
 export const filesSlice = createSlice({
@@ -93,9 +95,14 @@ export const filesSlice = createSlice({
         state.selectedFiles = [...state.selectedFiles, action.payload];
       }
     },
-
     setSelectedFile: (state, action) => {
       state.selectedFiles = action.payload;
+    },
+    setSearchFile: (state, action) => {
+      state.searchFile = action.payload;
+    },
+    clearSearchFile: (state) => {
+      state.searchFile = "";
     },
   },
 });
@@ -114,6 +121,8 @@ export const {
   deleteSelectedFile,
   setSelectedFile,
   toggleSelectedFile,
+  setSearchFile,
+  clearSearchFile,
 } = filesSlice.actions;
 
 export default filesSlice.reducer;

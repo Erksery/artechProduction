@@ -4,7 +4,6 @@ import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 
 import { useGetFiles } from "../../hooks/useGetFiles.ts";
 import { FolderViewer } from "../../components/layouts/folder/viewer/FolderViewer.tsx";
-import { SideMenu } from "../../components/layouts/menu/side/SideMenu.tsx";
 import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
 
 export const PublicFolder = () => {
@@ -17,7 +16,6 @@ export const PublicFolder = () => {
     <>
       <ErrorBoundary>
         <div className={styles.folderContainer}>
-          <SideMenu />
           <div className={styles.contentContainer}>
             <FolderViewer folderId={id} loading={fileLoading} />
           </div>

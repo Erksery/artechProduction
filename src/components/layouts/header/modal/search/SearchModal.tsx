@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Input } from "../../../../ui/input/Input";
 import { Modal } from "../../../../ui/modal/Modal";
 import styles from "./SearchModal.module.scss";
@@ -14,10 +14,11 @@ import { VIEW_MODES } from "@config/constants";
 
 export const SearchModal = () => {
   const [searchValue, setSearchValue] = useState({
-    value: "",
-    location: "local",
+    value: localStorage.getItem("searchValue") ?? "",
+    location: localStorage.getItem("searchLocation") ?? "local",
   });
   const [locationMenu, setLocationMenu] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { getSearchFiles, searchFiles } = useSearchFile();
 
   const handleInputChange = (
@@ -37,6 +38,12 @@ export const SearchModal = () => {
   };
 
   const expanded = searchValue?.value?.length > 0;
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -60,6 +67,7 @@ export const SearchModal = () => {
       >
         <div className={styles.toolsContainer}>
           <Input
+            ref={inputRef}
             value={searchValue.value}
             onChange={handleInputChange}
             title="Поиск"

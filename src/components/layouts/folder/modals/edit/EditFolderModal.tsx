@@ -4,12 +4,18 @@ import { Modal } from "../../../../ui/modal/Modal";
 import { Input } from "../../../../ui/input/Input";
 import { useEditFolder } from "./hooks/useEditFolder";
 import { FolderData } from "../../../../../interfaces/folder";
-import { PrivacyType, SharingType } from "../../../../../config/constants";
+import {
+  PRIVACY_VALUES,
+  PrivacyType,
+  SharingType,
+} from "../../../../../config/constants";
 import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { privacyButtons } from "../menu/PrivacyButtons";
 import { PrivacyMenu } from "../menu/PrivacyMenu";
 import { TabToggle } from "../../../../ui/tab/TabToggle";
 import { sharingButtons } from "./SharingButtons";
+import { useModal } from "@hooks/modal/useModal";
+import { handleApiSuccess } from "@utils/toast/handleApiSuccess";
 
 interface EditFolderModalProps {
   folder: FolderData;
@@ -30,6 +36,7 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
   const [privacyOpenMenu, setPrivacyOpenMenu] = useState(false);
 
   const { submitEditFolder } = useEditFolder();
+  const { closeModal } = useModal();
 
   const handleInputNameChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -64,6 +71,21 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
     (button) => button.name === editFolderData.sharingOptions
   );
 
+  const handleCopy = async () => {
+    try {
+      const copyText = `${window.location.origin}/shared/folder/${folder.id}`;
+
+      await navigator.clipboard.writeText(copyText);
+      handleApiSuccess(
+        "Скопировано в буфер обмена",
+        "Ссылка успешно скопирована",
+        true
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Modal className={styles.modal}>
       <div className={styles.editModal}>
@@ -90,8 +112,20 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
         </MenuContainer>
         <p className={styles.title}>Режим доступа</p>
         <TabToggle tabs={sharing} activeButton={activeSharing} />
+
         <div className={styles.buttonsContainer}>
-          <button onClick={() => submitEditFolder(folder.id, editFolderData)}>
+          <div className={styles.linkContainer}>
+            {editFolderData.privacy === PRIVACY_VALUES.LINK && (
+              <button onClick={handleCopy} className={styles.linkButton}>
+                Скопировать ссылку
+              </button>
+            )}
+          </div>
+          <button
+            onClick={() => {
+              submitEditFolder(folder.id, editFolderData), closeModal();
+            }}
+          >
             Подтвердить
           </button>
         </div>

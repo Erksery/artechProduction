@@ -1,5 +1,5 @@
 {
-  "name": "artechproduction",
+  "name": "arttechproduction",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
     "framer-motion": "^11.15.0",

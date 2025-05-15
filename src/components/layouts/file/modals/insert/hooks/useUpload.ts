@@ -30,10 +30,13 @@ export const useUpload = (id: string | undefined) => {
           onUploadProgress: (event) => {
             if (event.total) {
               setProgress(Math.round((event.loaded * 100) / event.total));
+              console.log(progress);
             }
           },
         });
-
+        if (!response.data.file) {
+          throw "Ошибка при получении данных загруженного файла";
+        }
         dispatch(addFiles([response.data.file]));
         return response.data.file;
       });

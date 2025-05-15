@@ -44,7 +44,7 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
 
   return (
     <div
-      id={`file-${file.id}`}
+      id={`file-${file?.id}`}
       onClick={() => activeEditMode && dispatch(toggleSelectedFile(file.id))}
       className={`${styles.card} ${
         fileSelected || searchActive ? styles.selected : ""

@@ -1,11 +1,12 @@
 import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import styles from "./FileSorting.module.scss";
-import { sortMethods, SortType } from "./SortMethods";
+import { SortType } from "./SortMethods";
 
 import { TbArrowsSort } from "react-icons/tb";
 import { GoChevronDown } from "react-icons/go";
+import { SortCard } from "./card/SortCard";
 
-interface CardProps {
+export interface CardProps {
   activeSort: SortType | undefined;
   handleSorting: (sortMethod?: string) => void;
 }
@@ -15,25 +16,7 @@ interface Props extends CardProps {
   setOpenSortMenu: (openSortMenu: boolean) => void;
 }
 
-const SortCard = ({ activeSort, handleSorting }: CardProps) => {
-  return (
-    <div className={styles.sortContainer}>
-      {sortMethods.map((method) => (
-        <button
-          key={method.id}
-          onClick={() => handleSorting(method.sortName)}
-          className={`${styles.menuButton} ${
-            activeSort?.sortName === method.sortName ? styles.active : ""
-          }`}
-        >
-          {method.title}
-        </button>
-      ))}
-    </div>
-  );
-};
-
-export const FileSorting = ({
+const FileSorting = ({
   activeSort,
   handleSorting,
   openSortMenu,
@@ -65,3 +48,5 @@ export const FileSorting = ({
     </>
   );
 };
+
+export default FileSorting;

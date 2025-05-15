@@ -48,7 +48,7 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
   );
 
   return (
-    <Modal>
+    <Modal className={styles.modal}>
       <div className={styles.fileView}>
         <div className={styles.gallery}>
           <button

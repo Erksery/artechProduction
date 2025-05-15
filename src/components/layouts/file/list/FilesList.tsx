@@ -31,26 +31,23 @@ const FilesListComponent: React.FC<FilesListProps> = ({
     }
   }, [activeEditMode]);
 
-  console.log("rerender file list", loading);
+  console.log("rerender file list", files);
+
   return (
     <div
       className={`${viewMode === VIEW_MODES.GRID ? styles.table : styles.list}`}
     >
-      {loading ? (
-        Array.from({ length: 10 }).map((_, index) => (
-          <FileSkeleton key={index} />
-        ))
-      ) : files.length > 0 ? (
-        files.map((file, index) =>
-          viewMode === VIEW_MODES.GRID ? (
-            <FileCard file={file} key={file.id} i={index} />
-          ) : (
-            <FileListCard key={file.id} file={file} />
-          )
-        )
-      ) : (
-        <div>Файлы не найдены</div>
-      )}
+      {loading
+        ? Array.from({ length: 10 }).map((_, index) => (
+            <FileSkeleton key={index} />
+          ))
+        : files.map((file, index) =>
+            viewMode === VIEW_MODES.GRID ? (
+              <FileCard file={file} key={file.id} i={index} />
+            ) : (
+              <FileListCard key={file.id} file={file} />
+            )
+          )}
     </div>
   );
 };

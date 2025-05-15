@@ -1,26 +1,35 @@
-import { FileCategories } from "@components/layouts/file/tools/categories/FileCategories";
 import styles from "./ToolsLine.module.scss";
 import { useMobileView } from "@hooks/useMobileView";
 
 import { BiEditAlt } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
-import { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@store/index";
 import { sortMethods } from "@components/layouts/file/tools/sorting/SortMethods";
 import { setOrder, toggleEditMode } from "@store/slices/files";
-import { FileSorting } from "@components/layouts/file/tools/sorting/FileSorting";
+
+const FileCategories = React.lazy(
+  () => import("@components/layouts/file/tools/categories/FileCategories")
+);
+const FileSorting = React.lazy(
+  () => import("@components/layouts/file/tools/sorting/FileSorting")
+);
 
 export const ToolsLine = () => {
   const [openSortMenu, setOpenSortMenu] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const fileSelector = useSelector((state: RootState) => state.files);
+  const fileOrderName = useSelector(
+    (state: RootState) => state.files.order.name
+  );
+  const activeEditMode = useSelector(
+    (state: RootState) => state.files.activeEditMode
+  );
   const { isMobile } = useMobileView();
 
   const activeSort = useMemo(
-    () =>
-      sortMethods.find((method) => method.sortName === fileSelector.order.name),
-    [fileSelector.order.name]
+    () => sortMethods.find((method) => method.sortName === fileOrderName),
+    [fileOrderName]
   );
 
   const handleSorting = useCallback((sortMethod?: string): void => {
@@ -40,13 +49,9 @@ export const ToolsLine = () => {
         />
         <button
           onClick={() => dispatch(toggleEditMode())}
-          className={styles.editButton}
+          className={`${styles.editButton} ${activeEditMode && styles.active}`}
         >
-          {fileSelector.activeEditMode ? (
-            <CgClose fill=" #f08e7e;" />
-          ) : (
-            <BiEditAlt />
-          )}
+          {activeEditMode ? <CgClose /> : <BiEditAlt />}
         </button>
       </div>
       {isMobile && (

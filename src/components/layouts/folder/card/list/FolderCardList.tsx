@@ -65,9 +65,9 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
     drop: (item: FileType) => {
       selectedFiles.length > 0
         ? selectedFiles.forEach((file) => {
-            editFile(folder.id, file, { folderId: folder.id });
+            editFile(activeFolder, file, { folderId: folder.id });
           })
-        : editFile(folder.id, item.file.id, { folderId: folder.id });
+        : editFile(activeFolder, item.file.id, { folderId: folder.id });
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -138,6 +138,7 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
               }
               open={menuOpen}
               setOpen={setMenuOpen}
+              blur={true}
             >
               <button
                 className={styles.button}

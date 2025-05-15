@@ -5,6 +5,7 @@ import { RootState } from "@store/index";
 import { FilesList } from "../../file/list/FilesList";
 import { FolderListGrid } from "../list/grid/FolderListGrid";
 import { ToolsLine } from "./ToolsLine/ToolsLine";
+import { EmptyList } from "./EmptyList/EmptyList";
 
 interface Props {
   folderId: string | undefined;
@@ -27,13 +28,16 @@ export const FolderViewer = ({ folderId, loading }: Props) => {
 
   return (
     <div className={styles.viewer}>
+      <ToolsLine />
       <div className={styles.list}>
         <FolderListGrid subFolders={subFolders} />
       </div>
       <div className={styles.list}>
-        <ToolsLine />
-
-        <FilesList files={files} loading={loading} />
+        {files.length <= 0 && !loading ? (
+          <EmptyList />
+        ) : (
+          <FilesList files={files} loading={loading} />
+        )}
       </div>
     </div>
   );

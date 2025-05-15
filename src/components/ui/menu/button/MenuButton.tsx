@@ -25,10 +25,10 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
     <motion.button
       onClick={event}
       whileHover={{
-        scale: 0.9,
+        scale: 0.95,
       }}
       whileTap={{
-        scale: 0.85,
+        scale: 0.9,
       }}
       className={`${styles.buttonContainer} ${red && styles.red} ${className}`}
       style={{ height: height }}

@@ -18,7 +18,8 @@ export const useSearchFile = () => {
     async (searchValue: getSearchFilesProps) => {
       try {
         if (!searchValue.value.trim()) return;
-
+        localStorage.setItem("searchValue", `${searchValue.value}`);
+        localStorage.setItem("searchLocation", `${searchValue.location}`);
         const resData = await api.get(`/files/searchAllFiles/${folderId}`, {
           params: {
             searchValue: searchValue.value,
