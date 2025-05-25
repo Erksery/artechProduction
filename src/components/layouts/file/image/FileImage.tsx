@@ -7,7 +7,7 @@ interface FileImageProps {
   src: string;
   folderId?: string;
   height?: string;
-  bgColor?: string; // пока не используется — можно убрать или реализовать
+  bgColor?: string;
   className?: string;
 }
 
@@ -21,10 +21,12 @@ const FileImage: React.FC<FileImageProps> = ({
   const { pathname } = useLocation();
 
   const isPublic = pathname.startsWith("/shared");
-
+  const isGifFormat = src.split(".")[1] === "gif";
   const fullImageURL = useMemo(() => {
     const basePath = isPublic ? "public" : "files";
-    return `${config.apiUrl}/${basePath}/compress_image/folder/${folderId}/file/${src}.webp`;
+    return `${config.apiUrl}/${basePath}/${
+      isGifFormat ? "image" : "compress_image"
+    }/folder/${folderId}/file/${src}${isGifFormat ? "" : ".webp"}`;
   }, [isPublic, folderId, src]);
 
   return (

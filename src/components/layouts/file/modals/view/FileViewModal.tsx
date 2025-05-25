@@ -1,20 +1,18 @@
 import styles from "./FileViewModal.module.scss";
-import React, { lazy, Suspense, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Modal } from "../../../../ui/modal/Modal";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
 
 import { MdFileDownload } from "react-icons/md";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6";
 import { IoSettingsSharp } from "react-icons/io5";
 import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { FileSettingMenu } from "./menu/FileSettingMenu";
-import { fileTypes } from "../../../../../config/fileTypes";
-import { imageTypes } from "../../../../../config/imageTypes";
-import { useDownload } from "../../../../../hooks/useDownload";
 
-const FileImage = lazy(() => import("../../image/FileImage"));
+import { useDownload } from "../../../../../hooks/useDownload";
+import { RootState } from "@store/index";
+import { renderFileContent } from "./RenderFileContent";
 
 interface FileViewModalProps {
   activeFile: number;
@@ -43,10 +41,6 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
     }
   };
 
-  const fileSvg = fileTypes.find((element) =>
-    element.mimeType.includes(files[openFile].mimeType)
-  );
-
   return (
     <Modal className={styles.modal}>
       <div className={styles.fileView}>
@@ -66,20 +60,7 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
           </button>
 
           <div className={styles.viewer}>
-            {imageTypes.includes(files[openFile].mimeType) ? (
-              <Suspense fallback={<div>Загрузка изображения...</div>}>
-                <FileImage
-                  src={files[openFile].name}
-                  folderId={activeFolder}
-                  height="100%"
-                  className={styles.image}
-                />
-              </Suspense>
-            ) : (
-              <div className={styles.fileIcon}>
-                {fileSvg ? fileSvg.svg : fileTypes[0].svg}
-              </div>
-            )}
+            {renderFileContent({ files, openFile, activeFolder })}
           </div>
 
           <button

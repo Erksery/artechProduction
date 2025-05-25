@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../store";
 
 import { RiAddLine, RiMenuFoldLine } from "react-icons/ri";
+import { AiOutlineReload } from "react-icons/ai";
 
 import { useCreateFolder } from "../../folder/modals/insert/hook/useCreateFolder";
 import { useGetFolders } from "../../../../hooks/useGetFolders";
@@ -19,7 +20,7 @@ export const SideMenu: React.FC = () => {
   const { createFolder } = useCreateFolder();
   const { isMobile } = useMobileView();
 
-  useGetFolders();
+  const { getFolders } = useGetFolders();
 
   useEffect(() => {
     dispatch(isMobile ? setSideMenu(false) : setSideMenu(true));
@@ -39,13 +40,22 @@ export const SideMenu: React.FC = () => {
         >
           <div className={styles.menu}>
             <div className={styles.tools}>
-              <motion.button
-                onClick={() => createFolder("New Folder")}
-                whileHover={{ scale: 1.2 }}
-                className={styles.addButton}
-              >
-                <RiAddLine />
-              </motion.button>
+              <div className={styles.block}>
+                <motion.button
+                  onClick={() => createFolder("New Folder")}
+                  whileHover={{ scale: 1.2 }}
+                  className={styles.addButton}
+                >
+                  <RiAddLine />
+                </motion.button>
+                <motion.button
+                  onClick={getFolders}
+                  whileHover={{ scale: 1.2 }}
+                  className={styles.addButton}
+                >
+                  <AiOutlineReload />
+                </motion.button>
+              </div>
 
               <motion.button
                 onClick={() => dispatch(toggleSideMenu())}

@@ -1,34 +1,18 @@
 import styles from "./FileCategories.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AppDispatch, RootState } from "../../../../../store";
 import { fileCategories, FileCategoriesTypes } from "./Categories";
 
-import { SortType } from "../sorting/SortMethods";
-import FileSorting from "../sorting/FileSorting";
 import { setFilter } from "@store/slices/files";
+import { AppDispatch, RootState } from "@store/index";
 
-interface Props {
-  isMobile: boolean;
-  activeSort: SortType | undefined;
-  handleSorting: (sortMethod?: string) => void;
-  openSortMenu: boolean;
-  setOpenSortMenu: (openSortMenu: boolean) => void;
-}
-
-const FileCategories = ({
-  isMobile,
-  activeSort,
-  handleSorting,
-  openSortMenu,
-  setOpenSortMenu,
-}: Props) => {
+const FileCategories = () => {
   const dispatch = useDispatch<AppDispatch>();
   const file = useSelector((state: RootState) => state.files);
 
   return (
     <div className={styles.container}>
-      <div className={styles.filterContainer}>
+      <div className={styles.categories}>
         {fileCategories.map((type: FileCategoriesTypes) => (
           <button
             key={type.id}
@@ -44,16 +28,6 @@ const FileCategories = ({
           </button>
         ))}
       </div>
-      {!isMobile && (
-        <div className={styles.sort}>
-          <FileSorting
-            activeSort={activeSort}
-            handleSorting={handleSorting}
-            openSortMenu={openSortMenu}
-            setOpenSortMenu={setOpenSortMenu}
-          />
-        </div>
-      )}
     </div>
   );
 };

@@ -1,11 +1,14 @@
+import { JSX } from "react";
+
+import { ModalState } from "@hooks/modal/useModal";
+import { AppDispatch } from "@store/index";
+import { FileData } from "@interfaces/file";
+import { setActiveFile } from "@store/slices/files";
+
 import { GrView } from "react-icons/gr";
 import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete, MdOutlineSimCardDownload } from "react-icons/md";
-import { AppDispatch } from "../../../../../store";
-import { setActiveFile } from "../../../../../store/slices/files";
-import { JSX } from "react";
-import { FileData } from "../../../../../interfaces/file";
-import { ModalState } from "@hooks/modal/useModal";
+import { FaRegCopy } from "react-icons/fa6";
 
 interface ButtonConfig {
   id: number;
@@ -64,6 +67,15 @@ export const getFileMenuButtons = (
   },
   {
     id: 4,
+    title: "Скопировать",
+    icon: <FaRegCopy />,
+    red: false,
+    event: () => {
+      localStorage.setItem("buffer", JSON.stringify([fileId])), close();
+    },
+  },
+  {
+    id: 5,
     title: "Удалить",
     icon: <MdOutlineDelete />,
     red: true,

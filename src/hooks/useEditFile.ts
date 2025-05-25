@@ -11,6 +11,12 @@ interface EditData {
   folderId?: string;
 }
 
+export interface EditProps {
+  folderId: string | undefined;
+  fileId: string | undefined;
+  editData: EditData;
+}
+
 export const useEditFile = () => {
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState("");
@@ -27,7 +33,11 @@ export const useEditFile = () => {
     fileId: string
   ) => {
     e.preventDefault();
-    editFile(folderId, fileId, { originalFilename: editValue });
+    editFile({
+      folderId: folderId,
+      fileId: fileId,
+      editData: { originalFilename: editValue },
+    });
     editMode();
   };
 
@@ -37,11 +47,7 @@ export const useEditFile = () => {
     }
   }, [editing]);
 
-  const editFile = async (
-    folderId: string | undefined,
-    fileId: string,
-    editData: EditData
-  ) => {
+  const editFile = async ({ folderId, fileId, editData }: EditProps) => {
     try {
       const resData = await api.patch(
         `/files/folder/${folderId}/file/${fileId}`,

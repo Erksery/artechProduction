@@ -2,6 +2,7 @@ import { LuFolderPen } from "react-icons/lu";
 import { MdOutlineDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import { GoInfo } from "react-icons/go";
+import { LuClipboardPaste } from "react-icons/lu";
 
 import { ModalState } from "@hooks/modal/useModal";
 import { FolderData } from "@interfaces/folder";
@@ -12,7 +13,8 @@ export const getFolderMenuButtons = (
   openModal: (modal: ModalState) => void,
   closeModal: () => void,
   close: () => void,
-  deleteFolder: (id: string) => void
+  deleteFolder: (id: string) => void,
+  pasteFilesToFolder: (folderId: string | undefined) => void
 ) => [
   {
     id: 1,
@@ -35,8 +37,19 @@ export const getFolderMenuButtons = (
       close();
     },
   },
+
   {
     id: 3,
+    title: "Вставить",
+    icon: <LuClipboardPaste />,
+    red: false,
+    event: () => {
+      pasteFilesToFolder(folder.id);
+      close();
+    },
+  },
+  {
+    id: 4,
     title: "Свойства",
     icon: <GoInfo />,
     red: false,
@@ -52,7 +65,7 @@ export const getFolderMenuButtons = (
     },
   },
   {
-    id: 4,
+    id: 5,
     title: "Удалить",
     icon: <MdOutlineDelete />,
     red: true,

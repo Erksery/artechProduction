@@ -23,7 +23,7 @@ const FileSorting = ({
   setOpenSortMenu,
 }: Props) => {
   return (
-    <>
+    <div className={styles.container}>
       <MenuContainer
         element={
           <SortCard activeSort={activeSort} handleSorting={handleSorting} />
@@ -45,7 +45,7 @@ const FileSorting = ({
       <button onClick={() => handleSorting()} className={styles.order}>
         <TbArrowsSort />
       </button>
-    </>
+    </div>
   );
 };
 

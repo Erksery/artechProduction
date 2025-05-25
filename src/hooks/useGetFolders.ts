@@ -17,7 +17,10 @@ export const useGetFolders = () => {
       handleApiError(err, "Не удалось загрузить папки");
     }
   }, []);
+
   useEffect(() => {
     getFolders();
   }, [getFolders]);
+
+  return { getFolders };
 };

@@ -18,8 +18,8 @@ export const useDeleteFolder = () => {
         }
         handleApiSuccess(resData, "Папка успешно удалена");
       } catch (err) {
-        console.log("Ошибка при создании папки", err);
-        handleApiError(err, "Ошибка при создании папки");
+        console.log("Ошибка при удалении папки", err);
+        handleApiError(err, "Ошибка при удалении папки");
       }
     },
     [dispatch]

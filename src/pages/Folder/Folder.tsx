@@ -8,6 +8,7 @@ import { useGetFiles } from "../../hooks/useGetFiles.ts";
 import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
 import { FolderViewer } from "../../components/layouts/folder/viewer/FolderViewer.tsx";
 import { SideMenu } from "../../components/layouts/menu/side/SideMenu.tsx";
+import { useKeyboardListener } from "@hooks/useKeyboardListener.ts";
 
 export const Folder = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ export const Folder = () => {
   const { fileLoading } = useGetFiles(id);
 
   useActiveFolder(id);
+  useKeyboardListener();
 
   return (
     <>

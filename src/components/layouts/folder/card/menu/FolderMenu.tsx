@@ -5,6 +5,7 @@ import { getFolderMenuButtons } from "./FolderMenuButtons";
 import { useDeleteFolder } from "./hooks/useDeleteFolder";
 import { FolderData } from "../../../../../interfaces/folder";
 import { useModal } from "@hooks/modal/useModal";
+import { usePasteFiles } from "../../viewer/ToolsLine/tools/hooks/usePasteFiles";
 
 interface FolderMenuProps {
   id: string;
@@ -19,13 +20,15 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({
 }) => {
   const { openModal, closeModal } = useModal();
   const { deleteFolder } = useDeleteFolder();
+  const { pasteFilesToFolder } = usePasteFiles();
   const buttons = getFolderMenuButtons(
     id,
     folder,
     openModal,
     closeModal,
     close,
-    deleteFolder
+    deleteFolder,
+    pasteFilesToFolder
   );
 
   return (

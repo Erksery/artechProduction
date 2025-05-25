@@ -1,0 +1,45 @@
+@use "@/variables";
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+
+  .block {
+    display: flex;
+    gap: 3px;
+  }
+
+  .toolButton {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 3px;
+    width: auto;
+    height: 100%;
+    background-color: transparent;
+    transition: 0.2s;
+
+    &:hover {
+      border-color: variables.$border-color;
+      background-color: variables.$component;
+    }
+
+    svg {
+      font-size: 17px;
+    }
+  }
+  .deleteButton {
+    color: variables.$error-color;
+
+    background-color: variables.$error-blur-background;
+
+    &:hover {
+      border-color: variables.$delete-color;
+      background-color: variables.$error-blur-background;
+    }
+    svg {
+      color: variables.$error-color;
+    }
+  }
+}

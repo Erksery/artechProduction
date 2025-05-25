@@ -8,14 +8,15 @@ import { FcOpenedFolder, FcFolder } from "react-icons/fc";
 import { MdMoreVert } from "react-icons/md";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../../store";
 import { useDrop } from "react-dnd";
 import { FileData } from "../../../../../interfaces/file";
 import { useEditFile } from "../../../../../hooks/useEditFile";
 import { useGetUser } from "../../../../../hooks/useGetUser";
 import { UserLogo } from "../../../user/logo/UserLogo";
 import { SubFolderList } from "./SubFolderList";
+import { setActiveFolder } from "@store/slices/folders";
 
 interface FolderCardProps {
   folder: FolderData;
@@ -34,6 +35,8 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
   const [subListOpen, setSubListOpen] = useState(false);
 
   const linkRef = useRef<HTMLAnchorElement>(null);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const selectedFiles = useSelector(
     (state: RootState) => state.files.selectedFiles
@@ -65,9 +68,17 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
     drop: (item: FileType) => {
       selectedFiles.length > 0
         ? selectedFiles.forEach((file) => {
-            editFile(activeFolder, file, { folderId: folder.id });
+            editFile({
+              folderId: activeFolder,
+              fileId: file,
+              editData: { folderId: folder.id },
+            });
           })
-        : editFile(activeFolder, item.file.id, { folderId: folder.id });
+        : editFile({
+            folderId: activeFolder,
+            fileId: item.file.id,
+            editData: { folderId: folder.id },
+          });
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -92,6 +103,7 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
           ref={linkRef}
           key={folder.id}
           to={`/folder/${folder.id}`}
+          onClick={() => dispatch(setActiveFolder(folder.id))}
           className={`${styles.folderCard} ${
             activeFolder === folder.id ? styles.active : ""
           } ${isOver ? styles.drop : ""} `}

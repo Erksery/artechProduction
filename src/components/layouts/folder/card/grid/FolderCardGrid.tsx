@@ -5,6 +5,7 @@ import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
 import { FolderMenu } from "../menu/FolderMenu";
 import { useState } from "react";
 import { MdMoreVert } from "react-icons/md";
+import { FcFolder } from "react-icons/fc";
 
 interface Props {
   folder: FolderData;
@@ -14,6 +15,9 @@ export const FolderCardGrid = ({ folder }: Props) => {
   return (
     <Link to={`/folder/${folder.id}`} className={styles.card}>
       <div className={styles.infoContainer}>
+        <div>
+          <FcFolder />
+        </div>
         <h3>{folder.name}</h3>
       </div>
       <MenuContainer

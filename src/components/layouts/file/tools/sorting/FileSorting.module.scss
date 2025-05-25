@@ -1,40 +1,61 @@
 @use "@/variables";
 
-.sortContainer {
-  width: 180px;
-  height: auto;
+.container {
+  display: flex;
+  justify-content: space-between;
 
-  .menuButton {
+  button {
+    border: solid 1px transparent;
+    transition: 0.2s;
+
+    &:hover {
+      border-color: variables.$border-color;
+      background-color: variables.$component !important;
+    }
+  }
+  .sortContainer {
+    width: 190px;
+    height: auto;
+
+    .menuButton {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100% !important;
+      min-height: 35px;
+      background-color: transparent;
+    }
+
+    .active {
+      background-color: variables.$panel !important;
+    }
+  }
+  .iconContainer {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    width: 100% !important;
-    min-height: 35px;
+    transition: 0.2s;
+  }
+
+  .sortButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
+    min-width: 200px !important;
+    min-height: 30px;
+
+    background-color: transparent;
+
+    svg {
+      font-size: 17px;
+    }
+  }
+
+  .order {
+    // min-width: 35px;
+    //min-height: 35px;
+    font-size: 18px;
     background-color: transparent;
   }
-
-  .active {
-    background-color: variables.$panel !important;
-  }
-}
-.iconContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.sortButton {
-  display: flex;
-  justify-content: flex-start;
-  gap: 3px;
-  min-width: 190px !important;
-  //min-height: 35px;
-  background-color: transparent;
-}
-
-.order {
-  // min-width: 35px;
-  //min-height: 35px;
-  font-size: 18px;
-  background-color: transparent;
 }
