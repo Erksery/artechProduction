@@ -30,7 +30,9 @@ export const useGetFiles = (id: string | undefined, route = "files") => {
   }, [id, file.filter, file.order]);
 
   useEffect(() => {
-    getFiles();
+    if (id) {
+      getFiles();
+    }
   }, [id, file.filter, file.order, getFiles]);
 
   return { fileLoading };

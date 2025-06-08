@@ -63,7 +63,7 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
           />
         ) : (
           <div className={styles.fileIcon}>
-            {fileSvg ? fileSvg.svg : fileTypes[0].svg}
+            {fileSvg ? fileSvg?.svg : fileTypes[0]?.svg}
           </div>
         )}
 

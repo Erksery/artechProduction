@@ -20,6 +20,8 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    transform-origin: center;
+    will-change: transform;
 
     p {
       text-align: start;

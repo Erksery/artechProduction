@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import styles from "./SignIn.module.scss";
 import { Input } from "../../../ui/input/Input";
 import { SubmitButton } from "../../../ui/buttons/submit/SubmitButton";
@@ -31,7 +31,9 @@ export const SignIn = ({ error, loading, activateTab }: Props) => {
         autoComplete="current-password"
         required
         value={login}
-        onChange={(e) => setLogin(e.target.value)}
+        onChange={(e: { target: { value: SetStateAction<string> } }) =>
+          setLogin(e.target.value)
+        }
       />
       <Input
         title="Пароль"
@@ -42,7 +44,9 @@ export const SignIn = ({ error, loading, activateTab }: Props) => {
         autoComplete="current-password"
         required
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e: { target: { value: SetStateAction<string> } }) =>
+          setPassword(e.target.value)
+        }
       />
       {error && (
         <div className={styles.alert}>

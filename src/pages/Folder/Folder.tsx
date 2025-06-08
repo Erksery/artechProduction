@@ -1,14 +1,14 @@
 import styles from "./Folder.module.scss";
-
 import { useParams } from "react-router-dom";
-import { Header } from "../../components/layouts/header/panel/Header";
-import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
 
-import { useGetFiles } from "../../hooks/useGetFiles.ts";
-import { useActiveFolder } from "../../hooks/useActiveFolder.ts";
-import { FolderViewer } from "../../components/layouts/folder/viewer/FolderViewer.tsx";
-import { SideMenu } from "../../components/layouts/menu/side/SideMenu.tsx";
+import { useGetFiles } from "@hooks/useGetFiles.ts";
+import { useActiveFolder } from "@hooks/useActiveFolder";
 import { useKeyboardListener } from "@hooks/useKeyboardListener.ts";
+
+import { SideMenu } from "@components/layouts/menu/side/SideMenu";
+import { Header } from "@components/layouts/header/panel/Header.tsx";
+import { ErrorBoundary } from "@components/ui/error/ErrorBoundary.tsx";
+import { FolderViewer } from "@components/layouts/folder/viewer/FolderViewer";
 
 export const Folder = () => {
   const { id } = useParams();

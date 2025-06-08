@@ -3,6 +3,7 @@ import { Home } from "../pages/Home/Home";
 import { Folder } from "../pages/Folder/Folder";
 import { Sign } from "../pages/Registration/Sign";
 import { PublicFolder } from "../pages/Folder/PublicFolder";
+import { AdminPanel } from "../pages/Admin/AdminPanel";
 
 export const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRouter = () => {
         <Route path="file/:fileId" element={<Folder />} />
       </Route>
       <Route path="/shared/folder/:id" element={<PublicFolder />} />
+      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   );
 };

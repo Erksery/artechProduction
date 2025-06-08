@@ -21,6 +21,7 @@ uploads
 !.vscode/extensions.json
 .idea
 .DS_Store
+.VSCodeCounter
 *.suo
 *.ntvs*
 *.njsproj

@@ -14,7 +14,7 @@ export const useCreateFolder = () => {
     async (folderName?: string, inFolder?: boolean) => {
       try {
         const resData = await api.post("/folders/", {
-          name: folderName || "Folder",
+          name: folderName || "New Folder",
           folderId: inFolder ? id : null,
         });
 

@@ -3,10 +3,12 @@ import { User } from "../../interfaces/user";
 
 interface UserState {
   userData: User | null;
+  users: User[];
 }
 
 const initialState: UserState = {
   userData: null,
+  users: [],
 };
 
 export const userSlice = createSlice({
@@ -19,8 +21,11 @@ export const userSlice = createSlice({
     clearUserData: (state) => {
       state.userData = null;
     },
+    setUsers: (state, action: PayloadAction<User[]>) => {
+      state.users = action.payload;
+    },
   },
 });
 
-export const { setUserData, clearUserData } = userSlice.actions;
+export const { setUserData, clearUserData, setUsers } = userSlice.actions;
 export default userSlice.reducer;

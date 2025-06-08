@@ -1,0 +1,62 @@
+@use "@/variables";
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-inline: 5px;
+  padding-block: 5px;
+  height: 100%;
+  box-sizing: border-box;
+
+  .grid {
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+
+    .block1,
+    .block2,
+    .block3 {
+      border-radius: 24px;
+      border: 1px solid variables.$border-color;
+    }
+
+    .block1 {
+      padding: 8px;
+      grid-column: span 3 / span 3;
+      grid-row: span 5 / span 5;
+      background-color: variables.$panel;
+      box-sizing: border-box;
+    }
+
+    .block2 {
+      grid-column: span 7 / span 7;
+      grid-row: span 3 / span 3;
+      grid-column-start: 4;
+    }
+
+    .block3 {
+      grid-column: span 7 / span 7;
+      grid-row: span 2 / span 2;
+      grid-column-start: 4;
+      grid-row-start: 4;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 12px;
+
+      .block1,
+      .block2,
+      .block3 {
+        grid-column: span 1 / span 1 !important;
+        grid-row: auto !important;
+        grid-column-start: auto !important;
+        grid-row-start: auto !important;
+      }
+    }
+  }
+}

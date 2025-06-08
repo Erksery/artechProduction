@@ -16,7 +16,9 @@ interface Props {
 export const renderFileContent = ({ files, openFile, activeFolder }: Props) => {
   const file = files[openFile];
 
-  const videoPath = `/api/files/video/folder/${activeFolder}/file/${file.name}`;
+  const videoPath = `/api/files/video/folder/${activeFolder}/file/${encodeURIComponent(
+    file.name
+  )}`;
 
   const fileSvg = fileTypes.find((element) =>
     element.mimeType.includes(files[openFile].mimeType)

@@ -41,66 +41,54 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
     }
   };
 
+  const currentFile = files[openFile];
+
   return (
     <Modal className={styles.modal}>
-      <div className={styles.fileView}>
-        <div className={styles.gallery}>
-          <button
-            onClick={backList}
-            className={styles.but}
-            disabled={files[openFile - 1] ? false : true}
-          >
-            <motion.div
-              whileHover={{
-                x: -5,
-              }}
+      {currentFile && (
+        <div className={styles.fileView}>
+          <div className={styles.gallery}>
+            <button
+              onClick={backList}
+              className={styles.but}
+              disabled={files[openFile - 1] ? false : true}
             >
-              <FaChevronLeft />
-            </motion.div>
-          </button>
+              <motion.div
+                whileHover={{
+                  x: -5,
+                }}
+              >
+                <FaChevronLeft />
+              </motion.div>
+            </button>
 
-          <div className={styles.viewer}>
-            {renderFileContent({ files, openFile, activeFolder })}
+            <div className={styles.viewer}>
+              {renderFileContent({ files, openFile, activeFolder })}
+            </div>
+
+            <button
+              onClick={forwardList}
+              className={styles.but}
+              disabled={files[openFile + 1] ? false : true}
+            >
+              <motion.div
+                whileHover={{
+                  x: +5,
+                }}
+              >
+                <FaChevronRight />
+              </motion.div>
+            </button>
           </div>
+          <div className={styles.info}>
+            <div className={styles.null}></div>
+            <div className={styles.name}>
+              <p>{files[openFile].originalFilename}</p>
+            </div>
 
-          <button
-            onClick={forwardList}
-            className={styles.but}
-            disabled={files[openFile + 1] ? false : true}
-          >
-            <motion.div
-              whileHover={{
-                x: +5,
-              }}
-            >
-              <FaChevronRight />
-            </motion.div>
-          </button>
-        </div>
-        <div className={styles.info}>
-          <div className={styles.null}></div>
-          <div className={styles.name}>
-            <p>{files[openFile].originalFilename}</p>
-          </div>
-
-          <div className={styles.tools}>
-            <motion.button
-              onClick={() => downloadFile(activeFolder, files[openFile].name)}
-              whileHover={{
-                scale: 0.9,
-              }}
-              whileTap={{
-                scale: 0.85,
-              }}
-            >
-              <MdFileDownload />
-            </motion.button>
-            <MenuContainer
-              element={<FileSettingMenu />}
-              open={menuOpen}
-              setOpen={setMenuOpen}
-            >
+            <div className={styles.tools}>
               <motion.button
+                onClick={() => downloadFile(activeFolder, files[openFile].name)}
                 whileHover={{
                   scale: 0.9,
                 }}
@@ -108,12 +96,28 @@ export const FileViewModal: React.FC<FileViewModalProps> = ({ activeFile }) => {
                   scale: 0.85,
                 }}
               >
-                <IoSettingsSharp />
+                <MdFileDownload />
               </motion.button>
-            </MenuContainer>
+              <MenuContainer
+                element={<FileSettingMenu />}
+                open={menuOpen}
+                setOpen={setMenuOpen}
+              >
+                <motion.button
+                  whileHover={{
+                    scale: 0.9,
+                  }}
+                  whileTap={{
+                    scale: 0.85,
+                  }}
+                >
+                  <IoSettingsSharp />
+                </motion.button>
+              </MenuContainer>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </Modal>
   );
 };

@@ -1,84 +1,53 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import styles from "./FolderCardList.module.scss";
-import { motion } from "framer-motion";
-import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
-import { FolderMenu } from "../menu/FolderMenu";
-import { FolderData } from "../../../../../interfaces/folder";
-import { FcOpenedFolder, FcFolder } from "react-icons/fc";
-import { MdMoreVert } from "react-icons/md";
-import { IoChevronDownOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../../store";
+import { useEffect, useMemo } from "react";
+
 import { useDrop } from "react-dnd";
-import { FileData } from "../../../../../interfaces/file";
-import { useEditFile } from "../../../../../hooks/useEditFile";
-import { useGetUser } from "../../../../../hooks/useGetUser";
-import { UserLogo } from "../../../user/logo/UserLogo";
-import { SubFolderList } from "./SubFolderList";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { useGetUser } from "@hooks/useGetUser";
+import { FileType, useFolderCardLogic } from "../hooks/useFolderCardLogic";
+
 import { setActiveFolder } from "@store/slices/folders";
+import { AppDispatch } from "@store/index";
+
+import { FolderData } from "@interfaces/folder";
+
+import { SubFolderList } from "./SubFolderList";
+import { FolderCardTools } from "./FolderCardTools";
+import { FolderCardInfo } from "./FolderCardInfo";
 
 interface FolderCardProps {
   folder: FolderData;
   folders: FolderData[];
 }
 
-interface FileType {
-  file: FileData;
-}
-
-export const FolderCardList: React.FC<FolderCardProps> = ({
-  folder,
-  folders,
-}) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [subListOpen, setSubListOpen] = useState(false);
-
-  const linkRef = useRef<HTMLAnchorElement>(null);
-
+export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const selectedFiles = useSelector(
-    (state: RootState) => state.files.selectedFiles
-  );
+  const {
+    menuOpen,
+    setMenuOpen,
+    subListOpen,
+    linkRef,
+    activeFolder,
+    closeMenu,
+    toggleListOpen,
+    dropFile,
+    folderCardClassName,
+  } = useFolderCardLogic();
 
-  const { editFile } = useEditFile();
   const { getUser, userData } = useGetUser();
-
-  const activeFolder = useSelector(
-    (state: RootState) => state.folders.activeFolder
-  );
 
   const subFolders = useMemo(
     () => folders.filter((subFolder) => subFolder.inFolder === folder.id),
     [folders, folder.id]
   );
 
-  const toggleListOpen = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    setSubListOpen((prev) => !prev);
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
   const [{ isOver }, drop] = useDrop({
     accept: "FILE",
     drop: (item: FileType) => {
-      selectedFiles.length > 0
-        ? selectedFiles.forEach((file) => {
-            editFile({
-              folderId: activeFolder,
-              fileId: file,
-              editData: { folderId: folder.id },
-            });
-          })
-        : editFile({
-            folderId: activeFolder,
-            fileId: item.file.id,
-            editData: { folderId: folder.id },
-          });
+      dropFile(folder, item);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -104,62 +73,24 @@ export const FolderCardList: React.FC<FolderCardProps> = ({
           key={folder.id}
           to={`/folder/${folder.id}`}
           onClick={() => dispatch(setActiveFolder(folder.id))}
-          className={`${styles.folderCard} ${
-            activeFolder === folder.id ? styles.active : ""
-          } ${isOver ? styles.drop : ""} `}
+          className={folderCardClassName(folder.id, isOver)}
           draggable={false}
         >
-          <div className={styles.container}>
-            <div className={styles.iconContainer}>
-              {activeFolder === folder.id ? (
-                <FcOpenedFolder
-                  className={`${styles.icon} ${
-                    folder.privacy === "Private" && styles.private
-                  }`}
-                />
-              ) : (
-                <FcFolder
-                  className={`${styles.icon} ${
-                    folder.privacy === "Private" && styles.private
-                  }`}
-                />
-              )}
-              <div className={styles.logoContainer}>
-                <UserLogo user={userData} className={styles.logo} />
-              </div>
-            </div>
+          <FolderCardInfo
+            activeFolder={activeFolder}
+            folder={folder}
+            userData={userData}
+          />
 
-            <div className={styles.info}>
-              <p>{folder.name}</p>
-            </div>
-          </div>
-
-          <div className={styles.tools}>
-            {subFolders.length > 0 && (
-              <button className={styles.button} onClick={toggleListOpen}>
-                <div
-                  style={{ transform: `rotate(${subListOpen ? 180 : 0}deg)` }}
-                >
-                  <IoChevronDownOutline />
-                </div>
-              </button>
-            )}
-            <MenuContainer
-              element={
-                <FolderMenu id={folder.id} folder={folder} close={closeMenu} />
-              }
-              open={menuOpen}
-              setOpen={setMenuOpen}
-              blur={true}
-            >
-              <button
-                className={styles.button}
-                onClick={() => setMenuOpen(true)}
-              >
-                <MdMoreVert />
-              </button>
-            </MenuContainer>
-          </div>
+          <FolderCardTools
+            folder={folder}
+            subFolders={subFolders}
+            toggleListOpen={toggleListOpen}
+            subListOpen={subListOpen}
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+            closeMenu={closeMenu}
+          />
         </Link>
       </motion.div>
 

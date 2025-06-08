@@ -1,34 +1,40 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./SideMenu.module.scss";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../store";
-
 import { RiAddLine, RiMenuFoldLine } from "react-icons/ri";
 import { AiOutlineReload } from "react-icons/ai";
 
-import { useCreateFolder } from "../../folder/modals/insert/hook/useCreateFolder";
-import { useGetFolders } from "../../../../hooks/useGetFolders";
-import { FolderListFlat } from "../../folder/list/list/FolderListFlat";
-import { useMobileView } from "../../../../hooks/useMobileView";
-import { setSideMenu, toggleSideMenu } from "../../../../store/slices/folders";
+import { useMobileView } from "@hooks/useMobileView";
+import { useGetFolders } from "@hooks/useGetFolders";
 
-export const SideMenu: React.FC = () => {
+import { AppDispatch, RootState } from "@store/index";
+import { setSideMenu, toggleSideMenu } from "@store/slices/folders";
+
+import { useCreateFolder } from "@components/layouts/folder/modals/insert/hook/useCreateFolder";
+import { FolderListFlat } from "@components/layouts/folder/list/list/FolderListFlat";
+
+export const SideMenu = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const folderSelector = useSelector((state: RootState) => state.folders);
 
-  const { createFolder } = useCreateFolder();
-  const { isMobile } = useMobileView();
+  const folders = useSelector((state: RootState) => state.folders.folders);
+  const openSideMenu = useSelector(
+    (state: RootState) => state.folders.openSideMenu
+  );
 
   const { getFolders } = useGetFolders();
+  const { isMobile } = useMobileView();
+
+  const { createFolder } = useCreateFolder();
 
   useEffect(() => {
-    dispatch(isMobile ? setSideMenu(false) : setSideMenu(true));
+    dispatch(setSideMenu(isMobile ? false : true));
   }, [isMobile]);
 
   return (
     <AnimatePresence>
-      {folderSelector.openSideMenu && (
+      {openSideMenu && (
         <motion.div
           className={styles.sideMenuContainer}
           initial={
@@ -42,7 +48,7 @@ export const SideMenu: React.FC = () => {
             <div className={styles.tools}>
               <div className={styles.block}>
                 <motion.button
-                  onClick={() => createFolder("New Folder")}
+                  onClick={() => createFolder()}
                   whileHover={{ scale: 1.2 }}
                   className={styles.addButton}
                 >
@@ -65,8 +71,8 @@ export const SideMenu: React.FC = () => {
                 <RiMenuFoldLine />
               </motion.button>
             </div>
-            {folderSelector.folders.length !== 0 ? (
-              <FolderListFlat folders={folderSelector.folders} />
+            {folders.length !== 0 ? (
+              <FolderListFlat folders={folders} />
             ) : (
               <div className={styles.boundary}>
                 Доступные вам папки отсутствуют

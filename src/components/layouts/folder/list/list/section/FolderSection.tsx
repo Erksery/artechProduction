@@ -1,9 +1,11 @@
-import styles from "./FolderSection.module.scss";
-import { FolderData } from "../../../../../../interfaces/folder";
-import { FolderCardList } from "../../../card/list/FolderCardList";
-import { GoChevronDown } from "react-icons/go";
 import { ReactNode, useState } from "react";
+import styles from "./FolderSection.module.scss";
+
+import { GoChevronDown } from "react-icons/go";
 import { motion, AnimatePresence } from "framer-motion";
+
+import { FolderData } from "@interfaces/folder";
+import { FolderCardList } from "@components/layouts/folder/card/list/FolderCardList";
 
 interface Props {
   parentFolderList: FolderData[];

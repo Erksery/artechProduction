@@ -1,0 +1,33 @@
+@use "@/variables";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 16px;
+  border: solid 1px transparent;
+  background-color: variables.$component;
+  box-sizing: border-box;
+  transition: 0.2s;
+
+  &:hover {
+    border: solid 1px variables.$border-color;
+    background-color: variables.$hover-component;
+    cursor: pointer;
+  }
+
+  .infoBlock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    h3 {
+      margin: 0;
+      font-size: variables.$text-size-large;
+    }
+    p {
+      color: gray;
+      font-size: variables.$text-size-medium;
+    }
+  }
+}
