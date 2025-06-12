@@ -15,6 +15,7 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     server: {
       // https: false,
+
       cors: {
         origin: env.VITE_API_URL,
         credentials: true,
@@ -33,7 +34,6 @@ export default ({ mode }: { mode: string }) => {
       react(),
       env.ODR ? viteSingleFile() : null,
       svgr(),
-
       viteCompression({
         algorithm: "gzip",
         ext: ".gz",

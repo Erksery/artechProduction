@@ -1,24 +1,22 @@
-@use "@/variables";
-
 .container {
   padding: 3px 5px;
   border-radius: 9px;
   border: solid 1px transparent;
-  background-color: variables.$status-background;
+  background-color: var(--status-background);
   font-size: 13px;
   box-sizing: border-box;
 }
 
 .red {
-  border-color: variables.$error-color;
+  border-color: var(--error-color);
   p {
-    color: variables.$error-color;
+    color: var(--error-color);
   }
 }
 
 .green {
-  border-color: variables.$success-color;
+  border-color: var(--success-color);
   p {
-    color: variables.$success-color;
+    color: var(--success-color);
   }
 }

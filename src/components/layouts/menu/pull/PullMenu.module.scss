@@ -1,12 +1,10 @@
-@use "@/variables";
-
 .background {
   justify-content: flex-end;
   .container {
     padding: 10px;
     width: 25%;
     height: 100%;
-    background-color: variables.$folder-component;
+    background-color: var(--folder-component);
     box-sizing: border-box;
   }
 }

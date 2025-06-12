@@ -1,9 +1,7 @@
-@use "@/variables";
-
 .card {
   position: relative;
   width: 100%;
   height: 200px;
   border-radius: 22px;
-  background-color: variables.$panel;
+  background-color: var(--panel);
 }

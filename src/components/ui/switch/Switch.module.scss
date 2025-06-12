@@ -1,17 +1,15 @@
-@use "@/variables" as *;
-
 .switch {
   position: relative;
   width: 40px;
   height: 20px;
-  background-color: $blur-panel;
+  background-color: var(--blur-panel);
   border-radius: 10px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .active {
-  background-color: $theme;
+  background-color: var(--theme);
 }
 
 .switchKnob {

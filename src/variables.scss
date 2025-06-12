@@ -1,30 +1,49 @@
-// Цвета
-$background: #1e2329;
-$menu-background: #1c2025;
-$component: #292e3a;
-$hover-component: #2f3441;
-$folder-component: #1f222b;
-$panel: #242833;
-$blur-panel: #1112187a;
-$blur-background: #1e2329bd;
-$blur-button: #1112187a;
-$light-blur-panel: #7272724f;
-$status-background: #0d1117;
-$scroller-color: #424753;
+:root[data-theme="dark"] {
+  --background: #1e2329;
+  --menu-background: #1c2025;
+  --component: #292e3a;
+  --hover-component: #2f3441;
+  --folder-component: #1f222b;
+  --panel: #242833;
+  --blur-panel: #1112187a;
+  --blur-background: #1e2329bd;
+  --blur-button: #1112187a;
+  --light-blur-panel: #7272724f;
+  --status-background: #0d1117;
+  --scroller-color: #424753;
 
-$theme: rgb(247, 189, 102);
-$dark-theme: #e6812f;
-$error-color: #f08e7e;
-$delete-color: #f7343b;
-$error-blur-background: #3b12196c;
-$selected-component: #ffffff28;
-$success-color: #3fb950;
-$border-color: rgba(86, 87, 97, 0.329);
-$text-color: #d3d3d3;
+  --theme: rgb(247, 189, 102);
+  --dark-theme: #e6812f;
+  --error-color: #f08e7e;
+  --delete-color: #f7343b;
+  --error-blur-background: #3b12196c;
+  --selected-component: #ffffff28;
+  --success-color: #3fb950;
+  --border-color: rgba(86, 87, 97, 0.329);
+  --text-color: #d3d3d3;
+}
 
-// Размеры текста
-$text-size-small: 12px;
-$text-size-medium: 14px;
-$text-size-large: 16px;
-$text-size-xlarge: 18px;
-$text-size-xxlarge: 24px;
+:root[data-theme="light"] {
+  --background: #ffffff;
+  --menu-background: #f0f0f0;
+  --component: #ffffff;
+  --hover-component: #eeeeee;
+  --folder-component: #eaeaea;
+  --panel: #dddddd;
+  --blur-panel: #ffffffaa;
+  --blur-background: #ffffffbd;
+  --blur-button: #ffffff4a;
+  --light-blur-panel: #cccccc4f;
+  --status-background: #f8f8f8;
+  --scroller-color: #cccccc;
+
+  --theme: #f7bd66;
+  --dark-theme: #e6812f;
+  --error-color: #f08e7e;
+  --delete-color: #f7343b;
+  --error-blur-background: #f8dcdc;
+  --selected-component: #cccccc28;
+  --success-color: #3fb950;
+  --border-color: rgba(86, 87, 97, 0.129);
+  --text-color: #000000;
+}

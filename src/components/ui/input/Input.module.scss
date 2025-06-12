@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .inputContainer {
   display: flex;
   flex-direction: column;
@@ -8,8 +6,8 @@
   padding: 0 10px;
   width: 100%;
   height: 50px;
-  border: solid 2px variables.$background;
-  background-color: variables.$component;
+  border: solid 2px var(--background);
+  background-color: var(--component);
   border-radius: 10px;
   box-sizing: border-box;
   cursor: pointer;
@@ -34,10 +32,10 @@
   }
 
   &:focus-within {
-    border-color: variables.$theme;
+    border-color: var(--theme);
   }
 }
 
 .error {
-  border-color: variables.$error-color;
+  border-color: var(--error-color);
 }

@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .card {
   display: flex;
   flex-direction: column;
@@ -8,7 +6,7 @@
 
   border: solid 2px transparent;
   border-radius: 22px;
-  background-color: variables.$panel;
+  background-color: var(--panel);
   cursor: pointer;
   box-sizing: border-box;
   transition: 0.2s;
@@ -49,7 +47,7 @@
         border-radius: 8px;
         -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
-        background-color: variables.$light-blur-panel;
+        background-color: var(--light-blur-panel);
 
         p {
           font-size: 12px;
@@ -101,12 +99,12 @@
         input {
           width: 100%;
           border-radius: 8px;
-          background-color: variables.$background;
+          background-color: var(--background);
           outline: none;
           transition: 0.2s;
 
           &:focus-within {
-            border: solid 1px variables.$theme;
+            border: solid 1px var(--theme);
           }
         }
 
@@ -115,7 +113,7 @@
           min-width: 30px;
           height: 30px;
 
-          background-color: variables.$theme;
+          background-color: var(--theme);
           transition: 0.2s;
 
           & svg {
@@ -144,8 +142,8 @@
         transition: 0.2s;
 
         &:hover {
-          border-color: variables.$border-color;
-          background-color: variables.$hover-component;
+          border-color: var(--border-color);
+          background-color: var(--hover-component);
           svg {
             color: lightgray;
           }
@@ -168,11 +166,11 @@
   box-sizing: border-box;
   border: solid 2px transparent;
   border-radius: 22px;
-  background-color: variables.$panel;
+  background-color: var(--panel);
 }
 
 .selected {
-  border-color: variables.$theme;
+  border-color: var(--theme);
 }
 
 .dragging {

@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .container {
   gap: 6px;
 
@@ -35,8 +33,8 @@
       box-sizing: border-box;
 
       &:hover {
-        border-color: variables.$border-color;
-        background-color: variables.$component;
+        border-color: var(--border-color);
+        background-color: var(--component);
       }
 
       svg {
@@ -54,7 +52,7 @@
       }
     }
     .active {
-      background-color: variables.$component;
+      background-color: var(--component);
     }
   }
 
@@ -96,8 +94,8 @@
       }
 
       &:hover {
-        border-color: variables.$border-color;
-        background-color: variables.$component;
+        border-color: var(--border-color);
+        background-color: var(--component);
       }
 
       .iconContainer {

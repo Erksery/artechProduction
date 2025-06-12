@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .tools {
   display: flex;
   justify-content: space-between;
@@ -21,8 +19,8 @@
     transition: 0.2s;
 
     &:hover {
-      border-color: variables.$border-color;
-      background-color: variables.$component;
+      border-color: var(--border-color);
+      background-color: var(--component);
     }
 
     svg {
@@ -30,16 +28,16 @@
     }
   }
   .deleteButton {
-    color: variables.$error-color;
+    color: var(--error-color);
 
-    background-color: variables.$error-blur-background;
+    background-color: var(--error-blur-background);
 
     &:hover {
-      border-color: variables.$delete-color;
-      background-color: variables.$error-blur-background;
+      border-color: var(--delete-color);
+      background-color: var(--error-blur-background);
     }
     svg {
-      color: variables.$error-color;
+      color: var(--error-color);
     }
   }
 }

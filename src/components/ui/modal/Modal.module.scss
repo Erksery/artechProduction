@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .modalContainer {
   display: flex;
   flex-direction: column;
@@ -10,7 +8,7 @@
   min-height: 100px;
   max-width: 600px;
   border-radius: 18px;
-  background-color: variables.$panel;
+  background-color: var(--panel);
 
   .modalHeader {
     display: flex;

@@ -16,7 +16,7 @@ interface Props {
 export const renderFileContent = ({ files, openFile, activeFolder }: Props) => {
   const file = files[openFile];
 
-  const videoPath = `/api/files/video/folder/${activeFolder}/file/${encodeURIComponent(
+  const videoPath = `/files/video/folder/${activeFolder}/file/${encodeURIComponent(
     file.name
   )}`;
 

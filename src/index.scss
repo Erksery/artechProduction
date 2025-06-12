@@ -1,4 +1,4 @@
-@use "@/variables";
+@use "./variables" as *;
 
 :root {
   font-family: "Nunito", system-ui, sans-serif;
@@ -6,7 +6,7 @@
   font-weight: 400;
 
   color: rgba(255, 255, 255, 0.87);
-  background-color: variables.$background;
+  background-color: var(--background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -81,7 +81,7 @@ button {
   font-family: inherit;
 
   color: lightgray;
-  background-color: variables.$blur-panel;
+  background-color: var(--blur-panel);
 
   border-radius: 8px;
   border: solid 1px transparent;
@@ -117,7 +117,7 @@ button {
 
 .scroller {
   scrollbar-width: thin;
-  scrollbar-color: variables.$scroller-color variables.$background;
+  scrollbar-color: var(--scroller-color) var(--background);
 }
 
 ::-webkit-scrollbar {
@@ -130,6 +130,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: variables.$scroller-color;
+  background-color: var(--scroller-color);
   border-radius: 5px;
 }

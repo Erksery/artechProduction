@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .container {
   display: flex;
   flex: 1;
@@ -20,14 +18,14 @@
     .block2,
     .block3 {
       border-radius: 24px;
-      border: 1px solid variables.$border-color;
+      border: 1px solid var(--border-color);
     }
 
     .block1 {
       padding: 8px;
       grid-column: span 3 / span 3;
       grid-row: span 5 / span 5;
-      background-color: variables.$panel;
+      background-color: var(--panel);
       box-sizing: border-box;
     }
 

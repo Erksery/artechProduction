@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .folderContainer {
   position: relative;
   display: flex;
@@ -12,6 +10,6 @@
     flex-direction: column;
     flex: 1;
     height: 100%;
-    background-color: variables.$background;
+    background-color: var(--background);
   }
 }

@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .fileCard {
   display: flex;
   align-items: center;
@@ -7,7 +5,7 @@
   padding-right: 10px;
   width: 100%;
   border-radius: 18px;
-  background-color: variables.$component;
+  background-color: var(--component);
   box-sizing: border-box;
 
   .icon {
@@ -19,7 +17,7 @@
     min-width: 80px;
     min-height: 80px;
     border-radius: 18px 0 0 18px;
-    background-color: variables.$blur-panel;
+    background-color: var(--blur-panel);
     font-size: 32px;
     overflow: hidden;
 
@@ -54,9 +52,9 @@
       background-color: transparent;
       transition: 0.2s;
       &:hover {
-        background-color: variables.$error-blur-background;
+        background-color: var(--error-blur-background);
         svg {
-          color: variables.$error-color;
+          color: var(--error-color);
         }
       }
     }

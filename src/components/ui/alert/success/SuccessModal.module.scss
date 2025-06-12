@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .modal {
   width: 30%;
 }
@@ -24,14 +22,14 @@
   button {
     width: 100%;
     height: 40px;
-    color: variables.$delete-color;
-    border: solid 1px variables.$delete-color;
-    background-color: variables.$error-blur-background;
+    color: var(--delete-color);
+    border: solid 1px var(--delete-color);
+    background-color: var(--error-blur-background);
     transition: 0.2s;
 
     &:hover {
       color: white;
-      background-color: variables.$delete-color;
+      background-color: var(--delete-color);
     }
   }
 }

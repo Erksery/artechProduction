@@ -1,5 +1,3 @@
-@use "@/variables";
-
 .cardButton {
   display: flex;
   justify-content: flex-start;
@@ -36,5 +34,5 @@
 }
 
 .active {
-  border-color: variables.$theme;
+  border-color: var(--theme);
 }

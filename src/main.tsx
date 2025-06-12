@@ -7,7 +7,6 @@ import { store } from "./store/index.ts";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ModalProvider } from "@hooks/modal/useModal.tsx";
-import { CustomDragLayer } from "@components/ui/dragLayer/CustomDragLayer.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -15,7 +14,6 @@ createRoot(document.getElementById("root")!).render(
       <ModalProvider>
         <DndProvider backend={HTML5Backend}>
           <App />
-          {/*<CustomDragLayer /> */}
         </DndProvider>
       </ModalProvider>
     </Provider>

@@ -1,13 +1,11 @@
-@use "@/variables";
-
 .tabContainer {
   display: flex;
   padding: 5px;
   width: 100%;
   height: 50px;
-  background-color: variables.$folder-component;
+  background-color: var(--folder-component);
   border-radius: 12px;
-  border: solid 1px variables.$border-color;
+  border: solid 1px var(--border-color);
   box-sizing: border-box;
 
   .tab {
@@ -19,6 +17,6 @@
   }
 
   .active {
-    background-color: variables.$component;
+    background-color: var(--component);
   }
 }

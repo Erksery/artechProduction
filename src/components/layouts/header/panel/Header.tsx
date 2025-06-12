@@ -1,32 +1,37 @@
 import styles from "./Header.module.scss";
-import { motion } from "framer-motion";
 import { useState } from "react";
 
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 
-import { UserLogo } from "../../user/logo/UserLogo";
-import { AddModal } from "../modal/insert/AddModal";
-import { MenuContainer } from "../../../ui/menu/container/MenuContainer";
-
-import { AppDispatch, RootState } from "../../../../store";
+import { AppDispatch, RootState } from "@store/index";
+import { toggleSideMenu } from "@store/slices/folders";
 
 import { RiAddLine, RiMenuFoldLine } from "react-icons/ri";
 import { IoSearchSharp } from "react-icons/io5";
+import { LuSunMedium, LuMoon } from "react-icons/lu";
 
 import { UserMenu } from "../menu/user/UserMenu";
 
-import { toggleSideMenu } from "../../../../store/slices/folders";
 import { useModal } from "@hooks/modal/useModal";
+import { useTheme } from "@hooks/useTheme";
+
+import { AddModal } from "../modal/insert/AddModal";
+import { MenuContainer } from "@components/ui/menu/container/MenuContainer";
+import { UserLogo } from "@components/layouts/user/logo/UserLogo";
 
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [userMenu, setUserMenu] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+
   const user = useSelector((state: RootState) => state.user.userData);
   const sideMenu = useSelector(
     (state: RootState) => state.folders.openSideMenu
   );
+
   const { openModal } = useModal();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -65,6 +70,13 @@ export const Header = () => {
           </motion.button>
         </div>
         <div className={styles.user}>
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            onClick={toggleTheme}
+            className={styles.addButton}
+          >
+            {theme === "light" ? <LuSunMedium /> : <LuMoon />}
+          </motion.button>
           <MenuContainer
             element={<UserMenu />}
             open={userMenu}
