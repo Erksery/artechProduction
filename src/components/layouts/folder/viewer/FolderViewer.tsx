@@ -1,30 +1,30 @@
-import styles from "./FolderViewer.module.scss";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@store/index";
-import { FilesList } from "../../file/list/FilesList";
-import { FolderListGrid } from "../list/grid/FolderListGrid";
-import { ToolsLine } from "./ToolsLine/ToolsLine";
-import { EmptyList } from "./EmptyList/EmptyList";
+import { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+
+import { RootState } from '@store/index'
+
+import { FilesList } from '../../file/list/FilesList'
+import { FolderListGrid } from '../list/grid/FolderListGrid'
+import { EmptyList } from './EmptyList/EmptyList'
+import styles from './FolderViewer.module.scss'
+import { ToolsLine } from './ToolsLine/ToolsLine'
 
 interface Props {
-  folderId: string | undefined;
-  loading: boolean;
+  folderId: string | undefined
+  loading: boolean
 }
 
 export const FolderViewer = ({ folderId, loading }: Props) => {
-  const files = useSelector((state: RootState) => state.files.files);
-  const sliceFolder = useSelector((state: RootState) => state.folders);
+  const files = useSelector((state: RootState) => state.files.files)
+  const sliceFolder = useSelector((state: RootState) => state.folders)
 
   const subFolders = useMemo(
     () =>
-      sliceFolder.folders.filter(
-        (subFolder) => subFolder.inFolder === folderId
-      ),
+      sliceFolder.folders.filter(subFolder => subFolder.inFolder === folderId),
     [sliceFolder.folders, folderId]
-  );
+  )
 
-  console.log("rerender view");
+  console.log('rerender folder view')
 
   return (
     <div className={styles.viewer}>
@@ -36,9 +36,12 @@ export const FolderViewer = ({ folderId, loading }: Props) => {
         {files.length <= 0 && !loading ? (
           <EmptyList />
         ) : (
-          <FilesList files={files} loading={loading} />
+          <FilesList
+            files={files}
+            loading={loading}
+          />
         )}
       </div>
     </div>
-  );
-};
+  )
+}

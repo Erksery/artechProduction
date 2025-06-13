@@ -1,29 +1,26 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from 'react'
+import { motion } from 'framer-motion'
+import { useDrop } from 'react-dnd'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-import { useDrop } from "react-dnd";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { AppDispatch } from '@store/index'
+import { setActiveFolder } from '@store/slices/folders'
+import { FolderData } from '@interfaces/folder'
+import { useGetUser } from '@hooks/useGetUser'
 
-import { useGetUser } from "@hooks/useGetUser";
-import { FileType, useFolderCardLogic } from "../hooks/useFolderCardLogic";
-
-import { setActiveFolder } from "@store/slices/folders";
-import { AppDispatch } from "@store/index";
-
-import { FolderData } from "@interfaces/folder";
-
-import { SubFolderList } from "./SubFolderList";
-import { FolderCardTools } from "./FolderCardTools";
-import { FolderCardInfo } from "./FolderCardInfo";
+import { FileType, useFolderCardLogic } from '../hooks/useFolderCardLogic'
+import { FolderCardInfo } from './FolderCardInfo'
+import { FolderCardTools } from './FolderCardTools'
+import { SubFolderList } from './SubFolderList'
 
 interface FolderCardProps {
-  folder: FolderData;
-  folders: FolderData[];
+  folder: FolderData
+  folders: FolderData[]
 }
 
 export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>()
 
   const {
     menuOpen,
@@ -34,36 +31,35 @@ export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
     closeMenu,
     toggleListOpen,
     dropFile,
-    folderCardClassName,
-  } = useFolderCardLogic();
+    folderCardClassName
+  } = useFolderCardLogic()
 
-  const { getUser, userData } = useGetUser();
+  const { getUser, userData } = useGetUser()
 
   const subFolders = useMemo(
-    () => folders.filter((subFolder) => subFolder.inFolder === folder.id),
+    () => folders.filter(subFolder => subFolder.inFolder === folder.id),
     [folders, folder.id]
-  );
+  )
 
   const [{ isOver }, drop] = useDrop({
-    accept: "FILE",
+    accept: 'FILE',
     drop: (item: FileType) => {
-      dropFile(folder, item);
+      dropFile(folder, item)
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      // canDrop: monitor.canDrop(),
-    }),
-  });
+    collect: monitor => ({
+      isOver: monitor.isOver()
+    })
+  })
 
   useEffect(() => {
     if (linkRef.current) {
-      drop(linkRef.current);
+      drop(linkRef.current)
     }
-  }, [drop]);
+  }, [drop])
 
   useEffect(() => {
-    getUser(folder.creator);
-  }, [folder.creator]);
+    getUser(folder.creator)
+  }, [folder.creator])
 
   return (
     <>
@@ -74,8 +70,7 @@ export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
           to={`/folder/${folder.id}`}
           onClick={() => dispatch(setActiveFolder(folder.id))}
           className={folderCardClassName(folder.id, isOver)}
-          draggable={false}
-        >
+          draggable={false}>
           <FolderCardInfo
             activeFolder={activeFolder}
             folder={folder}
@@ -101,5 +96,5 @@ export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
         folders={folders}
       />
     </>
-  );
-};
+  )
+}

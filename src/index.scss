@@ -44,7 +44,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: #d3d3d3;
+  color: var(--text-color);
   font-family: "Exo 2";
 }
 
@@ -61,7 +61,7 @@ p,
 label,
 div {
   font-family: "Nunito", system-ui, sans-serif;
-  color: lightgray;
+  color: var(--text-color);
 }
 
 hr {
@@ -69,7 +69,7 @@ hr {
 }
 
 svg {
-  color: lightgray;
+  color: var(--text-color);
   transition: 0.2s;
 }
 
@@ -80,7 +80,7 @@ button {
   font-weight: 500;
   font-family: inherit;
 
-  color: lightgray;
+  color: var(--text-color);
   background-color: var(--blur-panel);
 
   border-radius: 8px;

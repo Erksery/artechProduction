@@ -1,70 +1,71 @@
-import api from "../api/api";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store";
-import { deleteFile, updateFile } from "../store/slices/files";
-import { useEffect, useRef, useState } from "react";
-import { handleApiError } from "../utils/toast/handleApiError";
-import { handleApiSuccess } from "../utils/toast/handleApiSuccess";
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import api from '../api/api'
+import { AppDispatch } from '../store'
+import { deleteFile, updateFile } from '../store/slices/files'
+import { handleApiError } from '../utils/toast/handleApiError'
+import { handleApiSuccess } from '../utils/toast/handleApiSuccess'
 
 interface EditData {
-  originalFilename?: string;
-  folderId?: string;
+  originalFilename?: string
+  folderId?: string
 }
 
 export interface EditProps {
-  folderId: string | undefined;
-  fileId: string | undefined;
-  editData: EditData;
+  folderId: string | undefined
+  fileId: string | undefined
+  editData: EditData
 }
 
 export const useEditFile = () => {
-  const [editing, setEditing] = useState(false);
-  const [editValue, setEditValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch<AppDispatch>();
+  const [editing, setEditing] = useState(false)
+  const [editValue, setEditValue] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+  const dispatch = useDispatch<AppDispatch>()
 
   const editMode = () => {
-    setEditing((prev) => !prev);
-  };
+    setEditing(prev => !prev)
+  }
 
   const submitEditFile = (
     e: { preventDefault: () => void },
     folderId: string | undefined,
     fileId: string
   ) => {
-    e.preventDefault();
+    e.preventDefault()
     editFile({
       folderId: folderId,
       fileId: fileId,
-      editData: { originalFilename: editValue },
-    });
-    editMode();
-  };
+      editData: { originalFilename: editValue }
+    })
+    editMode()
+  }
 
   useEffect(() => {
     if (editing) {
-      setTimeout(() => inputRef.current?.focus(), 0);
+      setTimeout(() => inputRef.current?.focus(), 0)
     }
-  }, [editing]);
+  }, [editing])
 
   const editFile = async ({ folderId, fileId, editData }: EditProps) => {
     try {
       const resData = await api.patch(
         `/files/folder/${folderId}/file/${fileId}`,
         {
-          editData,
+          editData
         }
-      );
+      )
       if (editData.folderId) {
-        dispatch(deleteFile(fileId));
+        dispatch(deleteFile(fileId))
       } else {
-        dispatch(updateFile(resData.data));
+        dispatch(updateFile(resData.data))
       }
-      handleApiSuccess(resData, "Файл успешно отредактирован");
+      handleApiSuccess(resData, 'Файл успешно отредактирован')
     } catch (err) {
-      handleApiError(err, "Ошибка при редактировании файла");
+      handleApiError(err, 'Ошибка при редактировании файла')
     }
-  };
+  }
 
   return {
     editFile,
@@ -73,6 +74,6 @@ export const useEditFile = () => {
     editing,
     editValue,
     setEditValue,
-    submitEditFile,
-  };
-};
+    submitEditFile
+  }
+}

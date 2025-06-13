@@ -9,14 +9,14 @@
   height: 70px;
   border-radius: 12px;
   border: solid 1px transparent;
-  background-color: var(--folder-component);
+  background-color: var(--component);
   box-sizing: border-box;
   transition: 0.2s;
   user-select: none;
 
   &:hover {
     border-color: var(--border-color);
-    background-color: var(--component);
+    background-color: var(--hover-component);
   }
 
   * {

@@ -130,7 +130,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         margin: 0;
-        color: lightgray;
+        color: var(--text-color);
         user-select: none;
         font-size: 14px;
       }
@@ -145,7 +145,7 @@
           border-color: var(--border-color);
           background-color: var(--hover-component);
           svg {
-            color: lightgray;
+            color: var(--text-color);
           }
         }
 

@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import { AppDispatch } from "@store/index";
-import { setActiveFolder } from "@store/slices/folders";
+import { AppDispatch } from '@store/index'
+import { setActiveFolder } from '@store/slices/folders'
 
 export const useActiveFolder = (id: string | undefined) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) return
 
-    dispatch(setActiveFolder(id));
-  }, [dispatch]);
-};
+    dispatch(setActiveFolder(id))
+  }, [dispatch])
+}

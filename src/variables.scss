@@ -24,26 +24,26 @@
 }
 
 :root[data-theme="light"] {
-  --background: #ffffff;
+  --background: #f2f2f2;
   --menu-background: #f0f0f0;
-  --component: #ffffff;
-  --hover-component: #eeeeee;
+  --component: #8b8b8b3b;
+  --hover-component: #ecececa8;
   --folder-component: #eaeaea;
-  --panel: #dddddd;
-  --blur-panel: #ffffffaa;
-  --blur-background: #ffffffbd;
-  --blur-button: #ffffff4a;
-  --light-blur-panel: #cccccc4f;
+  --panel: #ffffff;
+  --blur-panel: #c4c4c488;
+  --blur-background: #f2f2f283;
+  --blur-button: #c0c0c07a;
+  --light-blur-panel: #a8a8a84f;
   --status-background: #f8f8f8;
   --scroller-color: #cccccc;
 
   --theme: #f7bd66;
   --dark-theme: #e6812f;
-  --error-color: #f08e7e;
+  --error-color: #ff2200;
   --delete-color: #f7343b;
-  --error-blur-background: #f8dcdc;
+  --error-blur-background: #fc9c9c86;
   --selected-component: #cccccc28;
   --success-color: #3fb950;
   --border-color: rgba(86, 87, 97, 0.129);
-  --text-color: #000000;
+  --text-color: #111111;
 }
