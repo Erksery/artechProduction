@@ -1,32 +1,33 @@
-import { AxiosResponse } from "axios";
-import api from "../api/api";
-import { User } from "../interfaces/user";
-import { useCallback, useState } from "react";
-import { handleApiError } from "../utils/toast/handleApiError";
+import { useCallback, useState } from 'react'
+import { AxiosResponse } from 'axios'
 
-type UserResponse = User;
+import api from '../api/api'
+import { User } from '../interfaces/user'
+import { handleApiError } from '../utils/toast/handleApiError'
+
+type UserResponse = User
 
 export const useGetUser = () => {
-  const [userData, setUserData] = useState<User | null>(null);
+  const [userData, setUserData] = useState<User | null>(null)
 
   const getUser = useCallback(async (userId: string) => {
     try {
-      const cachedUser = localStorage.getItem(`user_${userId}`);
+      const cachedUser = localStorage.getItem(`user_${userId}`)
       if (cachedUser) {
-        const parsedUser = JSON.parse(cachedUser) as User;
-        setUserData(parsedUser);
-        return parsedUser;
+        const parsedUser = JSON.parse(cachedUser) as User
+        setUserData(parsedUser)
+        return parsedUser
       }
       const resData: AxiosResponse<UserResponse> = await api.get(
         `/auth/${userId}`
-      );
-      setUserData(resData.data);
-      localStorage.setItem(`user_${userId}`, JSON.stringify(resData.data));
-      return resData.data;
+      )
+      setUserData(resData.data)
+      localStorage.setItem(`user_${userId}`, JSON.stringify(resData.data))
+      return resData.data
     } catch (err) {
-      handleApiError(err, "Не удалось получить данные пользователя");
+      handleApiError(err, 'Не удалось получить данные пользователя')
     }
-  }, []);
+  }, [])
 
-  return { getUser, userData };
-};
+  return { getUser, userData }
+}

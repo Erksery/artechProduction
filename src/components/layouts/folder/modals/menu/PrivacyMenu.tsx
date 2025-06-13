@@ -1,16 +1,16 @@
-import styles from "./PrivacyMenu.module.scss";
-import { PrivacyButtons } from "./PrivacyButtons";
-import { MenuButton } from "../../../../ui/menu/button/MenuButton";
+import { MenuButton } from '../../../../ui/menu/button/MenuButton'
+import { PrivacyButtons } from './PrivacyButtons'
+import styles from './PrivacyMenu.module.scss'
 
 interface Props {
-  buttons: PrivacyButtons[];
-  activeButton: PrivacyButtons | undefined;
+  buttons: PrivacyButtons[]
+  activeButton: PrivacyButtons | undefined
 }
 
 export const PrivacyMenu = ({ buttons, activeButton }: Props) => {
   return (
     <div className={styles.selector}>
-      {buttons.map((button) => (
+      {buttons.map(button => (
         <MenuButton
           title={button.title}
           event={button.event}
@@ -21,5 +21,5 @@ export const PrivacyMenu = ({ buttons, activeButton }: Props) => {
         />
       ))}
     </div>
-  );
-};
+  )
+}

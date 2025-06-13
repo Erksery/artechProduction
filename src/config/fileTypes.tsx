@@ -1,39 +1,40 @@
-import { MpegSvg } from "@components/ui/svg/mimeTypes/MpegSvg";
-import { DocSvg } from "../components/ui/svg/mimeTypes/DocSvg";
-import { UnknownSvg } from "../components/ui/svg/mimeTypes/UnknownSvg";
-import { XslSvg } from "../components/ui/svg/mimeTypes/XslSvg";
-import { JpgSvg } from "@components/ui/svg/mimeTypes/JpgSvg";
-import { Mp4Svg } from "@components/ui/svg/mimeTypes/Mp4Svg";
-import { TxtSvg } from "@components/ui/svg/mimeTypes/TxtSvg";
-import { HtmlSvg } from "@components/ui/svg/mimeTypes/HtmlSvg";
-import { ScriptSvg } from "@components/ui/svg/mimeTypes/ScriptSvg";
+import { HtmlSvg } from '@components/ui/svg/mimeTypes/HtmlSvg'
+import { JpgSvg } from '@components/ui/svg/mimeTypes/JpgSvg'
+import { Mp4Svg } from '@components/ui/svg/mimeTypes/Mp4Svg'
+import { MpegSvg } from '@components/ui/svg/mimeTypes/MpegSvg'
+import { ScriptSvg } from '@components/ui/svg/mimeTypes/ScriptSvg'
+import { TxtSvg } from '@components/ui/svg/mimeTypes/TxtSvg'
+
+import { DocSvg } from '../components/ui/svg/mimeTypes/DocSvg'
+import { UnknownSvg } from '../components/ui/svg/mimeTypes/UnknownSvg'
+import { XslSvg } from '../components/ui/svg/mimeTypes/XslSvg'
 
 export const fileTypes = [
   {
-    title: "Unknown",
+    title: 'Unknown',
     mimeType: [],
-    svg: <UnknownSvg />,
+    svg: <UnknownSvg />
   },
   {
-    title: "Xml",
+    title: 'Xml',
     mimeType: [
-      "application/vnd.ms-excel",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ],
-    svg: <XslSvg />,
+    svg: <XslSvg />
   },
   {
-    title: "Docx",
+    title: 'Docx',
     mimeType: [
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      "application/msword",
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/msword'
     ],
-    svg: <DocSvg />,
+    svg: <DocSvg />
   },
-  { title: "Script", mimeType: ["text/javascript"], svg: <ScriptSvg /> },
-  { title: "Mpeg", mimeType: ["audio/mpeg"], svg: <MpegSvg /> },
-  { title: "Jpeg", mimeType: ["image/jpeg"], svg: <JpgSvg /> },
-  { title: "Mp4", mimeType: ["video/mp4"], svg: <Mp4Svg /> },
-  { title: "Text", mimeType: ["text/plain"], svg: <TxtSvg /> },
-  { title: "Html", mimeType: ["text/html"], svg: <HtmlSvg /> },
-];
+  { title: 'Script', mimeType: ['text/javascript'], svg: <ScriptSvg /> },
+  { title: 'Mpeg', mimeType: ['audio/mpeg'], svg: <MpegSvg /> },
+  { title: 'Jpeg', mimeType: ['image/jpeg'], svg: <JpgSvg /> },
+  { title: 'Mp4', mimeType: ['video/mp4'], svg: <Mp4Svg /> },
+  { title: 'Text', mimeType: ['text/plain'], svg: <TxtSvg /> },
+  { title: 'Html', mimeType: ['text/html'], svg: <HtmlSvg /> }
+]

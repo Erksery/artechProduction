@@ -1,33 +1,34 @@
-import styles from "./SignUp.module.scss";
-import { Input } from "../../../ui/input/Input";
-import { SubmitButton } from "../../../ui/buttons/submit/SubmitButton";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from 'react'
+
+import { SubmitButton } from '../../../ui/buttons/submit/SubmitButton'
+import { Input } from '../../../ui/input/Input'
+import styles from './SignUp.module.scss'
 
 interface Props {
-  error: string | null;
-  loading: boolean;
-  activateTab: (name: "register" | "login") => void;
+  error: string | null
+  loading: boolean
+  activateTab: (name: 'register' | 'login') => void
 }
 
 export const SignUp = ({ error, loading, activateTab }: Props) => {
-  const [canSubmit, setCanSubmit] = useState(false);
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const [canSubmit, setCanSubmit] = useState(false)
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
-    const isValid = login.trim() !== "" && password.trim() !== "";
-    setCanSubmit(isValid);
-  }, [login, password, setCanSubmit]);
+    const isValid = login.trim() !== '' && password.trim() !== ''
+    setCanSubmit(isValid)
+  }, [login, password, setCanSubmit])
   return (
     <>
       <h2>Создать аккаунт</h2>
       <Input
-        title="Логин"
-        type="text"
-        name="login"
-        id="login"
-        placeholder="Имя пользователя"
-        autoComplete="current-password"
+        title='Логин'
+        type='text'
+        name='login'
+        id='login'
+        placeholder='Имя пользователя'
+        autoComplete='current-password'
         required
         value={login}
         onChange={(e: { target: { value: SetStateAction<string> } }) =>
@@ -35,12 +36,12 @@ export const SignUp = ({ error, loading, activateTab }: Props) => {
         }
       />
       <Input
-        title="Пароль"
-        type="password"
-        name="password"
-        id="password"
-        placeholder="**********"
-        autoComplete="current-password"
+        title='Пароль'
+        type='password'
+        name='password'
+        id='password'
+        placeholder='**********'
+        autoComplete='current-password'
         required
         value={password}
         onChange={(e: { target: { value: SetStateAction<string> } }) =>
@@ -54,17 +55,19 @@ export const SignUp = ({ error, loading, activateTab }: Props) => {
       )}
 
       <SubmitButton
-        text={loading ? "Загрузка..." : "Зарегистрироваться"}
-        type="submit"
+        text={loading ? 'Загрузка...' : 'Зарегистрироваться'}
+        type='submit'
         disabled={!canSubmit || loading}
         className={styles.submitButton}
       />
       <div className={styles.route}>
         <p>Уже есть аккаунт?</p>
-        <button onClick={() => activateTab("login")} className={styles.link}>
+        <button
+          onClick={() => activateTab('login')}
+          className={styles.link}>
           Войти
         </button>
       </div>
     </>
-  );
-};
+  )
+}

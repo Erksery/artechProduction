@@ -1,12 +1,13 @@
-import styles from "./SubmitButton.module.scss";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
+
+import styles from './SubmitButton.module.scss'
 
 interface Props {
-  text: string;
-  className?: string | undefined;
-  event?: () => void;
-  type?: string;
-  disabled?: boolean;
+  text: string
+  className?: string | undefined
+  event?: () => void
+  type?: string
+  disabled?: boolean
 }
 
 export const SubmitButton = ({
@@ -23,14 +24,13 @@ export const SubmitButton = ({
       className={`${styles.button} ${className}`}
       disabled={disabled}
       whileHover={{
-        scale: 0.95,
+        scale: 0.95
       }}
       whileTap={{
-        scale: 0.9,
+        scale: 0.9
       }}
-      {...props}
-    >
+      {...props}>
       {text}
     </motion.button>
-  );
-};
+  )
+}

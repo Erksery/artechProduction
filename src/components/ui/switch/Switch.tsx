@@ -1,31 +1,31 @@
-import React from "react";
-import styles from "./Switch.module.scss";
-import { motion } from "framer-motion";
+import React from 'react'
+import { motion } from 'framer-motion'
+
+import styles from './Switch.module.scss'
 
 interface SwitchProps {
-  isChecked: boolean;
-  setIsChecked: (isChecked: boolean) => void;
+  isChecked: boolean
+  setIsChecked: (isChecked: boolean) => void
 }
 
 export const Switch: React.FC<SwitchProps> = ({ isChecked, setIsChecked }) => {
   const handleToggle = () => {
-    setIsChecked(!isChecked);
-  };
+    setIsChecked(!isChecked)
+  }
   return (
     <div
       className={`${styles.switch}  ${isChecked && styles.active}`}
-      onClick={handleToggle}
-    >
+      onClick={handleToggle}>
       <motion.div
         className={styles.switchKnob}
         animate={{ x: isChecked ? 20 : 0 }}
         transition={{
-          type: "spring",
+          type: 'spring',
           stiffness: 300,
           damping: 30,
-          bounce: 0.1,
+          bounce: 0.1
         }}
       />
     </div>
-  );
-};
+  )
+}

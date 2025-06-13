@@ -1,41 +1,42 @@
-import { handleApiError } from "@utils/toast/handleApiError";
-import { FaRegCopy } from "react-icons/fa6";
-import { LuClipboardPaste } from "react-icons/lu";
-import { MdOutlineSimCardDownload } from "react-icons/md";
+import { FaRegCopy } from 'react-icons/fa6'
+import { LuClipboardPaste } from 'react-icons/lu'
+import { MdOutlineSimCardDownload } from 'react-icons/md'
+
+import { handleApiError } from '@utils/toast/handleApiError'
 
 export interface ButtonProps {
-  folderId: string | undefined;
-  pasteFilesToFolder: (folderId: string) => void;
-  copyFiles: () => void;
+  folderId: string | undefined
+  pasteFilesToFolder: (folderId: string) => void
+  copyFiles: () => void
 }
 
 export const toolsButtons = ({
   folderId,
   pasteFilesToFolder,
-  copyFiles,
+  copyFiles
 }: ButtonProps) => [
   {
     id: 1,
-    title: "Копировать",
+    title: 'Копировать',
     icon: <FaRegCopy />,
-    event: () => copyFiles(),
+    event: () => copyFiles()
   },
   {
     id: 2,
-    title: "Вставить",
+    title: 'Вставить',
     icon: <LuClipboardPaste />,
     event: () => {
       if (folderId) {
-        pasteFilesToFolder(folderId);
+        pasteFilesToFolder(folderId)
       } else {
-        handleApiError("folderId отсутствует, вставка отменена");
+        handleApiError('folderId отсутствует, вставка отменена')
       }
-    },
+    }
   },
   {
     id: 3,
-    title: "Скачать",
+    title: 'Скачать',
     icon: <MdOutlineSimCardDownload />,
-    event: () => console.log("1"),
-  },
-];
+    event: () => console.log('1')
+  }
+]

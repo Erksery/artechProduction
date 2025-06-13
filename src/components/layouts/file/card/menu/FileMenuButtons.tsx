@@ -1,21 +1,20 @@
-import { JSX } from "react";
+import { JSX } from 'react'
+import { FaRegCopy } from 'react-icons/fa6'
+import { GrView } from 'react-icons/gr'
+import { LuFolderPen } from 'react-icons/lu'
+import { MdOutlineDelete, MdOutlineSimCardDownload } from 'react-icons/md'
 
-import { ModalState } from "@hooks/modal/useModal";
-import { AppDispatch } from "@store/index";
-import { FileData } from "@interfaces/file";
-import { setActiveFile } from "@store/slices/files";
-
-import { GrView } from "react-icons/gr";
-import { LuFolderPen } from "react-icons/lu";
-import { MdOutlineDelete, MdOutlineSimCardDownload } from "react-icons/md";
-import { FaRegCopy } from "react-icons/fa6";
+import { AppDispatch } from '@store/index'
+import { setActiveFile } from '@store/slices/files'
+import { FileData } from '@interfaces/file'
+import { ModalState } from '@hooks/modal/useModal'
 
 interface ButtonConfig {
-  id: number;
-  title: string;
-  icon: JSX.Element;
-  red: boolean;
-  event: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  id: number
+  title: string
+  icon: JSX.Element
+  red: boolean
+  event: (e?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const getFileMenuButtons = (
@@ -33,66 +32,66 @@ export const getFileMenuButtons = (
 ): ButtonConfig[] => [
   {
     id: 1,
-    title: "Открыть",
+    title: 'Открыть',
     icon: <GrView />,
     red: false,
     event: () => {
-      dispatch(setActiveFile(activeFile));
+      dispatch(setActiveFile(activeFile))
       openModal({
-        name: "fileView",
+        name: 'fileView',
         props: {
-          activeFile: activeFile,
-        },
-      });
-      close();
-    },
+          activeFile: activeFile
+        }
+      })
+      close()
+    }
   },
   {
     id: 2,
-    title: "Скачать",
+    title: 'Скачать',
     icon: <MdOutlineSimCardDownload />,
     red: false,
     event: () => {
-      downloadFile(folderId!, file.name);
-    },
+      downloadFile(folderId!, file.name)
+    }
   },
   {
     id: 3,
-    title: "Переименовать",
+    title: 'Переименовать',
     icon: <LuFolderPen />,
     red: false,
     event: () => {
-      editMode(), close();
-    },
+      editMode(), close()
+    }
   },
   {
     id: 4,
-    title: "Скопировать",
+    title: 'Скопировать',
     icon: <FaRegCopy />,
     red: false,
     event: () => {
-      localStorage.setItem("buffer", JSON.stringify([fileId])), close();
-    },
+      localStorage.setItem('buffer', JSON.stringify([fileId])), close()
+    }
   },
   {
     id: 5,
-    title: "Удалить",
+    title: 'Удалить',
     icon: <MdOutlineDelete />,
     red: true,
     event: () => {
       openModal({
-        name: "success",
+        name: 'success',
         props: {
-          title: "Удалить файл?",
-          description: "Вы действительно хотите удалить данный файл?",
-          button: { text: "Удалить", color: "rgb(184, 62, 62)" },
+          title: 'Удалить файл?',
+          description: 'Вы действительно хотите удалить данный файл?',
+          button: { text: 'Удалить', color: 'rgb(184, 62, 62)' },
           event: async () => {
-            await fileDelete(fileId);
-            closeModal();
-          },
-        },
-      });
-      close();
-    },
-  },
-];
+            await fileDelete(fileId)
+            closeModal()
+          }
+        }
+      })
+      close()
+    }
+  }
+]

@@ -1,11 +1,8 @@
-import styles from "./Home.module.scss";
-
-import { Header } from "../../components/layouts/header/panel/Header";
-
-import { ErrorBoundary } from "../../components/ui/error/ErrorBoundary.tsx";
-
-import { ContentPage } from "../../components/ui/contentPage/ContentPage.tsx";
-import { SideMenu } from "../../components/layouts/menu/side/SideMenu.tsx";
+import { Header } from '../../components/layouts/header/panel/Header'
+import { SideMenu } from '../../components/layouts/menu/side/SideMenu.tsx'
+import { ContentPage } from '../../components/ui/contentPage/ContentPage.tsx'
+import { ErrorBoundary } from '../../components/ui/error/ErrorBoundary.tsx'
+import styles from './Home.module.scss'
 
 export const Home = () => {
   return (
@@ -23,5 +20,5 @@ export const Home = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

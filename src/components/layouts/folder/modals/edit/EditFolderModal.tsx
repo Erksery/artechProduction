@@ -1,99 +1,101 @@
-import React, { ChangeEvent, useState } from "react";
-import styles from "./EditFolderModal.module.scss";
-import { Modal } from "../../../../ui/modal/Modal";
-import { Input } from "../../../../ui/input/Input";
-import { useEditFolder } from "./hooks/useEditFolder";
-import { FolderData } from "../../../../../interfaces/folder";
+import React, { ChangeEvent, useState } from 'react'
+
+import { useModal } from '@hooks/modal/useModal'
+import { handleApiSuccess } from '@utils/toast/handleApiSuccess'
+
 import {
   PRIVACY_VALUES,
   PrivacyType,
-  SharingType,
-} from "../../../../../config/constants";
-import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
-import { privacyButtons } from "../menu/PrivacyButtons";
-import { PrivacyMenu } from "../menu/PrivacyMenu";
-import { TabToggle } from "../../../../ui/tab/TabToggle";
-import { sharingButtons } from "./SharingButtons";
-import { useModal } from "@hooks/modal/useModal";
-import { handleApiSuccess } from "@utils/toast/handleApiSuccess";
+  SharingType
+} from '../../../../../config/constants'
+import { FolderData } from '../../../../../interfaces/folder'
+import { Input } from '../../../../ui/input/Input'
+import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
+import { Modal } from '../../../../ui/modal/Modal'
+import { TabToggle } from '../../../../ui/tab/TabToggle'
+import { privacyButtons } from '../menu/PrivacyButtons'
+import { PrivacyMenu } from '../menu/PrivacyMenu'
+import styles from './EditFolderModal.module.scss'
+import { useEditFolder } from './hooks/useEditFolder'
+import { sharingButtons } from './SharingButtons'
 
 interface EditFolderModalProps {
-  folder: FolderData;
-  close: () => void;
+  folder: FolderData
+  close: () => void
 }
 
 export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
   const [editFolderData, setEditFolderData] = useState<{
-    name: string;
-    privacy: PrivacyType;
-    sharingOptions: SharingType;
+    name: string
+    privacy: PrivacyType
+    sharingOptions: SharingType
   }>({
-    name: folder.name || "",
-    privacy: folder.privacy || "Private",
-    sharingOptions: folder.sharingOptions || "Reading",
-  });
+    name: folder.name || '',
+    privacy: folder.privacy || 'Private',
+    sharingOptions: folder.sharingOptions || 'Reading'
+  })
 
-  const [privacyOpenMenu, setPrivacyOpenMenu] = useState(false);
+  const [privacyOpenMenu, setPrivacyOpenMenu] = useState(false)
 
-  const { submitEditFolder } = useEditFolder();
-  const { closeModal } = useModal();
+  const { submitEditFolder } = useEditFolder()
+  const { closeModal } = useModal()
 
   const handleInputNameChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setEditFolderData((prev) => ({
+    setEditFolderData(prev => ({
       ...prev,
-      name: e.target.value,
-    }));
-  };
+      name: e.target.value
+    }))
+  }
 
   const handlePrivacyChange = (privacy: PrivacyType) => {
-    setEditFolderData((prev) => ({
+    setEditFolderData(prev => ({
       ...prev,
-      privacy: privacy,
-    }));
-  };
+      privacy: privacy
+    }))
+  }
 
   const handleSharingChange = (sharing: SharingType) => {
-    setEditFolderData((prev) => ({
+    setEditFolderData(prev => ({
       ...prev,
-      sharingOptions: sharing,
-    }));
-  };
+      sharingOptions: sharing
+    }))
+  }
 
-  const privacy = privacyButtons(handlePrivacyChange);
-  const sharing = sharingButtons(handleSharingChange);
+  const privacy = privacyButtons(handlePrivacyChange)
+  const sharing = sharingButtons(handleSharingChange)
 
   const activePrivacy = privacy.find(
-    (button) => button.name === editFolderData.privacy
-  );
+    button => button.name === editFolderData.privacy
+  )
   const activeSharing = sharing.find(
-    (button) => button.name === editFolderData.sharingOptions
-  );
+    button => button.name === editFolderData.sharingOptions
+  )
 
   const handleCopy = async () => {
     try {
-      const copyText = `${window.location.origin}/shared/folder/${folder.id}`;
+      const copyText = `${window.location.origin}/shared/folder/${folder.id}`
 
-      await navigator.clipboard.writeText(copyText);
+      await navigator.clipboard.writeText(copyText)
       handleApiSuccess(
-        "Скопировано в буфер обмена",
-        "Ссылка успешно скопирована",
+        'Скопировано в буфер обмена',
+        'Ссылка успешно скопирована',
         true
-      );
+      )
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   return (
     <Modal className={styles.modal}>
       <div className={styles.editModal}>
         <Input
-          type="text"
+          type='text'
           value={editFolderData.name}
           onChange={handleInputNameChange}
-          title="Название"
+          title='Название'
           placeholder={folder.name}
         />
 
@@ -102,34 +104,40 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
           open={privacyOpenMenu}
           setOpen={setPrivacyOpenMenu}
           element={
-            <PrivacyMenu buttons={privacy} activeButton={activePrivacy} />
+            <PrivacyMenu
+              buttons={privacy}
+              activeButton={activePrivacy}
+            />
           }
-          position="left"
-        >
+          position='left'>
           <button className={styles.selector}>
             <p>{activePrivacy?.title}</p>
           </button>
         </MenuContainer>
         <p className={styles.title}>Режим доступа</p>
-        <TabToggle tabs={sharing} activeButton={activeSharing} />
+        <TabToggle
+          tabs={sharing}
+          activeButton={activeSharing}
+        />
 
         <div className={styles.buttonsContainer}>
           <div className={styles.linkContainer}>
             {editFolderData.privacy === PRIVACY_VALUES.LINK && (
-              <button onClick={handleCopy} className={styles.linkButton}>
+              <button
+                onClick={handleCopy}
+                className={styles.linkButton}>
                 Скопировать ссылку
               </button>
             )}
           </div>
           <button
             onClick={() => {
-              submitEditFolder(folder.id, editFolderData), closeModal();
-            }}
-          >
+              submitEditFolder(folder.id, editFolderData), closeModal()
+            }}>
             Подтвердить
           </button>
         </div>
       </div>
     </Modal>
-  );
-};
+  )
+}

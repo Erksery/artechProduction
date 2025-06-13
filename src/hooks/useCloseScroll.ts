@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export const useCloseScroll = (
   open: boolean,
@@ -7,13 +7,13 @@ export const useCloseScroll = (
   useEffect(() => {
     const handleScroll = () => {
       if (open) {
-        setOpen(false);
+        setOpen(false)
       }
-    };
-    window.addEventListener("scroll", handleScroll);
+    }
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [open]);
-};
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [open])
+}

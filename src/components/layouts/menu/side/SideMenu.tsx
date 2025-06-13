@@ -1,36 +1,34 @@
-import { useEffect } from "react";
-import styles from "./SideMenu.module.scss";
+import { useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { AiOutlineReload } from 'react-icons/ai'
+import { RiAddLine, RiMenuFoldLine } from 'react-icons/ri'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { RiAddLine, RiMenuFoldLine } from "react-icons/ri";
-import { AiOutlineReload } from "react-icons/ai";
+import { AppDispatch, RootState } from '@store/index'
+import { setSideMenu, toggleSideMenu } from '@store/slices/folders'
+import { useGetFolders } from '@hooks/useGetFolders'
+import { useMobileView } from '@hooks/useMobileView'
+import { FolderListFlat } from '@components/layouts/folder/list/list/FolderListFlat'
+import { useCreateFolder } from '@components/layouts/folder/modals/insert/hook/useCreateFolder'
 
-import { useMobileView } from "@hooks/useMobileView";
-import { useGetFolders } from "@hooks/useGetFolders";
-
-import { AppDispatch, RootState } from "@store/index";
-import { setSideMenu, toggleSideMenu } from "@store/slices/folders";
-
-import { useCreateFolder } from "@components/layouts/folder/modals/insert/hook/useCreateFolder";
-import { FolderListFlat } from "@components/layouts/folder/list/list/FolderListFlat";
+import styles from './SideMenu.module.scss'
 
 export const SideMenu = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>()
 
-  const folders = useSelector((state: RootState) => state.folders.folders);
+  const folders = useSelector((state: RootState) => state.folders.folders)
   const openSideMenu = useSelector(
     (state: RootState) => state.folders.openSideMenu
-  );
+  )
 
-  const { getFolders } = useGetFolders();
-  const { isMobile } = useMobileView();
+  const { getFolders } = useGetFolders()
+  const { isMobile } = useMobileView()
 
-  const { createFolder } = useCreateFolder();
+  const { createFolder } = useCreateFolder()
 
   useEffect(() => {
-    dispatch(setSideMenu(isMobile ? false : true));
-  }, [isMobile]);
+    dispatch(setSideMenu(isMobile ? false : true))
+  }, [isMobile])
 
   return (
     <AnimatePresence>
@@ -42,23 +40,20 @@ export const SideMenu = () => {
           }
           animate={isMobile ? { x: 0, opacity: 1 } : { width: 300, opacity: 1 }}
           exit={isMobile ? { x: -450, opacity: 0 } : { width: 0, opacity: 0 }}
-          transition={{ type: "tween", duration: 0.3 }}
-        >
+          transition={{ type: 'tween', duration: 0.3 }}>
           <div className={styles.menu}>
             <div className={styles.tools}>
               <div className={styles.block}>
                 <motion.button
                   onClick={() => createFolder()}
                   whileHover={{ scale: 1.2 }}
-                  className={styles.addButton}
-                >
+                  className={styles.addButton}>
                   <RiAddLine />
                 </motion.button>
                 <motion.button
                   onClick={getFolders}
                   whileHover={{ scale: 1.2 }}
-                  className={styles.addButton}
-                >
+                  className={styles.addButton}>
                   <AiOutlineReload />
                 </motion.button>
               </div>
@@ -66,8 +61,7 @@ export const SideMenu = () => {
               <motion.button
                 onClick={() => dispatch(toggleSideMenu())}
                 whileHover={{ scale: 1.2 }}
-                className={styles.addButton}
-              >
+                className={styles.addButton}>
                 <RiMenuFoldLine />
               </motion.button>
             </div>
@@ -82,5 +76,5 @@ export const SideMenu = () => {
         </motion.div>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}

@@ -1,32 +1,36 @@
-import { FileData } from "@interfaces/file";
-import { imageTypes } from "@config/imageTypes";
-import { fileTypes } from "@config/fileTypes";
-import styles from "./FileListCard.module.scss";
-import FileImage from "../../image/FileImage";
-import { useNavigate } from "react-router-dom";
-import { useModal } from "@hooks/modal/useModal";
-import { useFileCardLogic } from "../hooks/useFileCardLogic";
-import { useActiveFile } from "@hooks/useActiveFile";
+import { useNavigate } from 'react-router-dom'
+
+import { fileTypes } from '@config/fileTypes'
+import { imageTypes } from '@config/imageTypes'
+import { FileData } from '@interfaces/file'
+import { useModal } from '@hooks/modal/useModal'
+import { useActiveFile } from '@hooks/useActiveFile'
+
+import FileImage from '../../image/FileImage'
+import { useFileCardLogic } from '../hooks/useFileCardLogic'
+import styles from './FileListCard.module.scss'
 
 interface Props {
-  file: FileData;
+  file: FileData
 }
 
 export const FileListCard = ({ file }: Props) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { activeFolder, fileSvg, fileSize, fileCreateDate } =
-    useFileCardLogic(file);
-  const { selectActiveFile } = useActiveFile();
-  const { closeModal } = useModal();
+    useFileCardLogic(file)
+  const { selectActiveFile } = useActiveFile()
+  const { closeModal } = useModal()
 
   const handleLink = () => {
-    selectActiveFile(file.id);
-    navigate(`/folder/${file.folderId}`);
-    closeModal();
-  };
+    selectActiveFile(file.id)
+    navigate(`/folder/${file.folderId}`)
+    closeModal()
+  }
 
   return (
-    <div onClick={handleLink} className={styles.card}>
+    <div
+      onClick={handleLink}
+      className={styles.card}>
       <div className={styles.view}>
         {imageTypes.includes(file.mimeType) ? (
           <FileImage
@@ -46,5 +50,5 @@ export const FileListCard = ({ file }: Props) => {
         <p className={styles.size}>{fileCreateDate}</p>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,8 +1,8 @@
-import { Modal } from "@components/ui/modal/Modal";
-import { FolderData } from "@interfaces/folder";
+import { FolderData } from '@interfaces/folder'
+import { Modal } from '@components/ui/modal/Modal'
 
 interface Props {
-  folder: FolderData;
+  folder: FolderData
 }
 export const PropertiesFolder = ({ folder }: Props) => {
   return (
@@ -13,5 +13,5 @@ export const PropertiesFolder = ({ folder }: Props) => {
       <p>{folder.privacy}</p>
       <p>{folder.sharingOptions}</p>
     </Modal>
-  );
-};
+  )
+}

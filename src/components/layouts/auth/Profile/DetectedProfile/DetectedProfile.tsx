@@ -1,20 +1,22 @@
-import { useDispatch } from "react-redux";
-import { User } from "../../../../../interfaces/user";
-import { SubmitButton } from "../../../../ui/buttons/submit/SubmitButton";
-import styles from "./DetectedProfile.module.scss";
-import { AppDispatch } from "../../../../../store";
-import { clearUserData } from "../../../../../store/slices/user";
-import { UserLogo } from "../../../user/logo/UserLogo";
-import { Status } from "../../../../ui/status/Status";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { AppDispatch } from '@store/index'
+import { clearUserData } from '@store/slices/user'
+import { User } from '@interfaces/user'
+import { UserLogo } from '@components/layouts/user/logo/UserLogo'
+import { SubmitButton } from '@components/ui/buttons/submit/SubmitButton'
+import { Status } from '@components/ui/status/Status'
+
+import styles from './DetectedProfile.module.scss'
 
 interface Props {
-  user: User;
+  user: User
 }
 
 export const DetectedProfile = ({ user }: Props) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
 
   return (
     <div className={styles.container}>
@@ -31,10 +33,15 @@ export const DetectedProfile = ({ user }: Props) => {
         <Status user={user} />
       </div>
 
-      <SubmitButton text="Войти" event={() => navigate("/")} />
-      <button onClick={() => dispatch(clearUserData())} className={styles.exit}>
+      <SubmitButton
+        text='Войти'
+        event={() => navigate('/')}
+      />
+      <button
+        onClick={() => dispatch(clearUserData())}
+        className={styles.exit}>
         Войти в другой аккаунт
       </button>
     </div>
-  );
-};
+  )
+}

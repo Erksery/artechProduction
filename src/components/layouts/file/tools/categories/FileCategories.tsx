@@ -1,14 +1,14 @@
-import styles from "./FileCategories.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 
-import { fileCategories, FileCategoriesTypes } from "./Categories";
+import { AppDispatch, RootState } from '@store/index'
+import { setFilter } from '@store/slices/files'
 
-import { setFilter } from "@store/slices/files";
-import { AppDispatch, RootState } from "@store/index";
+import { fileCategories, FileCategoriesTypes } from './Categories'
+import styles from './FileCategories.module.scss'
 
 const FileCategories = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const file = useSelector((state: RootState) => state.files);
+  const dispatch = useDispatch<AppDispatch>()
+  const file = useSelector((state: RootState) => state.files)
 
   return (
     <div className={styles.container}>
@@ -17,19 +17,18 @@ const FileCategories = () => {
           <button
             key={type.id}
             onClick={() =>
-              dispatch(setFilter({ name: "mimeType", value: type.value }))
+              dispatch(setFilter({ name: 'mimeType', value: type.value }))
             }
             className={`${styles.category} ${
               type.value === file.filter.value && styles.active
-            }`}
-          >
+            }`}>
             {type.icon}
             <p>{type.title}</p>
           </button>
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FileCategories;
+export default FileCategories

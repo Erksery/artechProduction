@@ -1,10 +1,11 @@
-import { Status } from "@components/ui/status/Status";
-import { UserLogo } from "../logo/UserLogo";
-import styles from "./UserCard.module.scss";
-import { User } from "@interfaces/user";
+import { User } from '@interfaces/user'
+import { Status } from '@components/ui/status/Status'
+
+import { UserLogo } from '../logo/UserLogo'
+import styles from './UserCard.module.scss'
 
 interface Props {
-  user: User;
+  user: User
 }
 
 export const UserCard = ({ user }: Props) => {
@@ -20,5 +21,5 @@ export const UserCard = ({ user }: Props) => {
 
       <Status user={user} />
     </div>
-  );
-};
+  )
+}

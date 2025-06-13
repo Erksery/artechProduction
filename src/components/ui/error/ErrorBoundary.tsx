@@ -1,14 +1,15 @@
-import { Component, ReactNode, ErrorInfo } from "react";
-import styles from "./ErrorBoundary.module.scss";
+import { Component, ErrorInfo, ReactNode } from 'react'
+
+import styles from './ErrorBoundary.module.scss'
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
-  fallback?: ReactNode; // Фallback UI, который отображается при ошибке
+  children: ReactNode
+  fallback?: ReactNode // Фallback UI, который отображается при ошибке
 }
 
 interface ErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
+  hasError: boolean
+  error?: Error
 }
 
 export class ErrorBoundary extends Component<
@@ -16,33 +17,33 @@ export class ErrorBoundary extends Component<
   ErrorBoundaryState
 > {
   constructor(props: ErrorBoundaryProps) {
-    super(props);
+    super(props)
     this.state = {
       hasError: false,
-      error: undefined,
-    };
+      error: undefined
+    }
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     // Обновляем состояние, чтобы показать fallback UI
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // Логирование ошибок (например, отправка в сторонний сервис)
-    console.error("Error caught in ErrorBoundary:", error, errorInfo);
+    console.error('Error caught in ErrorBoundary:', error, errorInfo)
   }
 
   handleRetry = () => {
     // Сбрасываем состояние ошибки
-    this.setState({ hasError: false, error: undefined });
-  };
+    this.setState({ hasError: false, error: undefined })
+  }
 
   render() {
     if (this.state.hasError) {
       // Отображаем fallback UI
       if (this.props.fallback) {
-        return this.props.fallback;
+        return this.props.fallback
       }
       return (
         <div className={styles.errorContainer}>
@@ -50,14 +51,16 @@ export class ErrorBoundary extends Component<
           <p>
             Ошибка: <label>{this.state.error?.message}</label>
           </p>
-          <button style={{ width: 140, height: 40 }} onClick={this.handleRetry}>
+          <button
+            style={{ width: 140, height: 40 }}
+            onClick={this.handleRetry}>
             Попробовать снова
           </button>
         </div>
-      );
+      )
     }
 
     // Рендерим дочерние компоненты, если ошибки нет
-    return this.props.children;
+    return this.props.children
   }
 }

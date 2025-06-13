@@ -1,7 +1,7 @@
-@use "./variables" as *;
+@use './variables' as *;
 
 :root {
-  font-family: "Nunito", system-ui, sans-serif;
+  font-family: 'Nunito', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -45,7 +45,7 @@ h2,
 h3,
 h4 {
   color: var(--text-color);
-  font-family: "Exo 2";
+  font-family: 'Exo 2';
 }
 
 p {
@@ -60,7 +60,7 @@ input,
 p,
 label,
 div {
-  font-family: "Nunito", system-ui, sans-serif;
+  font-family: 'Nunito', system-ui, sans-serif;
   color: var(--text-color);
 }
 

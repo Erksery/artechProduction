@@ -1,56 +1,57 @@
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../store";
-import { addFiles } from "../../../../../../store/slices/files";
-import api from "../../../../../../api/api";
-import { useState } from "react";
-import { handleApiError } from "../../../../../../utils/toast/handleApiError";
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import api from '../../../../../../api/api'
+import { AppDispatch } from '../../../../../../store'
+import { addFiles } from '../../../../../../store/slices/files'
+import { handleApiError } from '../../../../../../utils/toast/handleApiError'
 
 interface FileWithPreview extends File {
-  preview?: string;
+  preview?: string
 }
 
 export const useUpload = (id: string | undefined) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [progress, setProgress] = useState<number>(0);
+  const dispatch = useDispatch<AppDispatch>()
+  const [progress, setProgress] = useState<number>(0)
 
   const createFile = async (
     selectedFiles: FileWithPreview[]
   ): Promise<void> => {
-    if (!selectedFiles || selectedFiles.length === 0) return;
+    if (!selectedFiles || selectedFiles.length === 0) return
 
     try {
-      const uploadPromises = Array.from(selectedFiles).map(async (file) => {
-        const formData = new FormData();
-        formData.append("file", file);
+      const uploadPromises = Array.from(selectedFiles).map(async file => {
+        const formData = new FormData()
+        formData.append('file', file)
 
         const response = await api.post(`/upload/${id}`, formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data'
           },
-          onUploadProgress: (event) => {
+          onUploadProgress: event => {
             if (event.total) {
-              setProgress(Math.round((event.loaded * 100) / event.total));
-              console.log(progress);
+              setProgress(Math.round((event.loaded * 100) / event.total))
+              console.log(progress)
             }
-          },
-        });
+          }
+        })
         if (!response.data.file) {
-          throw "Ошибка при получении данных загруженного файла";
+          throw 'Ошибка при получении данных загруженного файла'
         }
-        dispatch(addFiles([response.data.file]));
-        return response.data.file;
-      });
+        dispatch(addFiles([response.data.file]))
+        return response.data.file
+      })
 
-      await Promise.all(uploadPromises);
+      await Promise.all(uploadPromises)
     } catch (err) {
-      handleApiError(err, "Ошибка при загрузке файлов");
+      handleApiError(err, 'Ошибка при загрузке файлов')
     } finally {
-      setProgress(0);
+      setProgress(0)
     }
-  };
+  }
 
   return {
     createFile,
-    progress,
-  };
-};
+    progress
+  }
+}

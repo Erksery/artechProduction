@@ -1,19 +1,20 @@
-import React from "react";
-import styles from "./SuccessModal.module.scss";
-import { Modal } from "../../modal/Modal";
+import React from 'react'
+
+import { Modal } from '../../modal/Modal'
+import styles from './SuccessModal.module.scss'
 
 interface SuccessModalProps {
-  title: string;
-  description: string;
-  button: { text: string; color: string };
-  event: () => void;
+  title: string
+  description: string
+  button: { text: string; color: string }
+  event: () => void
 }
 
 export const SuccessModal: React.FC<SuccessModalProps> = ({
   title,
   description,
   button,
-  event,
+  event
 }) => {
   return (
     <Modal className={styles.modal}>
@@ -23,5 +24,5 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({
         <button onClick={event}>{button.text}</button>
       </div>
     </Modal>
-  );
-};
+  )
+}

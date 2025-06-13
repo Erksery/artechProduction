@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-svg[aria-hidden="true"] {
+svg[aria-hidden='true'] {
   position: fixed;
   top: 0;
   left: 0;
@@ -32,7 +32,9 @@ img {
   filter: url(#shadow);
   opacity: 0;
   border-radius: 18px;
-  transition: opacity 0.5s ease-in-out, filter 0.3s;
+  transition:
+    opacity 0.5s ease-in-out,
+    filter 0.3s;
 }
 
 .visible {

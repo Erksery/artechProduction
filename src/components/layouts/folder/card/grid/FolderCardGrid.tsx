@@ -1,19 +1,22 @@
-import styles from "./FolderCardGrid.module.scss";
-import { FolderData } from "../../../../../interfaces/folder";
-import { Link } from "react-router-dom";
-import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
-import { FolderMenu } from "../menu/FolderMenu";
-import { useState } from "react";
-import { MdMoreVert } from "react-icons/md";
-import { FcFolder } from "react-icons/fc";
+import { useState } from 'react'
+import { FcFolder } from 'react-icons/fc'
+import { MdMoreVert } from 'react-icons/md'
+import { Link } from 'react-router-dom'
+
+import { FolderData } from '../../../../../interfaces/folder'
+import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
+import { FolderMenu } from '../menu/FolderMenu'
+import styles from './FolderCardGrid.module.scss'
 
 interface Props {
-  folder: FolderData;
+  folder: FolderData
 }
 export const FolderCardGrid = ({ folder }: Props) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
   return (
-    <Link to={`/folder/${folder.id}`} className={styles.card}>
+    <Link
+      to={`/folder/${folder.id}`}
+      className={styles.card}>
       <div className={styles.infoContainer}>
         <div>
           <FcFolder />
@@ -29,12 +32,13 @@ export const FolderCardGrid = ({ folder }: Props) => {
           />
         }
         open={menuOpen}
-        setOpen={setMenuOpen}
-      >
-        <button className={styles.button} onClick={() => setMenuOpen(true)}>
+        setOpen={setMenuOpen}>
+        <button
+          className={styles.button}
+          onClick={() => setMenuOpen(true)}>
           <MdMoreVert />
         </button>
       </MenuContainer>
     </Link>
-  );
-};
+  )
+}

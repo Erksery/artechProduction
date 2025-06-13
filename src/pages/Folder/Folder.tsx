@@ -1,22 +1,22 @@
-import styles from "./Folder.module.scss";
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom'
 
-import { useGetFiles } from "@hooks/useGetFiles.ts";
-import { useActiveFolder } from "@hooks/useActiveFolder";
-import { useKeyboardListener } from "@hooks/useKeyboardListener.ts";
+import { useActiveFolder } from '@hooks/useActiveFolder'
+import { useGetFiles } from '@hooks/useGetFiles.ts'
+import { useKeyboardListener } from '@hooks/useKeyboardListener.ts'
+import { FolderViewer } from '@components/layouts/folder/viewer/FolderViewer'
+import { Header } from '@components/layouts/header/panel/Header.tsx'
+import { SideMenu } from '@components/layouts/menu/side/SideMenu'
+import { ErrorBoundary } from '@components/ui/error/ErrorBoundary.tsx'
 
-import { SideMenu } from "@components/layouts/menu/side/SideMenu";
-import { Header } from "@components/layouts/header/panel/Header.tsx";
-import { ErrorBoundary } from "@components/ui/error/ErrorBoundary.tsx";
-import { FolderViewer } from "@components/layouts/folder/viewer/FolderViewer";
+import styles from './Folder.module.scss'
 
 export const Folder = () => {
-  const { id } = useParams();
+  const { id } = useParams()
 
-  const { fileLoading } = useGetFiles(id);
+  const { fileLoading } = useGetFiles(id)
 
-  useActiveFolder(id);
-  useKeyboardListener();
+  useActiveFolder(id)
+  useKeyboardListener()
 
   return (
     <>
@@ -26,10 +26,13 @@ export const Folder = () => {
 
           <div className={styles.contentContainer}>
             <Header />
-            <FolderViewer folderId={id} loading={fileLoading} />
+            <FolderViewer
+              folderId={id}
+              loading={fileLoading}
+            />
           </div>
         </div>
       </ErrorBoundary>
     </>
-  );
-};
+  )
+}

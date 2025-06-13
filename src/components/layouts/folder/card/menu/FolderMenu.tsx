@@ -1,26 +1,26 @@
-import styles from "./FolderMenu.module.scss";
+import { useModal } from '@hooks/modal/useModal'
 
-import { MenuButton } from "../../../../ui/menu/button/MenuButton";
-import { getFolderMenuButtons } from "./FolderMenuButtons";
-import { useDeleteFolder } from "./hooks/useDeleteFolder";
-import { FolderData } from "../../../../../interfaces/folder";
-import { useModal } from "@hooks/modal/useModal";
-import { usePasteFiles } from "../../viewer/ToolsLine/tools/hooks/usePasteFiles";
+import { FolderData } from '../../../../../interfaces/folder'
+import { MenuButton } from '../../../../ui/menu/button/MenuButton'
+import { usePasteFiles } from '../../viewer/ToolsLine/tools/hooks/usePasteFiles'
+import styles from './FolderMenu.module.scss'
+import { getFolderMenuButtons } from './FolderMenuButtons'
+import { useDeleteFolder } from './hooks/useDeleteFolder'
 
 interface FolderMenuProps {
-  id: string;
-  folder: FolderData;
-  close: () => void;
+  id: string
+  folder: FolderData
+  close: () => void
 }
 
 export const FolderMenu: React.FC<FolderMenuProps> = ({
   id,
   folder,
-  close,
+  close
 }) => {
-  const { openModal, closeModal } = useModal();
-  const { deleteFolder } = useDeleteFolder();
-  const { pasteFilesToFolder } = usePasteFiles();
+  const { openModal, closeModal } = useModal()
+  const { deleteFolder } = useDeleteFolder()
+  const { pasteFilesToFolder } = usePasteFiles()
   const buttons = getFolderMenuButtons(
     id,
     folder,
@@ -29,11 +29,11 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({
     close,
     deleteFolder,
     pasteFilesToFolder
-  );
+  )
 
   return (
     <div className={styles.menu}>
-      {buttons.map((button) => (
+      {buttons.map(button => (
         <MenuButton
           key={button.id}
           event={button.event}
@@ -44,5 +44,5 @@ export const FolderMenu: React.FC<FolderMenuProps> = ({
         />
       ))}
     </div>
-  );
-};
+  )
+}

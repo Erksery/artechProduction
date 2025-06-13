@@ -1,47 +1,55 @@
-import React, { useState } from "react";
-import { Modal } from "../../../../ui/modal/Modal";
-import styles from "./AddFileModal.module.scss";
-import { Upload } from "../../upload/Upload";
-import { AddFileCard } from "./card/AddFileCard";
-import { useUpload } from "./hooks/useUpload";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+
+import { RootState } from '../../../../../store'
+import { Modal } from '../../../../ui/modal/Modal'
+import { Upload } from '../../upload/Upload'
+import styles from './AddFileModal.module.scss'
+import { AddFileCard } from './card/AddFileCard'
+import { useUpload } from './hooks/useUpload'
 
 interface AddFileModalProps {
-  closeModal: () => void;
+  closeModal: () => void
 }
 
 interface FileWithPreview extends File {
-  preview?: string;
+  preview?: string
 }
 
 export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
-  const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const [files, setFiles] = useState<FileWithPreview[]>([])
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
-  );
+  )
 
-  const { createFile } = useUpload(activeFolder);
+  const { createFile } = useUpload(activeFolder)
 
   const deleteFile = (fileName: string) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-  };
+    setFiles(prevFiles => prevFiles.filter(file => file.name !== fileName))
+  }
 
   const handleSuccess = (files: FileWithPreview[]) => {
-    createFile(files);
-    closeModal();
-  };
+    createFile(files)
+    closeModal()
+  }
 
   return (
     <Modal className={styles.modal}>
       <div className={styles.fileAddContainer}>
         <div className={styles.upload}>
-          <Upload files={files} setFiles={setFiles} />
+          <Upload
+            files={files}
+            setFiles={setFiles}
+          />
         </div>
         {files.length > 0 && (
           <div className={styles.filesList}>
             {files.map((file, index) => (
-              <AddFileCard key={index} file={file} onDelete={deleteFile} />
+              <AddFileCard
+                key={index}
+                file={file}
+                onDelete={deleteFile}
+              />
             ))}
           </div>
         )}
@@ -49,12 +57,11 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
         <div className={styles.buttonsContainer}>
           <button
             onClick={() => handleSuccess(files)}
-            disabled={files.length === 0}
-          >
+            disabled={files.length === 0}>
             Подтвердить
           </button>
         </div>
       </div>
     </Modal>
-  );
-};
+  )
+}

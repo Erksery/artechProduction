@@ -1,6 +1,7 @@
-import { UsersList } from "@components/layouts/user/list/UsersList";
-import styles from "./AdminPanel.module.scss";
-import { Header } from "@components/layouts/header/panel/Header";
+import { Header } from '@components/layouts/header/panel/Header'
+import { UsersList } from '@components/layouts/user/list/UsersList'
+
+import styles from './AdminPanel.module.scss'
 
 export const AdminPanel = () => {
   return (
@@ -13,5 +14,5 @@ export const AdminPanel = () => {
         <div className={styles.block3}>3</div>
       </div>
     </div>
-  );
-};
+  )
+}

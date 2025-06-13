@@ -1,57 +1,58 @@
 import {
   ChangeEvent,
-  useState,
   forwardRef,
-  Ref,
   InputHTMLAttributes,
+  Ref,
   TextareaHTMLAttributes,
-} from "react";
-import styles from "./Input.module.scss";
+  useState
+} from 'react'
+
+import styles from './Input.module.scss'
 
 interface BaseProps {
-  title?: string;
-  multiline?: boolean;
+  title?: string
+  multiline?: boolean
 }
 
-type InputProps = BaseProps & InputHTMLAttributes<HTMLInputElement>;
-type TextareaProps = BaseProps & TextareaHTMLAttributes<HTMLTextAreaElement>;
+type InputProps = BaseProps & InputHTMLAttributes<HTMLInputElement>
+type TextareaProps = BaseProps & TextareaHTMLAttributes<HTMLTextAreaElement>
 
 export const Input = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
   InputProps | TextareaProps
 >((props, ref) => {
   const {
-    title = "Input",
-    placeholder = "Input",
-    type = "text",
+    title = 'Input',
+    placeholder = 'Input',
+    type = 'text',
     required = false,
     multiline = false,
     ...rest
-  } = props as InputProps;
+  } = props as InputProps
 
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null)
 
   const handleBlur = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const value = e.target.value.trim();
+    const value = e.target.value.trim()
 
     if (required && !value) {
-      setError("Обязательное поле");
+      setError('Обязательное поле')
     } else if (
-      type === "email" &&
+      type === 'email' &&
       !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)
     ) {
-      setError("Некорректный email");
-    } else if (type === "password" && value.length < 6) {
-      setError("Пароль должен быть минимум 6 символов");
+      setError('Некорректный email')
+    } else if (type === 'password' && value.length < 6) {
+      setError('Пароль должен быть минимум 6 символов')
     } else {
-      setError(null);
+      setError(null)
     }
-  };
+  }
 
   return (
-    <div className={`${styles.inputContainer} ${error ? styles.error : ""}`}>
+    <div className={`${styles.inputContainer} ${error ? styles.error : ''}`}>
       <label>
         <p>{title}</p>
         {multiline ? (
@@ -69,12 +70,12 @@ export const Input = forwardRef<
             required={required}
             placeholder={placeholder}
             onBlur={handleBlur}
-            onInvalid={(e) => e.preventDefault()}
+            onInvalid={e => e.preventDefault()}
           />
         )}
       </label>
     </div>
-  );
-});
+  )
+})
 
-Input.displayName = "Input";
+Input.displayName = 'Input'

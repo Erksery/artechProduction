@@ -1,47 +1,46 @@
-import { useMemo } from "react";
-import styles from "./FolderListFlat.module.scss";
+import { useMemo } from 'react'
+import { GrGroup } from 'react-icons/gr'
+import { IoEyeOutline } from 'react-icons/io5'
 
-import { IoEyeOutline } from "react-icons/io5";
-import { GrGroup } from "react-icons/gr";
+import { PRIVACY_VALUES } from '@config/constants'
+import { FolderData } from '@interfaces/folder'
 
-import { FolderSection } from "./section/FolderSection";
-
-import { FolderData } from "@interfaces/folder";
-import { PRIVACY_VALUES } from "@config/constants";
+import styles from './FolderListFlat.module.scss'
+import { FolderSection } from './section/FolderSection'
 
 interface FolderListProps {
-  folders: FolderData[];
+  folders: FolderData[]
 }
 
 export const FolderListFlat = ({ folders }: FolderListProps) => {
   const { publicFolders, privateFolders } = useMemo(() => {
-    const parentFolders = folders.filter((folder) => folder.inFolder === null);
+    const parentFolders = folders.filter(folder => folder.inFolder === null)
     return {
       publicFolders: parentFolders.filter(
-        (folder) =>
+        folder =>
           folder.privacy === PRIVACY_VALUES.PUBLIC ||
           folder.privacy === PRIVACY_VALUES.LINK
       ),
       privateFolders: parentFolders.filter(
-        (folder) => folder.privacy === PRIVACY_VALUES.PRIVATE
-      ),
-    };
-  }, [folders]);
+        folder => folder.privacy === PRIVACY_VALUES.PRIVATE
+      )
+    }
+  }, [folders])
 
   return (
     <div className={styles.list}>
       <FolderSection
         parentFolderList={publicFolders}
         folders={folders}
-        title="Публичные папки"
+        title='Публичные папки'
         icon={<GrGroup />}
       />
       <FolderSection
         parentFolderList={privateFolders}
         folders={folders}
-        title="Личные папки"
+        title='Личные папки'
         icon={<IoEyeOutline />}
       />
     </div>
-  );
-};
+  )
+}

@@ -1,43 +1,44 @@
-import styles from "./LocationMenu.module.scss";
-import { AiOutlineGlobal } from "react-icons/ai";
-import { MdOutlineSnippetFolder } from "react-icons/md";
-import { CardButton } from "../../../../../ui/buttons/card/CardButton";
-import React from "react";
+import React from 'react'
+import { AiOutlineGlobal } from 'react-icons/ai'
+import { MdOutlineSnippetFolder } from 'react-icons/md'
+
+import { CardButton } from '../../../../../ui/buttons/card/CardButton'
+import styles from './LocationMenu.module.scss'
 
 interface LocationMenuProps {
-  location: string;
-  onActive: (status: string) => void;
+  location: string
+  onActive: (status: string) => void
 }
 
 export const LocationMenu: React.FC<LocationMenuProps> = ({
   location,
-  onActive,
+  onActive
 }) => {
   const buttons = [
     {
       id: 1,
-      title: "Локальный",
+      title: 'Локальный',
       description:
-        "Поиск производится в папке в которой вы в данный момент находитесь",
+        'Поиск производится в папке в которой вы в данный момент находитесь',
       icon: <MdOutlineSnippetFolder />,
-      status: "local",
+      status: 'local'
     },
     {
       id: 2,
-      title: "Глобальный",
-      description: "Поиск производится во всех доступных пользователю папках",
+      title: 'Глобальный',
+      description: 'Поиск производится во всех доступных пользователю папках',
       icon: <AiOutlineGlobal />,
-      status: "global",
-    },
-  ];
+      status: 'global'
+    }
+  ]
 
   const handleSelection = (status: string) => {
-    onActive(status);
-  };
+    onActive(status)
+  }
 
   return (
     <div className={styles.selectorMenu}>
-      {buttons.map((button) => (
+      {buttons.map(button => (
         <CardButton
           key={button.id}
           title={button.title}
@@ -48,5 +49,5 @@ export const LocationMenu: React.FC<LocationMenuProps> = ({
         />
       ))}
     </div>
-  );
-};
+  )
+}

@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
-import styles from "./BackgroundModal.module.scss";
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
+import { motion } from 'framer-motion'
+
+import styles from './BackgroundModal.module.scss'
 
 interface Props {
-  children: ReactNode;
-  className?: string;
+  children: ReactNode
+  className?: string
 }
 export const BackgroundModal: React.FC<Props> = ({ children, className }) => {
   return (
@@ -12,9 +13,8 @@ export const BackgroundModal: React.FC<Props> = ({ children, className }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`${styles.bg} modal ${className}`}
-    >
+      className={`${styles.bg} modal ${className}`}>
       {children}
     </motion.div>
-  );
-};
+  )
+}

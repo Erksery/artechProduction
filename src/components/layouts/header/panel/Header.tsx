@@ -1,37 +1,31 @@
-import styles from "./Header.module.scss";
-import { useState } from "react";
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { IoSearchSharp } from 'react-icons/io5'
+import { LuMoon, LuSunMedium } from 'react-icons/lu'
+import { RiAddLine, RiMenuFoldLine } from 'react-icons/ri'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from '@store/index'
+import { toggleSideMenu } from '@store/slices/folders'
+import { useModal } from '@hooks/modal/useModal'
+import { useTheme } from '@hooks/useTheme'
+import { UserLogo } from '@components/layouts/user/logo/UserLogo'
+import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
 
-import { AppDispatch, RootState } from "@store/index";
-import { toggleSideMenu } from "@store/slices/folders";
-
-import { RiAddLine, RiMenuFoldLine } from "react-icons/ri";
-import { IoSearchSharp } from "react-icons/io5";
-import { LuSunMedium, LuMoon } from "react-icons/lu";
-
-import { UserMenu } from "../menu/user/UserMenu";
-
-import { useModal } from "@hooks/modal/useModal";
-import { useTheme } from "@hooks/useTheme";
-
-import { AddModal } from "../modal/insert/AddModal";
-import { MenuContainer } from "@components/ui/menu/container/MenuContainer";
-import { UserLogo } from "@components/layouts/user/logo/UserLogo";
+import { UserMenu } from '../menu/user/UserMenu'
+import { AddModal } from '../modal/insert/AddModal'
+import styles from './Header.module.scss'
 
 export const Header = () => {
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [userMenu, setUserMenu] = useState<boolean>(false);
-  const dispatch = useDispatch<AppDispatch>();
+  const [openMenu, setOpenMenu] = useState<boolean>(false)
+  const [userMenu, setUserMenu] = useState<boolean>(false)
+  const dispatch = useDispatch<AppDispatch>()
 
-  const user = useSelector((state: RootState) => state.user.userData);
-  const sideMenu = useSelector(
-    (state: RootState) => state.folders.openSideMenu
-  );
+  const user = useSelector((state: RootState) => state.user.userData)
+  const sideMenu = useSelector((state: RootState) => state.folders.openSideMenu)
 
-  const { openModal } = useModal();
-  const { theme, toggleTheme } = useTheme();
+  const { openModal } = useModal()
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <>
@@ -41,8 +35,7 @@ export const Header = () => {
             <motion.button
               whileHover={{ scale: 1.2 }}
               onClick={() => dispatch(toggleSideMenu())}
-              className={styles.addButton}
-            >
+              className={styles.addButton}>
               <RiMenuFoldLine />
             </motion.button>
           )}
@@ -51,21 +44,18 @@ export const Header = () => {
             element={<AddModal setOpen={setOpenMenu} />}
             open={openMenu}
             setOpen={setOpenMenu}
-            position="left"
-          >
+            position='left'>
             <motion.button
               whileHover={{ scale: 1.2 }}
-              className={styles.addButton}
-            >
+              className={styles.addButton}>
               <RiAddLine />
             </motion.button>
           </MenuContainer>
 
           <motion.button
             whileHover={{ scale: 1.2 }}
-            onClick={() => openModal({ name: "fileSearch" })}
-            className={styles.addButton}
-          >
+            onClick={() => openModal({ name: 'fileSearch' })}
+            className={styles.addButton}>
             <IoSearchSharp />
           </motion.button>
         </div>
@@ -73,19 +63,17 @@ export const Header = () => {
           <motion.button
             whileHover={{ scale: 1.2 }}
             onClick={toggleTheme}
-            className={styles.addButton}
-          >
-            {theme === "light" ? <LuSunMedium /> : <LuMoon />}
+            className={styles.addButton}>
+            {theme === 'light' ? <LuSunMedium /> : <LuMoon />}
           </motion.button>
           <MenuContainer
             element={<UserMenu />}
             open={userMenu}
-            setOpen={setUserMenu}
-          >
+            setOpen={setUserMenu}>
             <UserLogo user={user} />
           </MenuContainer>
         </div>
       </div>
     </>
-  );
-};
+  )
+}

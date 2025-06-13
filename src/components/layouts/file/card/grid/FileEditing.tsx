@@ -1,42 +1,40 @@
-import styles from "./FileCard.module.scss";
-import { useState } from "react";
-import { MenuContainer } from "../../../../ui/menu/container/MenuContainer";
-import { FileMenu } from "../menu/FileMenu";
-import { FileCardProps } from "./FileCard";
+import { useState } from 'react'
+import { FaCheck } from 'react-icons/fa6'
+import { IoMdMore } from 'react-icons/io'
 
-import { useEditFile } from "../../../../../hooks/useEditFile";
-
-import { IoMdMore } from "react-icons/io";
-import { FaCheck } from "react-icons/fa6";
+import { useEditFile } from '../../../../../hooks/useEditFile'
+import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
+import { FileMenu } from '../menu/FileMenu'
+import { FileCardProps } from './FileCard'
+import styles from './FileCard.module.scss'
 
 interface Props extends FileCardProps {
-  activeFolder: string | undefined;
+  activeFolder: string | undefined
 }
 
 export const FileEditing = ({ file, i, activeFolder }: Props) => {
-  const [fileMenu, setFileMenu] = useState(false);
+  const [fileMenu, setFileMenu] = useState(false)
   const { editMode, editing, inputRef, setEditValue, submitEditFile } =
-    useEditFile();
+    useEditFile()
   return (
     <>
       {editing ? (
         <form
-          onSubmit={(e) => submitEditFile(e, file.folderId, file.id)}
-          className={styles.editContainer}
-        >
+          onSubmit={e => submitEditFile(e, file.folderId, file.id)}
+          className={styles.editContainer}>
           <input
             ref={inputRef}
             defaultValue={file.originalFilename}
-            onChange={(e) => setEditValue(e.target.value)}
-            onBlur={(e) => {
-              const nextFocused = e.relatedTarget;
+            onChange={e => setEditValue(e.target.value)}
+            onBlur={e => {
+              const nextFocused = e.relatedTarget
 
-              if (!nextFocused || nextFocused.tagName !== "BUTTON") {
-                editMode();
+              if (!nextFocused || nextFocused.tagName !== 'BUTTON') {
+                editMode()
               }
             }}
           />
-          <button type="submit">
+          <button type='submit'>
             <FaCheck />
           </button>
         </form>
@@ -56,8 +54,7 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
             }
             open={fileMenu}
             setOpen={setFileMenu}
-            blur={true}
-          >
+            blur={true}>
             <button className={styles.menuButton}>
               <IoMdMore />
             </button>
@@ -65,5 +62,5 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
         </>
       )}
     </>
-  );
-};
+  )
+}

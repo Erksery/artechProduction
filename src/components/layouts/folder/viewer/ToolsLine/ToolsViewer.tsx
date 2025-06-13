@@ -1,13 +1,14 @@
-import React from "react";
-import { Tools } from "./tools/Tools";
-import styles from "./ToolsLine.module.scss";
+import React from 'react'
+
+import { Tools } from './tools/Tools'
+import styles from './ToolsLine.module.scss'
 
 const FileCategories = React.lazy(
-  () => import("@components/layouts/file/tools/categories/FileCategories")
-);
+  () => import('@components/layouts/file/tools/categories/FileCategories')
+)
 
 interface Props {
-  editMode: boolean;
+  editMode: boolean
 }
 
 export const ToolsViewer = ({ editMode }: Props) => {
@@ -15,5 +16,5 @@ export const ToolsViewer = ({ editMode }: Props) => {
     <div className={styles.toolsContainer}>
       {editMode ? <Tools /> : <FileCategories />}
     </div>
-  );
-};
+  )
+}

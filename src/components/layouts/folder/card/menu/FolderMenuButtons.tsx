@@ -1,11 +1,10 @@
-import { LuFolderPen } from "react-icons/lu";
-import { MdOutlineDelete } from "react-icons/md";
-import { GrView } from "react-icons/gr";
-import { GoInfo } from "react-icons/go";
-import { LuClipboardPaste } from "react-icons/lu";
+import { GoInfo } from 'react-icons/go'
+import { GrView } from 'react-icons/gr'
+import { LuClipboardPaste, LuFolderPen } from 'react-icons/lu'
+import { MdOutlineDelete } from 'react-icons/md'
 
-import { ModalState } from "@hooks/modal/useModal";
-import { FolderData } from "@interfaces/folder";
+import { FolderData } from '@interfaces/folder'
+import { ModalState } from '@hooks/modal/useModal'
 
 export const getFolderMenuButtons = (
   id: string,
@@ -18,74 +17,74 @@ export const getFolderMenuButtons = (
 ) => [
   {
     id: 1,
-    title: "Открыть",
+    title: 'Открыть',
     icon: <GrView />,
     red: false,
-    event: () => close(),
+    event: () => close()
   },
   {
     id: 2,
-    title: "Редактировать",
+    title: 'Редактировать',
     icon: <LuFolderPen />,
     red: false,
     event: (e: { preventDefault: () => any }) => {
-      e.preventDefault();
+      e.preventDefault()
       openModal({
-        name: "editFolderModal",
-        props: { folder: folder, close: closeModal },
-      });
-      close();
-    },
+        name: 'editFolderModal',
+        props: { folder: folder, close: closeModal }
+      })
+      close()
+    }
   },
 
   {
     id: 3,
-    title: "Вставить",
+    title: 'Вставить',
     icon: <LuClipboardPaste />,
     red: false,
     event: () => {
-      pasteFilesToFolder(folder.id);
-      close();
-    },
+      pasteFilesToFolder(folder.id)
+      close()
+    }
   },
   {
     id: 4,
-    title: "Свойства",
+    title: 'Свойства',
     icon: <GoInfo />,
     red: false,
     event: (e: { preventDefault: () => any }) => {
-      e.preventDefault();
+      e.preventDefault()
       openModal({
-        name: "propertiesFolder",
+        name: 'propertiesFolder',
         props: {
-          folder: folder,
-        },
-      });
-      close();
-    },
+          folder: folder
+        }
+      })
+      close()
+    }
   },
   {
     id: 5,
-    title: "Удалить",
+    title: 'Удалить',
     icon: <MdOutlineDelete />,
     red: true,
     event: (e: { preventDefault: () => any }) => {
-      e.preventDefault();
+      e.preventDefault()
 
       openModal({
-        name: "success",
+        name: 'success',
         props: {
-          title: "Удалить папку?",
+          title: 'Удалить папку?',
           description:
-            "Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них.",
-          button: { text: "Удалить", color: "rgb(184, 62, 62)" },
+            'Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них.',
+          button: { text: 'Удалить', color: 'rgb(184, 62, 62)' },
           event: async () => {
-            await deleteFolder(id);
-            closeModal();
-          },
-        },
-      });
-      close();
-    },
-  },
-];
+            await deleteFolder(id)
+            closeModal()
+          }
+        }
+      })
+      close()
+    }
+  }
+]

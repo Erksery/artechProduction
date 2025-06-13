@@ -1,13 +1,15 @@
-import { FcFolder, FcOpenedFolder } from "react-icons/fc";
-import styles from "./FolderCardList.module.scss";
-import { UserLogo } from "@components/layouts/user/logo/UserLogo";
-import { FolderData } from "@interfaces/folder";
-import { User } from "@interfaces/user";
+import { FcFolder, FcOpenedFolder } from 'react-icons/fc'
+
+import { FolderData } from '@interfaces/folder'
+import { User } from '@interfaces/user'
+import { UserLogo } from '@components/layouts/user/logo/UserLogo'
+
+import styles from './FolderCardList.module.scss'
 
 interface Props {
-  activeFolder: string | undefined;
-  folder: FolderData;
-  userData: User | null;
+  activeFolder: string | undefined
+  folder: FolderData
+  userData: User | null
 }
 
 export const FolderCardInfo = ({ activeFolder, folder, userData }: Props) => {
@@ -17,18 +19,21 @@ export const FolderCardInfo = ({ activeFolder, folder, userData }: Props) => {
         {activeFolder === folder.id ? (
           <FcOpenedFolder
             className={`${styles.icon} ${
-              folder.privacy === "Private" && styles.private
+              folder.privacy === 'Private' && styles.private
             }`}
           />
         ) : (
           <FcFolder
             className={`${styles.icon} ${
-              folder.privacy === "Private" && styles.private
+              folder.privacy === 'Private' && styles.private
             }`}
           />
         )}
         <div className={styles.logoContainer}>
-          <UserLogo user={userData} className={styles.logo} />
+          <UserLogo
+            user={userData}
+            className={styles.logo}
+          />
         </div>
       </div>
 
@@ -36,5 +41,5 @@ export const FolderCardInfo = ({ activeFolder, folder, userData }: Props) => {
         <p>{folder.name}</p>
       </div>
     </div>
-  );
-};
+  )
+}
