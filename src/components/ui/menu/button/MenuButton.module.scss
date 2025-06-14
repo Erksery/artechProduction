@@ -11,6 +11,10 @@
   transform-origin: center;
   will-change: transform;
 
+  &:disabled {
+    opacity: 0.7;
+  }
+
   svg {
     font-size: 20px;
   }

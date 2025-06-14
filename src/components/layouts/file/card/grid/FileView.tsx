@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, useEffect, useMemo } from 'react'
 import { useDrag } from 'react-dnd'
 import { useDispatch } from 'react-redux'
 
@@ -6,6 +6,8 @@ import { fileTypes } from '@config/fileTypes'
 import { imageTypes } from '@config/imageTypes'
 import { AppDispatch } from '@store/index'
 import { toggleSelectedFile } from '@store/slices/files'
+import { useGetUser } from '@hooks/useGetUser'
+import { UserLogo } from '@components/layouts/user/logo/UserLogo'
 import { CheckBox } from '@components/ui/svg/checkbox/CheckBox'
 import { EmptyCheckBox } from '@components/ui/svg/checkbox/EmptyCheckBox'
 
@@ -31,6 +33,8 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
 
   useScrollTo()
 
+  const { getUser, userData } = useGetUser()
+
   const [{ isDragging }, drag] = useDrag({
     type: 'FILE',
     item: { file },
@@ -38,6 +42,15 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
       isDragging: monitor.isDragging()
     })
   })
+
+  const imageType = useMemo(
+    () => imageTypes.includes(file.mimeType),
+    [file.mimeType]
+  )
+
+  useEffect(() => {
+    getUser(file.creator)
+  }, [file])
 
   return (
     <div
@@ -51,17 +64,28 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
         opacity: isDragging ? 0.5 : 1
       }}>
       <div className={styles.fileContainer}>
-        {imageTypes.includes(file.mimeType) ? (
-          <FileImage
-            src={file.name}
-            folderId={activeFolder}
-            className={`${activeEditMode && styles.opacity}`}
-          />
-        ) : (
-          <div className={styles.fileIcon}>
-            {fileSvg ? fileSvg?.svg : fileTypes[0]?.svg}
+        <div className={styles.container}>
+          {imageType ? (
+            <FileImage
+              src={file.name}
+              folderId={activeFolder}
+              className={`${activeEditMode && styles.opacity}`}
+            />
+          ) : (
+            <div className={styles.fileIcon}>
+              {fileSvg ? fileSvg?.svg : fileTypes[0]?.svg}
+            </div>
+          )}
+          <div className={styles.userContainer}>
+            <div className={styles.blurContainer}>
+              <p>{userData?.login}</p>
+              <UserLogo
+                user={userData}
+                className={styles.userIcon}
+              />
+            </div>
           </div>
-        )}
+        </div>
 
         <div className={styles.infoContainer}>
           <div className={styles.check}>

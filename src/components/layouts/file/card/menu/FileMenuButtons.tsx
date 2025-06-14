@@ -7,6 +7,7 @@ import { MdOutlineDelete, MdOutlineSimCardDownload } from 'react-icons/md'
 import { AppDispatch } from '@store/index'
 import { setActiveFile } from '@store/slices/files'
 import { FileData } from '@interfaces/file'
+import { User } from '@interfaces/user'
 import { ModalState } from '@hooks/modal/useModal'
 
 interface ButtonConfig {
@@ -14,6 +15,7 @@ interface ButtonConfig {
   title: string
   icon: JSX.Element
   red: boolean
+  disabled: boolean
   event: (e?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
@@ -28,13 +30,15 @@ export const getFileMenuButtons = (
   dispatch: AppDispatch,
   fileId: string,
   file: FileData,
-  folderId: string | undefined
+  folderId: string | undefined,
+  user: User | null
 ): ButtonConfig[] => [
   {
     id: 1,
     title: 'Открыть',
     icon: <GrView />,
     red: false,
+    disabled: false,
     event: () => {
       dispatch(setActiveFile(activeFile))
       openModal({
@@ -51,6 +55,7 @@ export const getFileMenuButtons = (
     title: 'Скачать',
     icon: <MdOutlineSimCardDownload />,
     red: false,
+    disabled: false,
     event: () => {
       downloadFile(folderId!, file.name)
     }
@@ -60,6 +65,7 @@ export const getFileMenuButtons = (
     title: 'Переименовать',
     icon: <LuFolderPen />,
     red: false,
+    disabled: !user || user?.id !== file.creator,
     event: () => {
       editMode(), close()
     }
@@ -69,6 +75,7 @@ export const getFileMenuButtons = (
     title: 'Скопировать',
     icon: <FaRegCopy />,
     red: false,
+    disabled: !user,
     event: () => {
       localStorage.setItem('buffer', JSON.stringify([fileId])), close()
     }
@@ -78,6 +85,7 @@ export const getFileMenuButtons = (
     title: 'Удалить',
     icon: <MdOutlineDelete />,
     red: true,
+    disabled: !user,
     event: () => {
       openModal({
         name: 'success',

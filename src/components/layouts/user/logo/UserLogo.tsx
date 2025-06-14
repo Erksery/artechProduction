@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
-import { User } from '../../../../interfaces/user'
+import { User } from '@interfaces/user'
+
 import styles from './UserLogo.module.scss'
 
 interface UserLogoProps {
@@ -9,9 +10,9 @@ interface UserLogoProps {
 }
 
 export const UserLogo: React.FC<UserLogoProps> = ({ user, className }) => {
-  return (
-    <div className={`${styles.logo} ${className}`}>
-      <h3>{user?.login && user.login.charAt(0)}</h3>
-    </div>
+  const userChar = useMemo(
+    () => user?.login && user.login.charAt(0),
+    [user?.login]
   )
+  return <div className={`${styles.logo} ${className}`}>{userChar ?? '?'}</div>
 }

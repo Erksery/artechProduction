@@ -1,11 +1,11 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useModal } from '@hooks/modal/useModal'
 
 import { useDownload } from '../../../../../hooks/useDownload'
 import { FileData } from '../../../../../interfaces/file'
-import { AppDispatch } from '../../../../../store'
+import { AppDispatch, RootState } from '../../../../../store'
 import { MenuButton } from '../../../../ui/menu/button/MenuButton'
 import styles from './FileMenu.module.scss'
 import { getFileMenuButtons } from './FileMenuButtons'
@@ -27,10 +27,11 @@ export const FileMenu: React.FC<FileMenuProps> = ({
   editMode,
   folderId
 }) => {
+  const dispatch = useDispatch<AppDispatch>()
   const { openModal, closeModal } = useModal()
   const { fileDelete } = useDeleteFile()
   const { downloadFile } = useDownload()
-  const dispatch = useDispatch<AppDispatch>()
+  const user = useSelector((state: RootState) => state.user.userData)
   const buttons = getFileMenuButtons(
     openModal,
     closeModal,
@@ -42,7 +43,8 @@ export const FileMenu: React.FC<FileMenuProps> = ({
     dispatch,
     fileId,
     file,
-    folderId
+    folderId,
+    user
   )
 
   return (
@@ -55,6 +57,7 @@ export const FileMenu: React.FC<FileMenuProps> = ({
           icon={button.icon}
           height={40}
           red={button.red}
+          disabled={button.disabled}
         />
       ))}
     </div>

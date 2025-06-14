@@ -1,17 +1,24 @@
+import { useLocation } from 'react-router-dom'
+
 import api from '../api/api'
 
 export const useDownload = () => {
+  const { pathname } = useLocation()
   const downloadFile = async (
     folderId: string | undefined,
     fileName: string
   ) => {
     try {
-      const resData = await api.get(`/files/download/folder/${folderId}`, {
-        params: {
-          fileName: fileName
-        },
-        responseType: 'blob'
-      })
+      const isPublic = pathname.startsWith('/shared')
+      const resData = await api.get(
+        `/${isPublic ? 'public' : 'files'}/download/folder/${folderId}`,
+        {
+          params: {
+            fileName: fileName
+          },
+          responseType: 'blob'
+        }
+      )
 
       const url = window.URL.createObjectURL(new Blob([resData.data]))
       const link = document.createElement('a')

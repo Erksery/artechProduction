@@ -19,6 +19,51 @@
     height: 100%;
     box-sizing: border-box;
 
+    .container {
+      position: relative;
+      height: 100%;
+      max-height: 150px;
+
+      .userContainer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+
+        .blurContainer {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          padding: 3px;
+          border-radius: 22px;
+          -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
+          background-color: var(--light-blur-panel);
+
+          z-index: 2;
+
+          p {
+            margin-left: 3px;
+            font-size: 10px;
+            color: rgb(240, 240, 240);
+            text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.808);
+            user-select: none;
+          }
+
+          .userIcon {
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            border-radius: 100%;
+          }
+        }
+      }
+    }
+
     .opacity {
       opacity: 0.5;
     }

@@ -11,6 +11,7 @@ interface MenuButtonProps {
   height?: number
   red?: boolean
   className?: string
+  disabled?: boolean
 }
 
 export const MenuButton: React.FC<MenuButtonProps> = ({
@@ -20,7 +21,8 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
   description,
   height = 40,
   red = false,
-  className
+  className,
+  ...props
 }) => {
   return (
     <motion.button
@@ -32,7 +34,8 @@ export const MenuButton: React.FC<MenuButtonProps> = ({
         scale: 0.9
       }}
       className={`${styles.buttonContainer} ${red && styles.red} ${className}`}
-      style={{ height: height }}>
+      style={{ height: height }}
+      {...props}>
       {icon}
       <div className={styles.info}>
         <p>{title}</p>
