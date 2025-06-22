@@ -1,12 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { AppDispatch, RootState } from '@store/index'
+import { FileData } from '@interfaces/file'
 import { useModal } from '@hooks/modal/useModal'
+import { useDownload } from '@hooks/useDownload'
+import { MenuButton } from '@components/ui/menu/button/MenuButton'
 
-import { useDownload } from '../../../../../hooks/useDownload'
-import { FileData } from '../../../../../interfaces/file'
-import { AppDispatch, RootState } from '../../../../../store'
-import { MenuButton } from '../../../../ui/menu/button/MenuButton'
 import styles from './FileMenu.module.scss'
 import { getFileMenuButtons } from './FileMenuButtons'
 import { useDeleteFile } from './hooks/useDeleteFile'
@@ -18,6 +18,7 @@ interface FileMenuProps {
   activeFile: number
   close: () => void
   editMode: () => void
+  openPortalModal: () => void
 }
 export const FileMenu: React.FC<FileMenuProps> = ({
   file,
@@ -25,7 +26,8 @@ export const FileMenu: React.FC<FileMenuProps> = ({
   activeFile,
   close,
   editMode,
-  folderId
+  folderId,
+  openPortalModal
 }) => {
   const dispatch = useDispatch<AppDispatch>()
   const { openModal, closeModal } = useModal()
@@ -44,7 +46,8 @@ export const FileMenu: React.FC<FileMenuProps> = ({
     fileId,
     file,
     folderId,
-    user
+    user,
+    openPortalModal
   )
 
   return (

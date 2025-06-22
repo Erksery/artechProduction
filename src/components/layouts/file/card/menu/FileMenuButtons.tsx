@@ -31,8 +31,21 @@ export const getFileMenuButtons = (
   fileId: string,
   file: FileData,
   folderId: string | undefined,
-  user: User | null
+  user: User | null,
+  openPortalModal: () => void
 ): ButtonConfig[] => [
+  {
+    id: 0,
+    title: 'Открыть',
+    icon: <GrView />,
+    red: false,
+    disabled: false,
+    event: () => {
+      dispatch(setActiveFile(activeFile))
+      openPortalModal()
+      close()
+    }
+  },
   {
     id: 1,
     title: 'Открыть',

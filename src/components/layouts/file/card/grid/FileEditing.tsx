@@ -2,8 +2,13 @@ import { useState } from 'react'
 import { FaCheck } from 'react-icons/fa6'
 import { IoMdMore } from 'react-icons/io'
 
-import { useEditFile } from '../../../../../hooks/useEditFile'
+import { usePortalModal } from '@hooks/modal/usePortalModal'
+import { useEditFile } from '@hooks/useEditFile'
+import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
+
 import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
+import { FileModalViewer } from '../../modals/view/FileModalViewer'
+import { FileViewTools } from '../../modals/view/FileViewTools'
 import { FileMenu } from '../menu/FileMenu'
 import { FileCardProps } from './FileCard'
 import styles from './FileCard.module.scss'
@@ -14,10 +19,20 @@ interface Props extends FileCardProps {
 
 export const FileEditing = ({ file, i, activeFolder }: Props) => {
   const [fileMenu, setFileMenu] = useState(false)
+
   const { editMode, editing, inputRef, setEditValue, submitEditFile } =
     useEditFile()
+  const { modalOpen, handleOpenModal, handleCloseModal } = usePortalModal()
+
   return (
     <>
+      <PortalModal
+        isOpen={modalOpen}
+        close={handleCloseModal}
+        className={styles.viewModal}
+        footer={<FileViewTools />}>
+        <FileModalViewer activeFolder={activeFolder} />
+      </PortalModal>
       {editing ? (
         <form
           onSubmit={e => submitEditFile(e, file.folderId, file.id)}
@@ -50,6 +65,7 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
                 activeFile={i}
                 close={() => setFileMenu(false)}
                 editMode={editMode}
+                openPortalModal={handleOpenModal}
               />
             }
             open={fileMenu}

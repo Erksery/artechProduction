@@ -1,0 +1,22 @@
+.slider {
+  flex: 1 0 100%;
+  position: relative;
+}
+
+.arrows {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40px;
+  right: -40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+
+  button {
+    height: 100%;
+    font-size: 22px;
+    background-color: transparent;
+  }
+}
