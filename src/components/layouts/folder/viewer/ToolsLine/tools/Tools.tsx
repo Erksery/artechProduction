@@ -2,6 +2,7 @@ import { MdOutlineDelete } from 'react-icons/md'
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@store/index'
+import { useDeleteFile } from '@components/layouts/file/card/menu/hooks/useDeleteFile'
 
 import { useCopyFiles } from './hooks/useCopyFiles'
 import { usePasteFiles } from './hooks/usePasteFiles'
@@ -13,6 +14,7 @@ export const Tools = () => {
 
   const { pasteFilesToFolder } = usePasteFiles()
   const { copyFiles } = useCopyFiles()
+  const { fileDelete } = useDeleteFile()
 
   const buttons = toolsButtons({
     folderId,
@@ -33,7 +35,9 @@ export const Tools = () => {
           </button>
         ))}
       </div>
-      <button className={`${styles.toolButton} ${styles.deleteButton}`}>
+      <button
+        onClick={() => fileDelete()}
+        className={`${styles.toolButton} ${styles.deleteButton}`}>
         <MdOutlineDelete />
         Удалить
       </button>

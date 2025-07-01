@@ -14,7 +14,7 @@ export const handleApiSuccess = (
     (isText && message) ||
     'Запрос успешно выполнен'
 
-  toast(`${status}: ${context}`, {
+  toast(`${status}: ${context ?? ''}`, {
     description: <Description>{successMessage}</Description>,
     icon: '✅',
     duration: 3000,

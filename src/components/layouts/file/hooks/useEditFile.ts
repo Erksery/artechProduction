@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import api from '../api/api'
-import { AppDispatch } from '../store'
-import { deleteFile, updateFile } from '../store/slices/files'
-import { handleApiError } from '../utils/toast/handleApiError'
-import { handleApiSuccess } from '../utils/toast/handleApiSuccess'
+import api from '@api'
+import { AppDispatch } from '@store/index'
+import { deleteFiles, updateFile } from '@store/slices/files'
+import { handleApiError } from '@utils/toast/handleApiError'
+import { handleApiSuccess } from '@utils/toast/handleApiSuccess'
 
 interface EditData {
   originalFilename?: string
@@ -57,7 +57,7 @@ export const useEditFile = () => {
         }
       )
       if (editData.folderId) {
-        dispatch(deleteFile(fileId))
+        dispatch(deleteFiles([fileId || '']))
       } else {
         dispatch(updateFile(resData.data))
       }

@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import { AnimatePresence } from 'framer-motion'
 
-import { useObserver } from '../../../../../hooks/useObserver'
-import { FileData } from '../../../../../interfaces/file'
+import { FileData } from '@interfaces/file'
+import { useObserver } from '@hooks/useObserver'
+
 import { FileSkeleton } from './FileSkeleton'
 import { FileView } from './FileView'
 

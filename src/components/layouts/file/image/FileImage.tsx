@@ -23,12 +23,13 @@ const FileImage: React.FC<FileImageProps> = ({
 
   const isPublic = pathname.startsWith('/shared')
   const isGifFormat = src.split('.')[1] === 'gif'
+
   const fullImageURL = useMemo(() => {
     const basePath = isPublic ? 'public' : 'files'
     return `${config.apiUrl}/${basePath}/${
       isGifFormat ? 'image' : 'compress_image'
     }/folder/${folderId}/file/${src}${isGifFormat ? '' : '.webp'}`
-  }, [isPublic, folderId, src])
+  }, [isPublic, folderId, src, isGifFormat])
 
   return (
     <div

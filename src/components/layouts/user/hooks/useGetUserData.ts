@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef } from 'react'
+import { API_ROUTES } from '@routes'
 import { AxiosResponse } from 'axios'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import api from '../api/api'
-import { API_ROUTES } from '../api/routes'
-import { User } from '../interfaces/user'
-import { AppDispatch } from '../store'
-import { setUserData } from '../store/slices/user'
-import { handleApiError } from '../utils/toast/handleApiError'
+import api from '@api'
+import { AppDispatch } from '@store/index'
+import { setUserData } from '@store/slices/user'
+import { User } from '@interfaces/user'
+import { handleApiError } from '@utils/toast/handleApiError'
 
 type ProfileResponse = User
 
@@ -37,14 +37,13 @@ export const useGetUserData = () => {
       )
       dispatch(setUserData(resData.data))
     } catch (err) {
-      // navigateRef.current("/sign");
       handleApiError(err, 'Ошибка авторизации')
     }
-  }, [dispatch])
+  }, [dispatch, isPublic])
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [getUser])
 
   return getUser
 }

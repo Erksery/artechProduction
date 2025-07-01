@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import api from '../api/api'
-import { FileData } from '../interfaces/file'
-import { AppDispatch, RootState } from '../store'
-import { setFiles } from '../store/slices/files'
-import { handleApiError } from '../utils/toast/handleApiError'
+import api from '@api'
+import { AppDispatch, RootState } from '@store/index'
+import { setFiles } from '@store/slices/files'
+import { FileData } from '@interfaces/file'
+import { handleApiError } from '@utils/toast/handleApiError'
 
 export const useGetFiles = (id: string | undefined, route = 'files') => {
   const [fileLoading, setFileLoading] = useState(true)
@@ -28,13 +28,13 @@ export const useGetFiles = (id: string | undefined, route = 'files') => {
     } finally {
       setFileLoading(false)
     }
-  }, [id, file.filter, file.order])
+  }, [id, file.filter, file.order, dispatch, route])
 
   useEffect(() => {
     if (id) {
       getFiles()
     }
-  }, [id, file.filter, file.order, getFiles])
+  }, [getFiles, id])
 
   return { fileLoading }
 }

@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 import { AxiosResponse } from 'axios'
 
-import api from '../api/api'
-import { User } from '../interfaces/user'
-import { handleApiError } from '../utils/toast/handleApiError'
+import api from '@api'
+import { User } from '@interfaces/user'
+import { handleApiError } from '@utils/toast/handleApiError'
 
 type UserResponse = User
 

@@ -27,7 +27,7 @@ export const getFolderMenuButtons = (
     title: 'Редактировать',
     icon: <LuFolderPen />,
     red: false,
-    event: (e: { preventDefault: () => any }) => {
+    event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
       openModal({
         name: 'editFolderModal',
@@ -52,7 +52,7 @@ export const getFolderMenuButtons = (
     title: 'Свойства',
     icon: <GoInfo />,
     red: false,
-    event: (e: { preventDefault: () => any }) => {
+    event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
       openModal({
         name: 'propertiesFolder',
@@ -68,7 +68,7 @@ export const getFolderMenuButtons = (
     title: 'Удалить',
     icon: <MdOutlineDelete />,
     red: true,
-    event: (e: { preventDefault: () => any }) => {
+    event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
 
       openModal({

@@ -57,8 +57,10 @@ export const filesSlice = createSlice({
         state.files[fileIndex] = action.payload
       }
     },
-    deleteFile: (state, action) => {
-      state.files = state.files.filter(file => file.id !== action.payload)
+    deleteFiles: (state, action: PayloadAction<string[]>) => {
+      for (const id of action.payload) {
+        state.files = state.files.filter(file => file.id !== id)
+      }
     },
     toggleEditMode: state => {
       state.activeEditMode = !state.activeEditMode
@@ -112,7 +114,7 @@ export const {
   setFiles,
   addFiles,
   setActiveFile,
-  deleteFile,
+  deleteFiles,
   edit,
   toggleEditMode,
   updateFile,

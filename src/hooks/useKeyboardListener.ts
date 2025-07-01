@@ -9,9 +9,10 @@ import { usePasteFiles } from '@components/layouts/folder/viewer/ToolsLine/tools
 export const useKeyboardListener = () => {
   const files = useSelector((state: RootState) => state.files.selectedFiles)
   const folderId = useSelector((state: RootState) => state.folders.activeFolder)
-  const { copyFiles } = useCopyFiles()
 
+  const { copyFiles } = useCopyFiles()
   const { pasteFilesToFolder } = usePasteFiles()
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key.toLowerCase() === 'c') {
@@ -33,5 +34,5 @@ export const useKeyboardListener = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [files, folderId])
+  }, [files, folderId, copyFiles, pasteFilesToFolder])
 }

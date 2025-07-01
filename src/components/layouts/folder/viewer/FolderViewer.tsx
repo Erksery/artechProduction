@@ -16,12 +16,11 @@ interface Props {
 
 export const FolderViewer = ({ folderId, loading }: Props) => {
   const files = useSelector((state: RootState) => state.files.files)
-  const sliceFolder = useSelector((state: RootState) => state.folders)
+  const folders = useSelector((state: RootState) => state.folders.folders)
 
   const subFolders = useMemo(
-    () =>
-      sliceFolder.folders.filter(subFolder => subFolder.inFolder === folderId),
-    [sliceFolder.folders, folderId]
+    () => folders.filter(subFolder => subFolder.inFolder === folderId),
+    [folders, folderId]
   )
 
   console.log('rerender folder view')

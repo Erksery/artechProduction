@@ -47,7 +47,9 @@ export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
       <div className={styles.folderCreateContainer}>
         <Input
           value={folderName}
-          onChange={(e: any) => setFolderName(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFolderName(e.target.value)
+          }
           placeholder={'Название'}
         />
 

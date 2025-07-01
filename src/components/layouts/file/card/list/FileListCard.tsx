@@ -4,7 +4,7 @@ import { fileTypes } from '@config/fileTypes'
 import { imageTypes } from '@config/imageTypes'
 import { FileData } from '@interfaces/file'
 import { useModal } from '@hooks/modal/useModal'
-import { useActiveFile } from '@hooks/useActiveFile'
+import { useActiveFile } from '@components/layouts/file/hooks/useActiveFile'
 
 import FileImage from '../../image/FileImage'
 import { useFileCardLogic } from '../hooks/useFileCardLogic'

@@ -132,7 +132,8 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
           </div>
           <button
             onClick={() => {
-              submitEditFolder(folder.id, editFolderData), closeModal()
+              submitEditFolder(folder.id, editFolderData)
+              closeModal()
             }}>
             Подтвердить
           </button>

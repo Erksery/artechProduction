@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { FileData } from '@interfaces/file'
 import { FolderData } from '@interfaces/folder'
-import { useEditFile } from '@hooks/useEditFile'
+import { useEditFile } from '@components/layouts/file/hooks/useEditFile'
 
 import styles from '../list/FolderCardList.module.scss'
 
@@ -37,19 +37,21 @@ export const useFolderCardLogic = () => {
   }
 
   const dropFile = (folder: FolderData, item: FileType) => {
-    selectedFiles.length > 0
-      ? selectedFiles.forEach(file => {
-          editFile({
-            folderId: activeFolder,
-            fileId: file,
-            editData: { folderId: folder.id }
-          })
-        })
-      : editFile({
+    if (selectedFiles.length > 0) {
+      selectedFiles.forEach(file => {
+        editFile({
           folderId: activeFolder,
-          fileId: item.file.id,
+          fileId: file,
           editData: { folderId: folder.id }
         })
+      })
+    } else {
+      editFile({
+        folderId: activeFolder,
+        fileId: item.file.id,
+        editData: { folderId: folder.id }
+      })
+    }
   }
   const folderCardClassName = (folderId: string, isOver: boolean): string => {
     return `${styles.folderCard} ${

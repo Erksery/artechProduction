@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { AppDispatch, RootState } from '@store/index'
 import { setSideMenu, toggleSideMenu } from '@store/slices/folders'
-import { useGetFolders } from '@hooks/useGetFolders'
 import { useMobileView } from '@hooks/useMobileView'
+import { useGetFolders } from '@components/layouts/folder/hooks/useGetFolders'
 import { FolderListFlat } from '@components/layouts/folder/list/list/FolderListFlat'
 import { useCreateFolder } from '@components/layouts/folder/modals/insert/hook/useCreateFolder'
 
@@ -28,19 +28,12 @@ export const SideMenu = () => {
 
   useEffect(() => {
     dispatch(setSideMenu(isMobile ? false : true))
-  }, [isMobile])
+  }, [isMobile, dispatch])
 
   return (
     <AnimatePresence>
       {openSideMenu && (
-        <motion.div
-          className={styles.sideMenuContainer}
-          initial={
-            isMobile ? { x: -450, opacity: 0 } : { width: 0, opacity: 0 }
-          }
-          animate={isMobile ? { x: 0, opacity: 1 } : { width: 300, opacity: 1 }}
-          exit={isMobile ? { x: -450, opacity: 0 } : { width: 0, opacity: 0 }}
-          transition={{ type: 'tween', duration: 0.3 }}>
+        <motion.div className={styles.sideMenuContainer}>
           <div className={styles.menu}>
             <div className={styles.tools}>
               <div className={styles.block}>

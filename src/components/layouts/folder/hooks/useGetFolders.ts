@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import api from '../api/api'
-import { AppDispatch } from '../store'
-import { setFolders } from '../store/slices/folders'
-import { handleApiError } from '../utils/toast/handleApiError'
+import api from '@api'
+import { AppDispatch } from '@store/index'
+import { setFolders } from '@store/slices/folders'
+import { handleApiError } from '@utils/toast/handleApiError'
 
 export const useGetFolders = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -17,7 +17,7 @@ export const useGetFolders = () => {
     } catch (err) {
       handleApiError(err, 'Не удалось загрузить папки')
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     getFolders()

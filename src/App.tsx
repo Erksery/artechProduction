@@ -4,8 +4,8 @@ import { Toaster } from 'sonner'
 import { modalRegistry } from '@hooks/modal/modalRegistry'
 import { useModal } from '@hooks/modal/useModal'
 import { useTheme } from '@hooks/useTheme'
+import { useGetUserData } from '@components/layouts/user/hooks/useGetUserData'
 
-import { useGetUserData } from './hooks/useGetUserData'
 import { AppRouter } from './routes/AppRouter'
 
 function App() {

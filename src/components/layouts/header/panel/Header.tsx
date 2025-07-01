@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from '@store/index'
 import { toggleSideMenu } from '@store/slices/folders'
 import { useModal } from '@hooks/modal/useModal'
 import { useTheme } from '@hooks/useTheme'
+import { AddFileModal } from '@components/layouts/file/modals/insert/AddFileModal'
 import { UserLogo } from '@components/layouts/user/logo/UserLogo'
 import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
 
@@ -19,6 +20,7 @@ import styles from './Header.module.scss'
 export const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
   const [userMenu, setUserMenu] = useState<boolean>(false)
+  const [uploadModal, setUploadModal] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>()
 
   const user = useSelector((state: RootState) => state.user.userData)
@@ -29,6 +31,10 @@ export const Header = () => {
 
   return (
     <>
+      <AddFileModal
+        isOpen={uploadModal}
+        closeModal={() => setUploadModal(false)}
+      />
       <div className={styles.header}>
         <div className={styles.tools}>
           {!sideMenu && (
@@ -41,7 +47,12 @@ export const Header = () => {
           )}
 
           <MenuContainer
-            element={<AddModal setOpen={setOpenMenu} />}
+            element={
+              <AddModal
+                setOpenMenu={setOpenMenu}
+                setUploadModal={setUploadModal}
+              />
+            }
             open={openMenu}
             setOpen={setOpenMenu}
             position='left'>

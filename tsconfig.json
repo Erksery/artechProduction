@@ -5,15 +5,16 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@config/*": ["config/*"],
-      "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
-      "@utils/*": ["utils/*"],
-      "@interfaces/*": ["interfaces/*"],
-      "@store/*": ["store/*"],
-      "@api": ["api/api"]
+      "@config/*": ["src/config/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@store/*": ["src/store/*"],
+      "@api": ["src/api/api"],
+      "@routes": ["src/api/routes"]
     }
   }
 }

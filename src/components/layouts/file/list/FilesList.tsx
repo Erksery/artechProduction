@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { VIEW_MODES, ViewType } from '@config/constants'
+import { AppDispatch, RootState } from '@store/index'
+import { setSelectedFile } from '@store/slices/files'
 import { FileData } from '@interfaces/file'
 
-import { AppDispatch, RootState } from '../../../../store'
-import { setSelectedFile } from '../../../../store/slices/files'
 import { FileCard } from '../card/grid/FileCard'
 import { FileSkeleton } from '../card/grid/FileSkeleton'
 import { FileListCard } from '../card/list/FileListCard'
@@ -30,7 +30,7 @@ const FilesListComponent: React.FC<FilesListProps> = ({
     if (!activeEditMode) {
       dispatch(setSelectedFile([]))
     }
-  }, [activeEditMode])
+  }, [activeEditMode, dispatch])
 
   console.log('rerender file list', files)
 

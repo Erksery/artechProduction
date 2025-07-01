@@ -8,8 +8,8 @@ export const useActiveFolder = (id: string | undefined) => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    if (!id) return
-
-    dispatch(setActiveFolder(id))
-  }, [dispatch])
+    if (id) {
+      dispatch(setActiveFolder(id))
+    }
+  }, [id, dispatch])
 }

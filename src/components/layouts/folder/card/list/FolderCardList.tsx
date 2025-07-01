@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { AppDispatch } from '@store/index'
 import { setActiveFolder } from '@store/slices/folders'
 import { FolderData } from '@interfaces/folder'
-import { useGetUser } from '@hooks/useGetUser'
+import { useGetUser } from '@components/layouts/user/hooks/useGetUser'
 
 import { FileType, useFolderCardLogic } from '../hooks/useFolderCardLogic'
 import { FolderCardInfo } from './FolderCardInfo'
@@ -52,14 +52,16 @@ export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
   })
 
   useEffect(() => {
-    if (linkRef.current) {
-      drop(linkRef.current)
+    const node = linkRef.current
+    if (node) {
+      drop(node)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [drop])
 
   useEffect(() => {
     getUser(folder.creator)
-  }, [folder.creator])
+  }, [folder.creator, getUser])
 
   return (
     <>

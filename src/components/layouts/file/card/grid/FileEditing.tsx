@@ -3,10 +3,10 @@ import { FaCheck } from 'react-icons/fa6'
 import { IoMdMore } from 'react-icons/io'
 
 import { usePortalModal } from '@hooks/modal/usePortalModal'
-import { useEditFile } from '@hooks/useEditFile'
+import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
 import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
 
-import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
+import { useEditFile } from '../../hooks/useEditFile'
 import { FileModalViewer } from '../../modals/view/FileModalViewer'
 import { FileViewTools } from '../../modals/view/FileViewTools'
 import { FileMenu } from '../menu/FileMenu'
@@ -24,16 +24,9 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
     useEditFile()
   const { modalOpen, handleOpenModal, handleCloseModal } = usePortalModal()
 
-  return (
-    <>
-      <PortalModal
-        isOpen={modalOpen}
-        close={handleCloseModal}
-        className={styles.viewModal}
-        footer={<FileViewTools />}>
-        <FileModalViewer activeFolder={activeFolder} />
-      </PortalModal>
-      {editing ? (
+  const editFileMode = () => {
+    if (editing) {
+      return (
         <form
           onSubmit={e => submitEditFile(e, file.folderId, file.id)}
           className={styles.editContainer}>
@@ -53,7 +46,9 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
             <FaCheck />
           </button>
         </form>
-      ) : (
+      )
+    } else {
+      return (
         <>
           <p className={styles.name}>{file.originalFilename}</p>
           <MenuContainer
@@ -76,7 +71,20 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
             </button>
           </MenuContainer>
         </>
-      )}
+      )
+    }
+  }
+
+  return (
+    <>
+      <PortalModal
+        isOpen={modalOpen}
+        close={handleCloseModal}
+        className={styles.viewModal}
+        footer={<FileViewTools />}>
+        <FileModalViewer activeFolder={activeFolder} />
+      </PortalModal>
+      {editFileMode()}
     </>
   )
 }

@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 
-import { useActiveFolder } from '@hooks/useActiveFolder'
-import { useGetFiles } from '@hooks/useGetFiles.ts'
 import { useKeyboardListener } from '@hooks/useKeyboardListener.ts'
+import { useGetFiles } from '@components/layouts/file/hooks/useGetFiles'
+import { useActiveFolder } from '@components/layouts/folder/hooks/useActiveFolder'
 import { FolderViewer } from '@components/layouts/folder/viewer/FolderViewer'
 import { Header } from '@components/layouts/header/panel/Header.tsx'
 import { SideMenu } from '@components/layouts/menu/side/SideMenu'

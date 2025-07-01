@@ -5,7 +5,7 @@ import { RootState } from '@store/index'
 import { Slider } from '@components/ui/slider/Slider'
 
 import styles from './FileViewModal.module.scss'
-import { renderFileContent } from './RenderFileContent'
+import { RenderFileContent } from './RenderFileContent'
 
 interface Props {
   activeFolder: string | undefined
@@ -32,11 +32,13 @@ export const FileModalViewer = ({ activeFolder }: Props) => {
                   }}
                   key={i}
                   className={styles.slide}>
-                  {renderFileContent({
-                    files,
-                    openFile: i,
-                    activeFolder
-                  })}
+                  <div className={styles.slideContent}>
+                    <RenderFileContent
+                      files={files}
+                      openFile={i}
+                      activeFolder={activeFolder}
+                    />
+                  </div>
                 </motion.div>
               )
             })}

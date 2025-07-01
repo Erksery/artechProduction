@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useMemo } from 'react'
+import React, { lazy, useEffect, useMemo, useRef } from 'react'
 import { useDrag } from 'react-dnd'
 import { useDispatch } from 'react-redux'
 
@@ -6,7 +6,7 @@ import { fileTypes } from '@config/fileTypes'
 import { imageTypes } from '@config/imageTypes'
 import { AppDispatch } from '@store/index'
 import { toggleSelectedFile } from '@store/slices/files'
-import { useGetUser } from '@hooks/useGetUser'
+import { useGetUser } from '@components/layouts/user/hooks/useGetUser'
 import { UserLogo } from '@components/layouts/user/logo/UserLogo'
 import { CheckBox } from '@components/ui/svg/checkbox/CheckBox'
 import { EmptyCheckBox } from '@components/ui/svg/checkbox/EmptyCheckBox'
@@ -21,6 +21,8 @@ const FileImage = lazy(() => import('../../image/FileImage'))
 
 export const FileView = React.memo(({ file, i }: FileCardProps) => {
   const dispatch = useDispatch<AppDispatch>()
+
+  const linkRef = useRef<HTMLDivElement>(null)
 
   const {
     activeEditMode,
@@ -50,7 +52,15 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
 
   useEffect(() => {
     getUser(file.creator)
-  }, [file])
+  }, [file, getUser])
+
+  useEffect(() => {
+    const node = linkRef.current
+    if (node) {
+      drag(node)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drag])
 
   return (
     <div
@@ -59,7 +69,7 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
       className={`${styles.card} ${
         fileSelected || searchActive ? styles.selected : ''
       }`}
-      ref={drag}
+      ref={linkRef}
       style={{
         opacity: isDragging ? 0.5 : 1
       }}>

@@ -15,5 +15,5 @@ export const useCloseScroll = (
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [open])
+  }, [open, setOpen])
 }

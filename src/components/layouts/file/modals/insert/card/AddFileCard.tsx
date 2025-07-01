@@ -1,6 +1,10 @@
-import React from 'react'
-import { FaRegFileCode } from 'react-icons/fa'
+import React, { useMemo } from 'react'
 import { MdOutlineDelete } from 'react-icons/md'
+
+import { fileTypes } from '@config/fileTypes'
+import { imageTypes } from '@config/imageTypes'
+import { useFormat } from '@hooks/useFormat'
+import { useSvgType } from '@components/layouts/file/card/hooks/useSvgType'
 
 import styles from './AddFileCard.module.scss'
 
@@ -14,19 +18,12 @@ interface AddFileCardProps {
 }
 
 export const AddFileCard: React.FC<AddFileCardProps> = ({ file, onDelete }) => {
-  const formatFileSize = (size: number): string => {
-    const units = ['B', 'KB', 'MB', 'GB']
-    let index = 0
-    while (size >= 1024 && index < units.length - 1) {
-      size /= 1024
-      index++
-    }
-    return `${size.toFixed(2)} ${units[index]}`
-  }
+  const { formatFileSize } = useFormat()
+  const { fileSvg } = useSvgType(file.type)
 
   const imageView = (file: FileWithPreview) => {
-    const arrImageFormat = ['image/png', 'image/jpeg', 'image/webp']
-    if (arrImageFormat.includes(file.type)) {
+    const imageType = useMemo(() => imageTypes.includes(file.type), [file.type])
+    if (imageType) {
       return (
         <img
           className={styles.preview}
@@ -35,7 +32,11 @@ export const AddFileCard: React.FC<AddFileCardProps> = ({ file, onDelete }) => {
         />
       )
     } else {
-      return <FaRegFileCode />
+      return (
+        <div className={styles.fileIcon}>
+          {fileSvg ? fileSvg?.svg : fileTypes[0]?.svg}
+        </div>
+      )
     }
   }
 

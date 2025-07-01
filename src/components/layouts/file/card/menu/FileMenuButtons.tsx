@@ -9,6 +9,7 @@ import { setActiveFile } from '@store/slices/files'
 import { FileData } from '@interfaces/file'
 import { User } from '@interfaces/user'
 import { ModalState } from '@hooks/modal/useModal'
+import { handleApiSuccess } from '@utils/toast/handleApiSuccess'
 
 interface ButtonConfig {
   id: number
@@ -16,17 +17,18 @@ interface ButtonConfig {
   icon: JSX.Element
   red: boolean
   disabled: boolean
+
   event: (e?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const getFileMenuButtons = (
   openModal: (modal: ModalState) => void,
   closeModal: () => void,
-  downloadFile: (folderId: string, fileName: string) => void,
+  downloadFile: (folderId: string, file: FileData) => void,
   close: () => void,
   editMode: () => void,
   activeFile: number,
-  fileDelete: (id: string) => Promise<void>,
+  fileDelete: (id?: string[]) => Promise<void>,
   dispatch: AppDispatch,
   fileId: string,
   file: FileData,
@@ -47,30 +49,13 @@ export const getFileMenuButtons = (
     }
   },
   {
-    id: 1,
-    title: 'Открыть',
-    icon: <GrView />,
-    red: false,
-    disabled: false,
-    event: () => {
-      dispatch(setActiveFile(activeFile))
-      openModal({
-        name: 'fileView',
-        props: {
-          activeFile: activeFile
-        }
-      })
-      close()
-    }
-  },
-  {
     id: 2,
     title: 'Скачать',
     icon: <MdOutlineSimCardDownload />,
     red: false,
     disabled: false,
     event: () => {
-      downloadFile(folderId!, file.name)
+      downloadFile(folderId!, file)
     }
   },
   {
@@ -80,7 +65,8 @@ export const getFileMenuButtons = (
     red: false,
     disabled: !user || user?.id !== file.creator,
     event: () => {
-      editMode(), close()
+      editMode()
+      close()
     }
   },
   {
@@ -90,7 +76,9 @@ export const getFileMenuButtons = (
     red: false,
     disabled: !user,
     event: () => {
-      localStorage.setItem('buffer', JSON.stringify([fileId])), close()
+      localStorage.setItem('buffer', JSON.stringify([fileId]))
+      close()
+      handleApiSuccess('', 'Файл скопирован в буфер обмена')
     }
   },
   {
@@ -107,7 +95,7 @@ export const getFileMenuButtons = (
           description: 'Вы действительно хотите удалить данный файл?',
           button: { text: 'Удалить', color: 'rgb(184, 62, 62)' },
           event: async () => {
-            await fileDelete(fileId)
+            await fileDelete([fileId])
             closeModal()
           }
         }

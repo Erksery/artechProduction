@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom'
 
-import { FolderViewer } from '../../components/layouts/folder/viewer/FolderViewer.tsx'
-import { ErrorBoundary } from '../../components/ui/error/ErrorBoundary.tsx'
-import { useActiveFolder } from '../../hooks/useActiveFolder.ts'
-import { useGetFiles } from '../../hooks/useGetFiles.ts'
+import { useGetFiles } from '@components/layouts/file/hooks/useGetFiles'
+import { useActiveFolder } from '@components/layouts/folder/hooks/useActiveFolder.ts'
+import { FolderViewer } from '@components/layouts/folder/viewer/FolderViewer.tsx'
+import { ErrorBoundary } from '@components/ui/error/ErrorBoundary.tsx'
+
 import styles from './Folder.module.scss'
 
 export const PublicFolder = () => {

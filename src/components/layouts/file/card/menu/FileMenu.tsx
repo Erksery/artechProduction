@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@store/index'
 import { FileData } from '@interfaces/file'
 import { useModal } from '@hooks/modal/useModal'
-import { useDownload } from '@hooks/useDownload'
+import { useDownload } from '@components/layouts/file/hooks/useDownload'
 import { MenuButton } from '@components/ui/menu/button/MenuButton'
 
 import styles from './FileMenu.module.scss'

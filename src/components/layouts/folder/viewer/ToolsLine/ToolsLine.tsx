@@ -29,10 +29,13 @@ export const ToolsLine = () => {
     [fileOrderName]
   )
 
-  const handleSorting = useCallback((sortMethod?: string): void => {
-    dispatch(setOrder(sortMethod))
-    setOpenSortMenu(false)
-  }, [])
+  const handleSorting = useCallback(
+    (sortMethod?: string): void => {
+      dispatch(setOrder(sortMethod))
+      setOpenSortMenu(false)
+    },
+    [dispatch]
+  )
 
   return (
     <>

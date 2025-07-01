@@ -6,7 +6,7 @@ interface Props {
   text: string
   className?: string | undefined
   event?: () => void
-  type?: string
+  type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
 }
 
@@ -22,6 +22,7 @@ export const SubmitButton = ({
     <motion.button
       onClick={event}
       className={`${styles.button} ${className}`}
+      type={type}
       disabled={disabled}
       whileHover={{
         scale: 0.95

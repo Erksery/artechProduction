@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import api from '@api'
@@ -9,7 +9,8 @@ import { handleApiError } from '@utils/toast/handleApiError'
 export const useGetUsers = () => {
   const dispatch = useDispatch<AppDispatch>()
   const users = useSelector((state: RootState) => state.user.users)
-  const getUsers = async () => {
+
+  const getUsers = useCallback(async () => {
     try {
       const resData = await api.get('/admin/users', {
         params: {
@@ -20,11 +21,11 @@ export const useGetUsers = () => {
     } catch (err) {
       handleApiError(err, 'Ошибка при получении списка пользователей')
     }
-  }
+  }, [dispatch])
 
   useEffect(() => {
     getUsers()
-  }, [])
+  }, [getUsers])
 
   return { getUsers, users }
 }

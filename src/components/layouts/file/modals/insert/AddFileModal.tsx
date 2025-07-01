@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from '../../../../../store'
-import { Modal } from '../../../../ui/modal/Modal'
+import { RootState } from '@store/index'
+import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
+
 import { Upload } from '../../upload/Upload'
 import styles from './AddFileModal.module.scss'
 import { AddFileCard } from './card/AddFileCard'
 import { useUpload } from './hooks/useUpload'
 
 interface AddFileModalProps {
+  isOpen: boolean
   closeModal: () => void
 }
 
@@ -16,7 +18,10 @@ interface FileWithPreview extends File {
   preview?: string
 }
 
-export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
+export const AddFileModal: React.FC<AddFileModalProps> = ({
+  isOpen,
+  closeModal
+}) => {
   const [files, setFiles] = useState<FileWithPreview[]>([])
   const activeFolder = useSelector(
     (state: RootState) => state.folders.activeFolder
@@ -34,7 +39,10 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
   }
 
   return (
-    <Modal className={styles.modal}>
+    <PortalModal
+      className={styles.modal}
+      isOpen={isOpen}
+      close={closeModal}>
       <div className={styles.fileAddContainer}>
         <div className={styles.upload}>
           <Upload
@@ -62,6 +70,6 @@ export const AddFileModal: React.FC<AddFileModalProps> = ({ closeModal }) => {
           </button>
         </div>
       </div>
-    </Modal>
+    </PortalModal>
   )
 }

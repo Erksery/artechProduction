@@ -4,9 +4,9 @@ export const useMobileView = () => {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    setIsMobile(window.innerWidth <= 768)
+    setIsMobile(window.innerWidth <= 925)
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768)
+      setIsMobile(window.innerWidth <= 925)
     }
     window.addEventListener('resize', handleResize)
 
