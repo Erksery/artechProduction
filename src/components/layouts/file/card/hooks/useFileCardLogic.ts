@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { AppDispatch, RootState } from '@store/index'
@@ -9,6 +9,8 @@ import { useFormat } from '@hooks/useFormat'
 import { useSvgType } from './useSvgType'
 
 export const useFileCardLogic = (file: FileData) => {
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openViewModal, setOpenViewModal] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
   const selectedFiles = useSelector(
     (state: RootState) => state.files.selectedFiles
@@ -45,6 +47,10 @@ export const useFileCardLogic = (file: FileData) => {
     fileSelected,
     fileSvg,
     fileSize,
-    fileCreateDate
+    fileCreateDate,
+    openDeleteModal,
+    setOpenDeleteModal,
+    openViewModal,
+    setOpenViewModal
   }
 }

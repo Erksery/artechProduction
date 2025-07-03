@@ -2,21 +2,19 @@ import { motion } from 'framer-motion'
 import { FiFilePlus } from 'react-icons/fi'
 import { MdOutlineFolderCopy } from 'react-icons/md'
 
-import { useModal } from '@hooks/modal/useModal'
-
 import styles from './AddModal.module.scss'
 
 interface AddModalProps {
   setOpenMenu: (isOpen: boolean) => void
   setUploadModal: (isOpen: boolean) => void
+  setAddFolderModal: (isOpen: boolean) => void
 }
 
 export const AddModal: React.FC<AddModalProps> = ({
   setOpenMenu,
-  setUploadModal
+  setUploadModal,
+  setAddFolderModal
 }) => {
-  const { openModal, closeModal } = useModal()
-
   const buttons = [
     {
       id: 1,
@@ -34,10 +32,7 @@ export const AddModal: React.FC<AddModalProps> = ({
       description: 'Создает папку в директории',
       icon: <MdOutlineFolderCopy />,
       event: () => {
-        openModal({
-          name: 'insertFolderModal',
-          props: { closeModal: closeModal }
-        })
+        setAddFolderModal(true)
         setOpenMenu(false)
       }
     }

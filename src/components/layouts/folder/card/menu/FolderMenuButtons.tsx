@@ -4,16 +4,14 @@ import { LuClipboardPaste, LuFolderPen } from 'react-icons/lu'
 import { MdOutlineDelete } from 'react-icons/md'
 
 import { FolderData } from '@interfaces/folder'
-import { ModalState } from '@hooks/modal/useModal'
 
 export const getFolderMenuButtons = (
-  id: string,
   folder: FolderData,
-  openModal: (modal: ModalState) => void,
-  closeModal: () => void,
   close: () => void,
-  deleteFolder: (id: string) => void,
-  pasteFilesToFolder: (folderId: string | undefined) => void
+  pasteFilesToFolder: (folderId: string) => void,
+  setOpenDeleteModal: (open: boolean) => void,
+  setOpenEditModal: (open: boolean) => void,
+  setOpenPropertiesModal: (open: boolean) => void
 ) => [
   {
     id: 1,
@@ -29,10 +27,7 @@ export const getFolderMenuButtons = (
     red: false,
     event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
-      openModal({
-        name: 'editFolderModal',
-        props: { folder: folder, close: closeModal }
-      })
+      setOpenEditModal(true)
       close()
     }
   },
@@ -54,12 +49,7 @@ export const getFolderMenuButtons = (
     red: false,
     event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
-      openModal({
-        name: 'propertiesFolder',
-        props: {
-          folder: folder
-        }
-      })
+      setOpenPropertiesModal(true)
       close()
     }
   },
@@ -70,20 +60,7 @@ export const getFolderMenuButtons = (
     red: true,
     event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
-
-      openModal({
-        name: 'success',
-        props: {
-          title: 'Удалить папку?',
-          description:
-            'Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них.',
-          button: { text: 'Удалить', color: 'rgb(184, 62, 62)' },
-          event: async () => {
-            await deleteFolder(id)
-            closeModal()
-          }
-        }
-      })
+      setOpenDeleteModal(true)
       close()
     }
   }

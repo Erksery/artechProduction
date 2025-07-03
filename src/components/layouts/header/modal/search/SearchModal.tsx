@@ -4,16 +4,21 @@ import { AiOutlineGlobal } from 'react-icons/ai'
 import { MdOutlineSnippetFolder } from 'react-icons/md'
 
 import { VIEW_MODES } from '@config/constants'
+import { FilesList } from '@components/layouts/file/list/FilesList'
+import { Input } from '@components/ui/input/Input'
+import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
+import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
 
-import { Input } from '../../../../ui/input/Input'
-import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
-import { Modal } from '../../../../ui/modal/Modal'
-import { FilesList } from '../../../file/list/FilesList'
 import { useSearchFile } from './hooks/useSearchFile'
 import { LocationMenu } from './menu/LocationMenu'
 import styles from './SearchModal.module.scss'
 
-export const SearchModal = () => {
+interface Props {
+  isOpen: boolean
+  closeModal: () => void
+}
+
+export const SearchModal = ({ isOpen, closeModal }: Props) => {
   const [searchValue, setSearchValue] = useState({
     value: localStorage.getItem('searchValue') ?? '',
     location: localStorage.getItem('searchLocation') ?? 'local'
@@ -57,7 +62,10 @@ export const SearchModal = () => {
   }, [searchValue, getSearchFiles])
 
   return (
-    <Modal className={styles.modal}>
+    <PortalModal
+      isOpen={isOpen}
+      close={closeModal}
+      className={styles.modal}>
       <motion.div
         className={styles.searchContainer}
         initial={{ height: 80 }}
@@ -109,6 +117,6 @@ export const SearchModal = () => {
           )}
         </AnimatePresence>
       </motion.div>
-    </Modal>
+    </PortalModal>
   )
 }

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { fileTypes } from '@config/fileTypes'
 import { imageTypes } from '@config/imageTypes'
 import { FileData } from '@interfaces/file'
-import { useModal } from '@hooks/modal/useModal'
 import { useActiveFile } from '@components/layouts/file/hooks/useActiveFile'
 
 import FileImage from '../../image/FileImage'
@@ -19,12 +18,10 @@ export const FileListCard = ({ file }: Props) => {
   const { activeFolder, fileSvg, fileSize, fileCreateDate } =
     useFileCardLogic(file)
   const { selectActiveFile } = useActiveFile()
-  const { closeModal } = useModal()
 
   const handleLink = () => {
     selectActiveFile(file.id)
     navigate(`/folder/${file.folderId}`)
-    closeModal()
   }
 
   return (

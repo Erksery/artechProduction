@@ -14,6 +14,9 @@ export interface FileType {
 
 export const useFolderCardLogic = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [openPropertiesModal, setOpenPropertiesModal] = useState(false)
   const [subListOpen, setSubListOpen] = useState(false)
 
   const linkRef = useRef<HTMLAnchorElement>(null)
@@ -70,6 +73,12 @@ export const useFolderCardLogic = () => {
     toggleListOpen,
     closeMenu,
     dropFile,
-    folderCardClassName
+    folderCardClassName,
+    openDeleteModal,
+    setOpenDeleteModal,
+    openEditModal,
+    setOpenEditModal,
+    openPropertiesModal,
+    setOpenPropertiesModal
   }
 }

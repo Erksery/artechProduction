@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 
-import { PrivacyType } from '../../../../../config/constants'
-import { Input } from '../../../../ui/input/Input'
-import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
-import { Modal } from '../../../../ui/modal/Modal'
+import { PrivacyType } from '@config/constants'
+import { Input } from '@components/ui/input/Input'
+import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
+import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
+
 import { privacyButtons } from '../menu/PrivacyButtons'
 import { PrivacyMenu } from '../menu/PrivacyMenu'
 import styles from './AddFolderModal.module.scss'
 import { useCreateFolder } from './hook/useCreateFolder'
 
 interface AddFolderModal {
+  isOpen: boolean
   closeModal: () => void
 }
 
-export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
+export const AddFolderModal: React.FC<AddFolderModal> = ({
+  isOpen,
+  closeModal
+}) => {
   const [openMenu, setOpenMenu] = useState(false)
   const [folderName, setFolderName] = useState('')
   const [selectPrivacy, setSelectPrivacy] = useState<{
@@ -43,7 +48,10 @@ export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
   )
 
   return (
-    <Modal className={styles.modal}>
+    <PortalModal
+      className={styles.modal}
+      isOpen={isOpen}
+      close={closeModal}>
       <div className={styles.folderCreateContainer}>
         <Input
           value={folderName}
@@ -77,6 +85,6 @@ export const AddFolderModal: React.FC<AddFolderModal> = ({ closeModal }) => {
           </button>
         </div>
       </div>
-    </Modal>
+    </PortalModal>
   )
 }

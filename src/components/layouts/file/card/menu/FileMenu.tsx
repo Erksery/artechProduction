@@ -3,13 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { AppDispatch, RootState } from '@store/index'
 import { FileData } from '@interfaces/file'
-import { useModal } from '@hooks/modal/useModal'
 import { useDownload } from '@components/layouts/file/hooks/useDownload'
 import { MenuButton } from '@components/ui/menu/button/MenuButton'
 
 import styles from './FileMenu.module.scss'
 import { getFileMenuButtons } from './FileMenuButtons'
-import { useDeleteFile } from './hooks/useDeleteFile'
 
 interface FileMenuProps {
   file: FileData
@@ -18,7 +16,8 @@ interface FileMenuProps {
   activeFile: number
   close: () => void
   editMode: () => void
-  openPortalModal: () => void
+  setOpenViewModal: (open: boolean) => void
+  setOpenDeleteModal: (open: boolean) => void
 }
 export const FileMenu: React.FC<FileMenuProps> = ({
   file,
@@ -27,27 +26,24 @@ export const FileMenu: React.FC<FileMenuProps> = ({
   close,
   editMode,
   folderId,
-  openPortalModal
+  setOpenViewModal,
+  setOpenDeleteModal
 }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const { openModal, closeModal } = useModal()
-  const { fileDelete } = useDeleteFile()
   const { downloadFile } = useDownload()
   const user = useSelector((state: RootState) => state.user.userData)
   const buttons = getFileMenuButtons(
-    openModal,
-    closeModal,
     downloadFile,
     close,
     editMode,
     activeFile,
-    fileDelete,
     dispatch,
     fileId,
     file,
     folderId,
     user,
-    openPortalModal
+    setOpenViewModal,
+    setOpenDeleteModal
   )
 
   return (

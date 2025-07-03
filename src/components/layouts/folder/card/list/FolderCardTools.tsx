@@ -12,7 +12,9 @@ interface Props {
   subFolders: FolderData[]
   subListOpen: boolean
   menuOpen: boolean
-
+  setOpenDeleteModal: (open: boolean) => void
+  setOpenEditModal: (open: boolean) => void
+  setOpenPropertiesModal: (open: boolean) => void
   toggleListOpen: (e: React.MouseEvent<HTMLElement>) => void
   setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
   closeMenu: () => void
@@ -25,7 +27,10 @@ export const FolderCardTools = ({
   menuOpen,
   setMenuOpen,
   closeMenu,
-  toggleListOpen
+  toggleListOpen,
+  setOpenDeleteModal,
+  setOpenEditModal,
+  setOpenPropertiesModal
 }: Props) => {
   return (
     <div className={styles.tools}>
@@ -41,9 +46,11 @@ export const FolderCardTools = ({
       <MenuContainer
         element={
           <FolderMenu
-            id={folder.id}
+            setOpenDeleteModal={setOpenDeleteModal}
             folder={folder}
             close={closeMenu}
+            setOpenEditModal={setOpenEditModal}
+            setOpenPropertiesModal={setOpenPropertiesModal}
           />
         }
         open={menuOpen}

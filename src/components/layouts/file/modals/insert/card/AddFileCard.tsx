@@ -21,7 +21,7 @@ export const AddFileCard: React.FC<AddFileCardProps> = ({ file, onDelete }) => {
   const { formatFileSize } = useFormat()
   const { fileSvg } = useSvgType(file.type)
 
-  const imageView = (file: FileWithPreview) => {
+  const useImageView = (file: FileWithPreview) => {
     const imageType = useMemo(() => imageTypes.includes(file.type), [file.type])
     if (imageType) {
       return (
@@ -42,7 +42,7 @@ export const AddFileCard: React.FC<AddFileCardProps> = ({ file, onDelete }) => {
 
   return (
     <div className={styles.fileCard}>
-      <div className={styles.icon}>{imageView(file)}</div>
+      <div className={styles.icon}>{useImageView(file)}</div>
       <div className={styles.info}>
         <p>{file.name}</p>
         <label>{formatFileSize(file.size)}</label>

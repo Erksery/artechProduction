@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { Modal } from '../../modal/Modal'
+import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
+
 import styles from './SuccessModal.module.scss'
 
 interface SuccessModalProps {
@@ -8,21 +9,28 @@ interface SuccessModalProps {
   description: string
   button: { text: string; color: string }
   event: () => void
+  isOpen: boolean
+  closeModal: () => void
 }
 
 export const SuccessModal: React.FC<SuccessModalProps> = ({
   title,
   description,
   button,
-  event
+  event,
+  isOpen,
+  closeModal
 }) => {
   return (
-    <Modal className={styles.modal}>
+    <PortalModal
+      className={styles.modal}
+      isOpen={isOpen}
+      close={closeModal}>
       <div className={styles.container}>
         <h3>{title}</h3>
         <p>{description}</p>
         <button onClick={event}>{button.text}</button>
       </div>
-    </Modal>
+    </PortalModal>
   )
 }

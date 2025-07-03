@@ -2,27 +2,31 @@ import { useState } from 'react'
 import { FaCheck } from 'react-icons/fa6'
 import { IoMdMore } from 'react-icons/io'
 
-import { usePortalModal } from '@hooks/modal/usePortalModal'
 import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
-import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
 
 import { useEditFile } from '../../hooks/useEditFile'
-import { FileModalViewer } from '../../modals/view/FileModalViewer'
-import { FileViewTools } from '../../modals/view/FileViewTools'
 import { FileMenu } from '../menu/FileMenu'
 import { FileCardProps } from './FileCard'
 import styles from './FileCard.module.scss'
 
 interface Props extends FileCardProps {
   activeFolder: string | undefined
+
+  setOpenDeleteModal: (open: boolean) => void
+  setOpenViewModal: (open: boolean) => void
 }
 
-export const FileEditing = ({ file, i, activeFolder }: Props) => {
+export const FileEditing = ({
+  file,
+  i,
+  activeFolder,
+  setOpenDeleteModal,
+  setOpenViewModal
+}: Props) => {
   const [fileMenu, setFileMenu] = useState(false)
 
   const { editMode, editing, inputRef, setEditValue, submitEditFile } =
     useEditFile()
-  const { modalOpen, handleOpenModal, handleCloseModal } = usePortalModal()
 
   const editFileMode = () => {
     if (editing) {
@@ -60,7 +64,8 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
                 activeFile={i}
                 close={() => setFileMenu(false)}
                 editMode={editMode}
-                openPortalModal={handleOpenModal}
+                setOpenViewModal={setOpenViewModal}
+                setOpenDeleteModal={setOpenDeleteModal}
               />
             }
             open={fileMenu}
@@ -75,16 +80,5 @@ export const FileEditing = ({ file, i, activeFolder }: Props) => {
     }
   }
 
-  return (
-    <>
-      <PortalModal
-        isOpen={modalOpen}
-        close={handleCloseModal}
-        className={styles.viewModal}
-        footer={<FileViewTools />}>
-        <FileModalViewer activeFolder={activeFolder} />
-      </PortalModal>
-      {editFileMode()}
-    </>
-  )
+  return <>{editFileMode()}</>
 }

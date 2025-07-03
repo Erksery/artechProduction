@@ -1,10 +1,9 @@
 import { ReactNode, useRef } from 'react'
 import { motion } from 'framer-motion'
 
-import { useBlockScroll } from '../../../../hooks/useBlockScroll'
-import { useClickOutside } from '../../../../hooks/useClickOutside'
-import { useModal } from '../../../../hooks/useModal'
-import { BackgroundModal } from '../../../ui/modal/BackgroundModal/BackgroundModal'
+import { useBlockScroll } from '@hooks/useBlockScroll'
+import { BackgroundModal } from '@components/ui/modal/BackgroundModal/BackgroundModal'
+
 import styles from './PullMenu.module.scss'
 
 interface Props {
@@ -12,11 +11,9 @@ interface Props {
 }
 
 export const PullMenu = ({ children }: Props) => {
-  const { closeModal } = useModal()
   const menuRef = useRef<HTMLDivElement>(null)
 
   useBlockScroll(true)
-  useClickOutside(menuRef, closeModal)
 
   return (
     <BackgroundModal className={styles.background}>

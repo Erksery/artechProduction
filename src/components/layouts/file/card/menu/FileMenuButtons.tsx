@@ -8,7 +8,6 @@ import { AppDispatch } from '@store/index'
 import { setActiveFile } from '@store/slices/files'
 import { FileData } from '@interfaces/file'
 import { User } from '@interfaces/user'
-import { ModalState } from '@hooks/modal/useModal'
 import { handleApiSuccess } from '@utils/toast/handleApiSuccess'
 
 interface ButtonConfig {
@@ -22,19 +21,17 @@ interface ButtonConfig {
 }
 
 export const getFileMenuButtons = (
-  openModal: (modal: ModalState) => void,
-  closeModal: () => void,
   downloadFile: (folderId: string, file: FileData) => void,
   close: () => void,
   editMode: () => void,
   activeFile: number,
-  fileDelete: (id?: string[]) => Promise<void>,
   dispatch: AppDispatch,
   fileId: string,
   file: FileData,
   folderId: string | undefined,
   user: User | null,
-  openPortalModal: () => void
+  setOpenViewModal: (open: boolean) => void,
+  setOpenDeleteModal: (open: boolean) => void
 ): ButtonConfig[] => [
   {
     id: 0,
@@ -44,7 +41,7 @@ export const getFileMenuButtons = (
     disabled: false,
     event: () => {
       dispatch(setActiveFile(activeFile))
-      openPortalModal()
+      setOpenViewModal(true)
       close()
     }
   },
@@ -88,18 +85,7 @@ export const getFileMenuButtons = (
     red: true,
     disabled: !user,
     event: () => {
-      openModal({
-        name: 'success',
-        props: {
-          title: 'Удалить файл?',
-          description: 'Вы действительно хотите удалить данный файл?',
-          button: { text: 'Удалить', color: 'rgb(184, 62, 62)' },
-          event: async () => {
-            await fileDelete([fileId])
-            closeModal()
-          }
-        }
-      })
+      setOpenDeleteModal(true)
       close()
     }
   }

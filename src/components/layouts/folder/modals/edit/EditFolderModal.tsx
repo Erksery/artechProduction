@@ -1,18 +1,13 @@
 import React, { ChangeEvent, useState } from 'react'
 
-import { useModal } from '@hooks/modal/useModal'
+import { PRIVACY_VALUES, PrivacyType, SharingType } from '@config/constants'
+import { FolderData } from '@interfaces/folder'
 import { handleApiSuccess } from '@utils/toast/handleApiSuccess'
+import { Input } from '@components/ui/input/Input'
+import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
+import { PortalModal } from '@components/ui/modal/PortalModal/PortalModal'
+import { TabToggle } from '@components/ui/tab/TabToggle'
 
-import {
-  PRIVACY_VALUES,
-  PrivacyType,
-  SharingType
-} from '../../../../../config/constants'
-import { FolderData } from '../../../../../interfaces/folder'
-import { Input } from '../../../../ui/input/Input'
-import { MenuContainer } from '../../../../ui/menu/container/MenuContainer'
-import { Modal } from '../../../../ui/modal/Modal'
-import { TabToggle } from '../../../../ui/tab/TabToggle'
 import { privacyButtons } from '../menu/PrivacyButtons'
 import { PrivacyMenu } from '../menu/PrivacyMenu'
 import styles from './EditFolderModal.module.scss'
@@ -21,10 +16,15 @@ import { sharingButtons } from './SharingButtons'
 
 interface EditFolderModalProps {
   folder: FolderData
-  close: () => void
+  isOpen: boolean
+  closeModal: () => void
 }
 
-export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
+export const EditFolderModal: React.FC<EditFolderModalProps> = ({
+  folder,
+  isOpen,
+  closeModal
+}) => {
   const [editFolderData, setEditFolderData] = useState<{
     name: string
     privacy: PrivacyType
@@ -38,7 +38,6 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
   const [privacyOpenMenu, setPrivacyOpenMenu] = useState(false)
 
   const { submitEditFolder } = useEditFolder()
-  const { closeModal } = useModal()
 
   const handleInputNameChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -89,7 +88,10 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
   }
 
   return (
-    <Modal className={styles.modal}>
+    <PortalModal
+      isOpen={isOpen}
+      close={closeModal}
+      className={styles.modal}>
       <div className={styles.editModal}>
         <Input
           type='text'
@@ -139,6 +141,6 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({ folder }) => {
           </button>
         </div>
       </div>
-    </Modal>
+    </PortalModal>
   )
 }
