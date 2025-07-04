@@ -15,11 +15,13 @@ interface FilesListProps {
   files: FileData[]
   viewMode?: ViewType
   loading: boolean
+  handleLink: (file: FileData) => void
 }
 const FilesListComponent: React.FC<FilesListProps> = ({
   files,
   viewMode = VIEW_MODES.GRID,
-  loading
+  loading,
+  handleLink
 }) => {
   const dispatch = useDispatch<AppDispatch>()
   const activeEditMode = useSelector(
@@ -52,6 +54,7 @@ const FilesListComponent: React.FC<FilesListProps> = ({
               <FileListCard
                 key={file.id}
                 file={file}
+                handleLink={handleLink}
               />
             )
           )}

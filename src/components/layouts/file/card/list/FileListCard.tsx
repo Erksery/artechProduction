@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom'
-
 import { fileTypes } from '@config/fileTypes'
 import { imageTypes } from '@config/imageTypes'
 import { FileData } from '@interfaces/file'
-import { useActiveFile } from '@components/layouts/file/hooks/useActiveFile'
 
 import FileImage from '../../image/FileImage'
 import { useFileCardLogic } from '../hooks/useFileCardLogic'
@@ -11,22 +8,16 @@ import styles from './FileListCard.module.scss'
 
 interface Props {
   file: FileData
+  handleLink: (file: FileData) => void
 }
 
-export const FileListCard = ({ file }: Props) => {
-  const navigate = useNavigate()
+export const FileListCard = ({ file, handleLink }: Props) => {
   const { activeFolder, fileSvg, fileSize, fileCreateDate } =
     useFileCardLogic(file)
-  const { selectActiveFile } = useActiveFile()
-
-  const handleLink = () => {
-    selectActiveFile(file.id)
-    navigate(`/folder/${file.folderId}`)
-  }
 
   return (
     <div
-      onClick={handleLink}
+      onClick={() => handleLink(file)}
       className={styles.card}>
       <div className={styles.view}>
         {imageTypes.includes(file.mimeType) ? (

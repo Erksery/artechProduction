@@ -1,16 +1,11 @@
+import { AxiosError } from 'axios'
 import { toast } from 'sonner'
 
-import { Description } from '../../components/ui/toast/Description'
-
-export const handleApiError = (error: any, context?: string) => {
-  const status = error?.response?.status || 'Ошибка'
+export const handleApiError = (error: AxiosError<{ message: string }>) => {
   const message =
-    error?.response?.data?.message ||
-    error?.message ||
-    'Произошла неизвестная ошибка'
+    error?.response?.data?.message || error?.message || 'Произошла ошибка'
 
-  toast(`${context ? context + ': ' : ''}${status}`, {
-    description: <Description>{message}</Description>,
+  toast(`${message}`, {
     icon: '❌',
     duration: 5000,
     style: {

@@ -1,23 +1,14 @@
+import { AxiosResponse } from 'axios'
 import { toast } from 'sonner'
 
-import { Description } from '../../components/ui/toast/Description'
-
 export const handleApiSuccess = (
-  message: any,
-  context?: string,
-  isText?: boolean
+  response: AxiosResponse<{ message: string }>
 ) => {
-  const status = message?.status || 'Успешно'
-  const successMessage =
-    message?.data?.message ||
-    message?.message ||
-    (isText && message) ||
-    'Запрос успешно выполнен'
+  const message = response?.data?.message || 'Запрос успешно выполнен'
 
-  toast(`${status}: ${context ?? ''}`, {
-    description: <Description>{successMessage}</Description>,
+  toast(`${message}`, {
     icon: '✅',
-    duration: 3000,
+    duration: 5000,
     style: {
       background: '#1f222b',
       color: '#d3d3d3',

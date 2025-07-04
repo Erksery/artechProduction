@@ -2,8 +2,11 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AiOutlineGlobal } from 'react-icons/ai'
 import { MdOutlineSnippetFolder } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 
 import { VIEW_MODES } from '@config/constants'
+import { FileData } from '@interfaces/file'
+import { useActiveFile } from '@components/layouts/file/hooks/useActiveFile'
 import { FilesList } from '@components/layouts/file/list/FilesList'
 import { Input } from '@components/ui/input/Input'
 import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
@@ -25,7 +28,9 @@ export const SearchModal = ({ isOpen, closeModal }: Props) => {
   })
   const [locationMenu, setLocationMenu] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
   const { getSearchFiles, searchFiles } = useSearchFile()
+  const { selectActiveFile } = useActiveFile()
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,6 +46,12 @@ export const SearchModal = ({ isOpen, closeModal }: Props) => {
       ...prev,
       location: value
     }))
+  }
+
+  const handleLink = (file: FileData) => {
+    selectActiveFile(file.id)
+    navigate(`/folder/${file.folderId}`)
+    closeModal()
   }
 
   const expanded = searchValue?.value?.length > 0
@@ -112,6 +123,7 @@ export const SearchModal = ({ isOpen, closeModal }: Props) => {
                 files={searchFiles}
                 viewMode={VIEW_MODES.LIST}
                 loading={false}
+                handleLink={handleLink}
               />
             </motion.div>
           )}
