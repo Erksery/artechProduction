@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% - 10px);
   max-width: 550px;
   padding: 5px;
   border-radius: 16px;

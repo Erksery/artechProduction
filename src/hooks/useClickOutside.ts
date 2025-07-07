@@ -6,7 +6,12 @@ export const useClickOutside = (
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      const target = event.target as HTMLElement
+
+      const isInsideRef = ref.current?.contains(target)
+      const isInsideModal = target.closest('[data-modal="true"]') !== null
+
+      if (!isInsideRef && !isInsideModal) {
         onClose()
       }
     }

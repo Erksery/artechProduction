@@ -23,8 +23,8 @@ interface Props {
 
 export const SearchModal = ({ isOpen, closeModal }: Props) => {
   const [searchValue, setSearchValue] = useState({
-    value: localStorage.getItem('searchValue') ?? '',
-    location: localStorage.getItem('searchLocation') ?? 'local'
+    value: '',
+    location: 'local'
   })
   const [locationMenu, setLocationMenu] = useState<boolean>(false)
   const inputRef = useRef<HTMLInputElement>(null)

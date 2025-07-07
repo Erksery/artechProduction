@@ -25,10 +25,10 @@ export const useDeleteFile = () => {
         })
 
         dispatch(deleteFiles(filesId || selectedFiles))
-        handleApiSuccess(resData.data, 'Файл успешно удален')
+        handleApiSuccess(resData)
       } catch (err) {
         console.log('Ошибка при удалении файла')
-        handleApiError(err, 'Не удалось удалить файл')
+        handleApiError(`${err}`)
       }
     },
     [selectedFiles, activeFolder, dispatch]

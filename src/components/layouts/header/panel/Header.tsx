@@ -8,14 +8,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@store/index'
 import { toggleSideMenu } from '@store/slices/folders'
 import { useTheme } from '@hooks/useTheme'
-import { AddFileModal } from '@components/layouts/file/modals/insert/AddFileModal'
-import { AddFolderModal } from '@components/layouts/folder/modals/insert/AddFolderModal'
 import { UserLogo } from '@components/layouts/user/logo/UserLogo'
 import { MenuContainer } from '@components/ui/menu/container/MenuContainer'
 
 import { UserMenu } from '../menu/user/UserMenu'
+import { HeaderModals } from '../modal/HeaderModals'
 import { AddModal } from '../modal/insert/AddModal'
-import { SearchModal } from '../modal/search/SearchModal'
 import styles from './Header.module.scss'
 
 export const Header = () => {
@@ -24,6 +22,7 @@ export const Header = () => {
   const [uploadModal, setUploadModal] = useState<boolean>(false)
   const [addFolderModal, setAddFolderModal] = useState<boolean>(false)
   const [searchModal, setSearchModal] = useState<boolean>(false)
+  const [menu, setMenu] = useState<boolean>(false)
   const dispatch = useDispatch<AppDispatch>()
 
   const user = useSelector((state: RootState) => state.user.userData)
@@ -33,18 +32,17 @@ export const Header = () => {
 
   return (
     <>
-      <AddFileModal
-        isOpen={uploadModal}
-        closeModal={() => setUploadModal(false)}
+      <HeaderModals
+        addFolderModal={addFolderModal}
+        searchModal={searchModal}
+        uploadModal={uploadModal}
+        setAddFolderModal={setAddFolderModal}
+        setSearchModal={setSearchModal}
+        setUploadModal={setUploadModal}
+        menu={menu}
+        setMenu={setMenu}
       />
-      <AddFolderModal
-        isOpen={addFolderModal}
-        closeModal={() => setAddFolderModal(false)}
-      />
-      <SearchModal
-        isOpen={searchModal}
-        closeModal={() => setSearchModal(false)}
-      />
+
       <div className={styles.header}>
         <div className={styles.tools}>
           {!sideMenu && (
@@ -77,6 +75,12 @@ export const Header = () => {
           <motion.button
             whileHover={{ scale: 1.2 }}
             onClick={() => setSearchModal(true)}
+            className={styles.addButton}>
+            <IoSearchSharp />
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            onClick={() => setMenu(true)}
             className={styles.addButton}>
             <IoSearchSharp />
           </motion.button>

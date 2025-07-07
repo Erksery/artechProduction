@@ -27,6 +27,7 @@ export const getFolderMenuButtons = (
     red: false,
     event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
+      e.stopPropagation()
       setOpenEditModal(true)
       close()
     }
@@ -49,6 +50,7 @@ export const getFolderMenuButtons = (
     red: false,
     event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
+      e.stopPropagation()
       setOpenPropertiesModal(true)
       close()
     }
@@ -60,6 +62,7 @@ export const getFolderMenuButtons = (
     red: true,
     event: (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault()
+      e.stopPropagation()
       setOpenDeleteModal(true)
       close()
     }

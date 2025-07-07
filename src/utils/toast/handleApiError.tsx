@@ -1,11 +1,7 @@
-import { AxiosError } from 'axios'
 import { toast } from 'sonner'
 
-export const handleApiError = (error: AxiosError<{ message: string }>) => {
-  const message =
-    error?.response?.data?.message || error?.message || 'Произошла ошибка'
-
-  toast(`${message}`, {
+export const handleApiError = (error: string) => {
+  toast(`${error || 'Произошла ошибка'}`, {
     icon: '❌',
     duration: 5000,
     style: {

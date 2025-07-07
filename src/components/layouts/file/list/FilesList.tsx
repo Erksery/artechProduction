@@ -46,8 +46,8 @@ const FilesListComponent: React.FC<FilesListProps> = ({
         : files.map((file, index) =>
             viewMode === VIEW_MODES.GRID ? (
               <FileCard
-                file={file}
                 key={file.id}
+                file={file}
                 i={index}
               />
             ) : (
