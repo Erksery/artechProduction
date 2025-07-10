@@ -1,13 +1,7 @@
-import { AxiosResponse } from 'axios'
 import { toast } from 'sonner'
 
-export const handleApiSuccess = (
-  response: AxiosResponse<{ message: string }>
-) => {
-  console.log(response)
-  const message = response?.data?.message || 'Запрос успешно выполнен'
-
-  toast(`${message}`, {
+export const handleApiSuccess = (response?: string) => {
+  toast(`${response}`, {
     icon: '✅',
     duration: 5000,
     style: {

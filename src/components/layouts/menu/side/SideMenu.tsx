@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AiOutlineReload } from 'react-icons/ai'
 import { RiAddLine, RiMenuFoldLine } from 'react-icons/ri'
@@ -18,7 +18,7 @@ interface Props {
   isMobile: boolean
 }
 
-export const FoldersMenu = ({ isMobile }: Props) => {
+export const FoldersMenu = React.memo(({ isMobile }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const folders = useSelector((state: RootState) => state.folders.folders)
@@ -60,7 +60,7 @@ export const FoldersMenu = ({ isMobile }: Props) => {
       </div>
     </motion.div>
   )
-}
+})
 
 export const SideMenu = () => {
   const dispatch = useDispatch<AppDispatch>()

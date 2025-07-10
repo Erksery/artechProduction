@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import api from '../../../../../../api/api'
-import { AppDispatch } from '../../../../../../store'
-import { addFiles } from '../../../../../../store/slices/files'
-import { handleApiError } from '../../../../../../utils/toast/handleApiError'
+import api from '@api'
+import { AppDispatch } from '@store/index'
+import { addFiles } from '@store/slices/files'
+import { handleApiError } from '@utils/toast/handleApiError'
 
 interface FileWithPreview extends File {
   preview?: string
@@ -44,7 +44,7 @@ export const useUpload = (id: string | undefined) => {
 
       await Promise.all(uploadPromises)
     } catch (err) {
-      handleApiError(err, 'Ошибка при загрузке файлов')
+      handleApiError('Ошибка при загрузке файлов')
     } finally {
       setProgress(0)
     }

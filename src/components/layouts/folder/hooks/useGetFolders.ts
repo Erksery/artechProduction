@@ -15,7 +15,7 @@ export const useGetFolders = () => {
 
       dispatch(setFolders(foldersResData.data))
     } catch (err) {
-      handleApiError(err, 'Не удалось загрузить папки')
+      handleApiError('Не удалось загрузить папки')
     }
   }, [dispatch])
 

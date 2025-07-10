@@ -25,7 +25,7 @@ export const useGetUser = () => {
       localStorage.setItem(`user_${userId}`, JSON.stringify(resData.data))
       return resData.data
     } catch (err) {
-      handleApiError(err, 'Не удалось получить данные пользователя')
+      handleApiError('Не удалось получить данные пользователя')
     }
   }, [])
 

@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux'
 
-import api from '../../../../../../api/api'
-import { AppDispatch } from '../../../../../../store'
-import { updateFolder } from '../../../../../../store/slices/folders'
-import { handleApiError } from '../../../../../../utils/toast/handleApiError'
-import { handleApiSuccess } from '../../../../../../utils/toast/handleApiSuccess'
+import api from '@api'
+import { AppDispatch } from '@store/index'
+import { updateFolder } from '@store/slices/folders'
+import { handleApiError } from '@utils/toast/handleApiError'
+import { handleApiSuccess } from '@utils/toast/handleApiSuccess'
 
 interface EditData {
   name?: string
@@ -27,10 +27,12 @@ export const useEditFolder = () => {
       console.log(resData)
 
       dispatch(updateFolder(resData.data))
-      handleApiSuccess(resData, 'Папка успешно отредактирована')
+      handleApiSuccess(
+        resData?.data?.message || 'Папка успешно отредактирована'
+      )
     } catch (err) {
       console.log(err)
-      handleApiError(err, 'Ошибка при редактировании папки')
+      handleApiError('Ошибка при редактировании папки')
     }
   }
 

@@ -1,6 +1,7 @@
 .background {
   justify-content: flex-end;
   .container {
+    position: relative;
     width: 400px;
     height: 100%;
     background-color: var(--folder-component);

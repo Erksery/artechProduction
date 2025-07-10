@@ -9,9 +9,9 @@ export const useCopyFiles = () => {
   const copyFiles = () => {
     try {
       localStorage.setItem('buffer', JSON.stringify(files))
-      handleApiSuccess('', 'файл скопирован')
+      handleApiSuccess('Файл скопирован')
     } catch (err) {
-      handleApiError(err, 'Ошибка при копировании')
+      handleApiError('Ошибка при копировании')
     }
   }
 

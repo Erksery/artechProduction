@@ -77,11 +77,7 @@ export const EditFolderModal: React.FC<EditFolderModalProps> = ({
       const copyText = `${window.location.origin}/shared/folder/${folder.id}`
 
       await navigator.clipboard.writeText(copyText)
-      handleApiSuccess(
-        'Скопировано в буфер обмена',
-        'Ссылка успешно скопирована',
-        true
-      )
+      handleApiSuccess('Ссылка на папку скопирована в буфер обмена')
     } catch (err) {
       console.log(err)
     }

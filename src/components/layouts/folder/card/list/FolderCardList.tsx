@@ -8,12 +8,10 @@ import { AppDispatch } from '@store/index'
 import { setActiveFolder } from '@store/slices/folders'
 import { FolderData } from '@interfaces/folder'
 import { useGetUser } from '@components/layouts/user/hooks/useGetUser'
-import { SuccessModal } from '@components/ui/alert/success/SuccessModal'
 
-import { EditFolderModal } from '../../modals/edit/EditFolderModal'
-import { PropertiesFolder } from '../../modals/properties/PropertiesFolder'
+import { FolderModals } from '../../modals/FolderModals'
+import { useDeleteFolder } from '../hooks/useDeleteFolder'
 import { FileType, useFolderCardLogic } from '../hooks/useFolderCardLogic'
-import { useDeleteFolder } from '../menu/hooks/useDeleteFolder'
 import { FolderCardInfo } from './FolderCardInfo'
 import { FolderCardTools } from './FolderCardTools'
 import { SubFolderList } from './SubFolderList'
@@ -43,6 +41,7 @@ export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
     openPropertiesModal,
     setOpenPropertiesModal
   } = useFolderCardLogic()
+
   const { deleteFolder } = useDeleteFolder()
 
   const { getUser, userData } = useGetUser()
@@ -76,23 +75,15 @@ export const FolderCardList = ({ folder, folders }: FolderCardProps) => {
 
   return (
     <>
-      <EditFolderModal
+      <FolderModals
         folder={folder}
-        isOpen={openEditModal}
-        closeModal={() => setOpenEditModal(false)}
-      />
-      <PropertiesFolder
-        folder={folder}
-        isOpen={openPropertiesModal}
-        closeModal={() => setOpenPropertiesModal(false)}
-      />
-      <SuccessModal
-        isOpen={openDeleteModal}
-        closeModal={() => setOpenDeleteModal(false)}
-        title='Удалить папку?'
-        description='Вы действительно хотите удалить данную папку? Это приведет к удалению всех дочерних папок и файлов в них.'
-        button={{ text: 'Удалить', color: 'rgb(184, 62, 62)' }}
-        event={() => deleteFolder(folder.id)}
+        deleteFolder={deleteFolder}
+        openEditModal={openEditModal}
+        openPropertiesModal={openPropertiesModal}
+        openDeleteModal={openDeleteModal}
+        setOpenEditModal={setOpenEditModal}
+        setOpenPropertiesModal={setOpenPropertiesModal}
+        setOpenDeleteModal={setOpenDeleteModal}
       />
       <motion.div animate={{ scale: isOver ? 0.95 : 1 }}>
         <Link

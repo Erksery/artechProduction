@@ -75,7 +75,7 @@ export const getFileMenuButtons = (
     event: () => {
       localStorage.setItem('buffer', JSON.stringify([fileId]))
       close()
-      handleApiSuccess('', 'Файл скопирован в буфер обмена')
+      handleApiSuccess('Файл скопирован в буфер обмена')
     }
   },
   {

@@ -61,9 +61,10 @@ export const useEditFile = () => {
       } else {
         dispatch(updateFile(resData.data))
       }
-      handleApiSuccess(resData, 'Файл успешно отредактирован')
+      console.log(resData)
+      handleApiSuccess(resData?.data?.message || 'Файл успешно отредактирован')
     } catch (err) {
-      handleApiError(err, 'Ошибка при редактировании файла')
+      handleApiError('Ошибка при редактировании файла')
     }
   }
 

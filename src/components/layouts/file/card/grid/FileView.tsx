@@ -8,11 +8,10 @@ import { AppDispatch } from '@store/index'
 import { toggleSelectedFile } from '@store/slices/files'
 import { useGetUser } from '@components/layouts/user/hooks/useGetUser'
 import { UserLogo } from '@components/layouts/user/logo/UserLogo'
-import { SuccessModal } from '@components/ui/alert/success/SuccessModal'
 import { CheckBox } from '@components/ui/svg/checkbox/CheckBox'
 import { EmptyCheckBox } from '@components/ui/svg/checkbox/EmptyCheckBox'
 
-import { FileModalViewer } from '../../modals/view/FileModalViewer'
+import { FileModals } from '../../modals/FileModals'
 import { useFileCardLogic } from '../hooks/useFileCardLogic'
 import { useScrollTo } from '../hooks/useScrollTo'
 import { useDeleteFile } from '../menu/hooks/useDeleteFile'
@@ -72,18 +71,14 @@ export const FileView = React.memo(({ file, i }: FileCardProps) => {
 
   return (
     <>
-      <FileModalViewer
-        isOpen={openViewModal}
-        closeModal={() => setOpenViewModal(false)}
+      <FileModals
+        file={file}
         activeFolder={activeFolder}
-      />
-      <SuccessModal
-        isOpen={openDeleteModal}
-        closeModal={() => setOpenDeleteModal(false)}
-        title='Удалить файл?'
-        description='Вы действительно хотите удалить данный файл?'
-        button={{ text: 'Удалить', color: 'rgb(184, 62, 62)' }}
-        event={() => fileDelete([file.id])}
+        fileDelete={fileDelete}
+        openViewModal={openViewModal}
+        openDeleteModal={openDeleteModal}
+        setOpenViewModal={setOpenViewModal}
+        setOpenDeleteModal={setOpenDeleteModal}
       />
       <div
         id={`file-${file?.id}`}
